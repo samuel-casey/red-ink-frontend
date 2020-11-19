@@ -5,7 +5,7 @@ import './Header.scss';
 
 const Header = () => {
 	const { gState, setGState } = useContext(GlobalCtx);
-	const { cUser } = gState;
+	const { uid } = gState;
 
 	const [activeMenu, setActiveMenu] = useState(false);
 
@@ -37,11 +37,27 @@ const Header = () => {
 					<Link to='/' className='navbar-item'>
 						Home
 					</Link>
-					<Link to='/' className='navbar-item'>
-						My Account
+					<Link to='/about' className='navbar-item'>
+						About
 					</Link>
 					<Link to='/editors' className='navbar-item'>
 						Editors
+					</Link>
+					<Link
+						to='/editors'
+						style={{
+							display: activeMenu ? 'inherit' : 'none',
+						}}
+						className='navbar-item'>
+						Sign Up
+					</Link>
+					<Link
+						to='/editors'
+						style={{
+							display: activeMenu ? 'inherit' : 'none',
+						}}
+						className='navbar-item'>
+						Log In
 					</Link>
 				</div>
 			</div>
@@ -105,7 +121,10 @@ const Header = () => {
 					<Link to='/' className='navbar-item'>
 						Home
 					</Link>
-					<Link to='/' className='navbar-item'>
+					<Link to='/about' className='navbar-item'>
+						About
+					</Link>
+					<Link to='/account' className='navbar-item'>
 						My Account
 					</Link>
 					<Link to='/editors' className='navbar-item'>
@@ -119,7 +138,7 @@ const Header = () => {
 		</nav>
 	);
 
-	return cUser ? loggedIn : loggedOut;
+	return uid ? loggedIn : loggedOut;
 };
 
 export default Header;

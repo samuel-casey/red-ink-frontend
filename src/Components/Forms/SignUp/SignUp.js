@@ -9,6 +9,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		confirmEmail: '',
 		password: '',
 		confirmPassword: '',
+		userType: '',
 	};
 
 	const [formData, setFormData] = useState(emptyForm);
@@ -25,15 +26,19 @@ const SignUp = ({ handleSignUp, history }) => {
 		setFormData({ ...formData, [key]: value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (
 			formData.email === formData.confirmEmail &&
 			formData.password === formData.confirmPassword
 		) {
-			const newUser = { email: formData.email, password: formData.password };
-			handleSignUp(newUser);
-			history.push('/editor/account');
+			const newUser = {
+				email: formData.email,
+				password: formData.password,
+				userType: formData.userType,
+			};
+			await handleSignUp(newUser);
+			history.push('/account');
 		} else {
 			alert(
 				'Woops! Looks like your emails or passwords do not match. Please try again.'

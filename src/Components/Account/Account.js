@@ -1,9 +1,12 @@
 import React, { useState, useContext } from 'react';
-import './EditorAccount.scss';
-// import { GlobalCtx } from '../../App';
+import './Account.scss';
+import { GlobalCtx } from '../../App';
 import { Link } from 'react-router-dom';
 
 const EditorAccount = () => {
+	const { gState, setGState } = useContext(GlobalCtx);
+	const { userType } = gState;
+
 	const emptyForm = {
 		email: '',
 		confirmEmail: '',
@@ -20,13 +23,10 @@ const EditorAccount = () => {
 		console.log(formData);
 	};
 
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault;
-	// };
-
 	return (
 		<div>
 			<h3>My Account</h3>
+			{userType}
 			{/* <form onSubmit={handleSubmit}>
 				<input
 					className='input'

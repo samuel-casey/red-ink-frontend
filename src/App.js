@@ -3,7 +3,7 @@ import './App.scss';
 import { Link, Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import SignUp from './Components/Forms/SignUp/SignUp';
-import EditorAccount from './Components/EditorAccount/EditorAccount';
+import Account from './Components/Account/Account';
 import Home from './Components/Home/Home';
 import Header from './Components/Header/Header';
 
@@ -14,23 +14,38 @@ const App = ({ firebase }) => {
 
 	const [gState, setGState] = useState({
 		url: 'https://red-ink-api.web.app',
-		cUser: null,
+		uid: null,
 		userEmail: null,
+		userType: null,
+	});
+
+	auth.onAuthStateChanged((firebaseUser) => {
+		if (firebaseUser) {
+			console.log(firebaseUser);
+		} else {
+			console.log('not logged in');
+		}
 	});
 
 	const handleSignUp = async (user) => {
 		try {
 			// validate emails
-			const newUser = await auth.createUserWithEmailAndPassword(
+			const newUserObject = await auth.createUserWithEmailAndPassword(
 				user.email,
 				user.password
 			);
-			console.log(newUser.user);
+
+			const newUser = {
+				uid: newUserObject.user.uid,
+				userEmail: newUserObject.user.email,
+				userType: user.userType,
+			};
+
 			setGState({
 				...gState,
-				uid: newUser.user.uid,
-				userEmail: newUser.user.email,
-				userType: user.userType,
+				uid: newUser.uid,
+				userEmail: newUser.userEmail,
+				userType: newUser.userType,
 			});
 		} catch (error) {
 			alert(error);
@@ -62,13 +77,10 @@ const App = ({ firebase }) => {
 						/>
 
 						<Route
-							path='/editor/account'
+							path='/account'
 							render={(rp) => (
 								<>
-									{gState.cUser}
-									{gState.url}
-									{gState.userEmail}
-									<EditorAccount {...rp} handleSignUp={handleSignUp} />
+									<Account {...rp} handleSignUp={handleSignUp} />
 								</>
 							)}
 						/>
