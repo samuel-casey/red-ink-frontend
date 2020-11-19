@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+nav {
+    box-shadow: 0px 0px 5px 1px $c-one;
+    margin-bottom: 5px;
+
+
+    .navbar-burger {
+        top: 0;
+        right: 0;
+        position: absolute;
+        margin: 0.5rem;
+        border: none;
+        background-color: $c-two !important;
+        color: $c-one;
+    }
+
+    padding: 0.75rem;
+}
