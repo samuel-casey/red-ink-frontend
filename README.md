@@ -8,4 +8,4 @@ Currently in Development as of 11/19/2020.
 
 [Wireframes](https://www.figma.com/file/J0frQ2S3rivaZM49ga6xVC/red-ink?node-id=0%3A1)
 
-[API repository](https://github.com/samuel-casey/red-ink-api)
+[API repository for red-ink](https://github.com/samuel-casey/red-ink-api)
