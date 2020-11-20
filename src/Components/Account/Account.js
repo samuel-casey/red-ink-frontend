@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import './Account.scss';
 import { GlobalCtx } from '../../App';
+import SendPasswordResetEmail from '../Forms/SendPasswordResetEmail/SendPasswordResetEmail';
 import { Link } from 'react-router-dom';
 
-const EditorAccount = () => {
+const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
-	const { userType } = gState;
+	const { userType, userEmail } = gState;
 
 	const emptyForm = {
 		email: '',
@@ -20,54 +21,29 @@ const EditorAccount = () => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
-		console.log(formData);
 	};
 
-	return (
-		<div>
-			<h3>My Account</h3>
-			{userType}
-			{/* <form onSubmit={handleSubmit}>
-				<input
-					className='input'
-					type='text'
-					name='title'
-					value={formData.email}
-					placeholder='Email'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='text'
-					name='artist'
-					value={formData.confirmEmail}
-					placeholder='Confirm Email'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='password'
-					name='password'
-					value={formData.password}
-					placeholder='Password'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='password'
-					name='confirmPassword'
-					value={formData.confirmPassword}
-					placeholder='Confirm Password'
-					onChange={handleChange}
-				/>
-				<input
-					type='submit'
-					className='button is-primary'
-					value={formBtnText}
-				/>
-			</form> */}
-		</div>
+	const loggedIn = (
+		<>
+			<h2 className='title is-2'>My Account</h2>
+			<h3 className='welcome-msg subtitle is-3'>Welcome {userEmail}</h3>
+			<h4 className='subtitle is-4'>Account type: {userType}</h4>
+			{successMessage}
+			<SendPasswordResetEmail
+				handleSendPasswordResetEmail={handleSendPasswordResetEmail}
+			/>
+		</>
 	);
+
+	const loggedOut = (
+		<>
+			<p>Please sign up and log in to access your red-ink account.</p>
+		</>
+	);
+
+	const pageContent = userEmail ? loggedIn : loggedOut;
+
+	return <div className='account-page'>{pageContent}</div>;
 };
 
-export default EditorAccount;
+export default Account;

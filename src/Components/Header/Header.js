@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GlobalCtx } from '../../App';
 import './Header.scss';
 
-const Header = () => {
+const Header = ({ handleLogOut, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const { uid } = gState;
 
@@ -14,7 +14,9 @@ const Header = () => {
 	};
 
 	const logOut = () => {
-		console.log('loggedOut');
+		console.log('logging out', uid);
+		handleLogOut();
+		document.location.reload();
 	};
 
 	const menuClass = `navbar-burger burger ${activeMenu ? 'is-active' : ''}`;
@@ -44,7 +46,7 @@ const Header = () => {
 						Editors
 					</Link>
 					<Link
-						to='/editors'
+						to='/signup'
 						style={{
 							display: activeMenu ? 'inherit' : 'none',
 						}}
@@ -52,7 +54,7 @@ const Header = () => {
 						Sign Up
 					</Link>
 					<Link
-						to='/editors'
+						to='/login'
 						style={{
 							display: activeMenu ? 'inherit' : 'none',
 						}}

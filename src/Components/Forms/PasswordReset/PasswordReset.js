@@ -1,26 +1,19 @@
 import React, { useState, useContext } from 'react';
-import './SignUp.scss';
+import './PasswordReset.scss';
 // import { GlobalCtx } from '../../App';
 import { Link } from 'react-router-dom';
 
-const SignUp = ({ handleSignUp, history }) => {
+const PasswordReset = ({ handlePasswordReset, history }) => {
 	const emptyForm = {
 		email: '',
 		confirmEmail: '',
 		password: '',
 		confirmPassword: '',
-		userType: '',
 	};
 
 	const [formData, setFormData] = useState(emptyForm);
 
 	const handleChange = (e) => {
-		const key = e.target.name;
-		const value = e.target.value;
-		setFormData({ ...formData, [key]: value });
-	};
-
-	const handleRadioChange = (e) => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
@@ -37,8 +30,12 @@ const SignUp = ({ handleSignUp, history }) => {
 				password: formData.password,
 				userType: formData.userType,
 			};
-			const signedUp = await handleSignUp(newUser);
-			if (signedUp === true) {
+			await handlePasswordReset(newUser);
+			console.log(newUser);
+			const passwordReset = await alert(
+				'Password successfully reset. Logging you in.'
+			);
+			if (passwordReset === true) {
 				history.push('/account');
 			}
 		} else {
@@ -53,7 +50,7 @@ const SignUp = ({ handleSignUp, history }) => {
 
 	return (
 		<div className='sign-up-page'>
-			<h2>Sign Up for red ink</h2>
+			<h2>Reset Password</h2>
 			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
@@ -87,22 +84,14 @@ const SignUp = ({ handleSignUp, history }) => {
 					placeholder='Confirm Password'
 					onChange={handleChange}
 				/>
-				<div onChange={handleRadioChange}>
-					<h3>Account Type</h3>
-					<label className='radio'>
-						<input type='radio' name='userType' value='Writer' />
-						Writer
-					</label>
-					<label className='radio'>
-						<input type='radio' name='userType' value='Editor' />
-						Editor
-					</label>
-				</div>
-				{editorFields}
-				<input type='submit' className='button is-primary' value='Sign Up' />
+				<input
+					type='submit'
+					className='button is-primary'
+					value='ResetPassword'
+				/>
 			</form>
 		</div>
 	);
 };
 
-export default SignUp;
+export default PasswordReset;

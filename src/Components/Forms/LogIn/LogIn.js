@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
-import './SignUp.scss';
+import './LogIn.scss';
 // import { GlobalCtx } from '../../App';
 import { Link } from 'react-router-dom';
 
-const SignUp = ({ handleSignUp, history }) => {
+const LogIn = ({ handleLogIn, history }) => {
 	const emptyForm = {
 		email: '',
-		confirmEmail: '',
 		password: '',
-		confirmPassword: '',
 		userType: '',
 	};
 
@@ -28,32 +26,26 @@ const SignUp = ({ handleSignUp, history }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (
-			formData.email === formData.confirmEmail &&
-			formData.password === formData.confirmPassword
-		) {
+		try {
 			const newUser = {
 				email: formData.email,
 				password: formData.password,
 				userType: formData.userType,
 			};
-			const signedUp = await handleSignUp(newUser);
-			if (signedUp === true) {
+			const loggedIn = await handleLogIn(newUser);
+
+			if (loggedIn === true) {
 				history.push('/account');
 			}
-		} else {
-			alert(
-				'Woops! Looks like your emails or passwords do not match. Please try again.'
-			);
+		} catch (error) {
+			alert(error);
 			setFormData(emptyForm);
 		}
 	};
 
-	const editorFields = formData.userType === 'Editor' ? 'Stuff' : null;
-
 	return (
 		<div className='sign-up-page'>
-			<h2>Sign Up for red ink</h2>
+			<h2>Log In</h2>
 			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
@@ -65,26 +57,10 @@ const SignUp = ({ handleSignUp, history }) => {
 				/>
 				<input
 					className='input'
-					type='email'
-					name='confirmEmail'
-					value={formData.confirmEmail}
-					placeholder='Confirm Email'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
 					type='password'
 					name='password'
 					value={formData.password}
 					placeholder='Password'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='password'
-					name='confirmPassword'
-					value={formData.confirmPassword}
-					placeholder='Confirm Password'
 					onChange={handleChange}
 				/>
 				<div onChange={handleRadioChange}>
@@ -98,11 +74,10 @@ const SignUp = ({ handleSignUp, history }) => {
 						Editor
 					</label>
 				</div>
-				{editorFields}
-				<input type='submit' className='button is-primary' value='Sign Up' />
+				<input type='submit' className='button is-primary' value='Sign In' />
 			</form>
 		</div>
 	);
 };
 
-export default SignUp;
+export default LogIn;
