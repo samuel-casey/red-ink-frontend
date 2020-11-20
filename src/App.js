@@ -8,6 +8,7 @@ import Home from './Components/Home/Home';
 import Header from './Components/Header/Header';
 import LogIn from './Components/Forms/LogIn/LogIn';
 import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
+import axios from 'axios';
 
 export const GlobalCtx = createContext(null);
 
@@ -15,7 +16,7 @@ const App = ({ firebase }) => {
 	const auth = firebase.auth();
 
 	const nullUserGState = {
-		url: 'https://red-ink-api.web.app',
+		url: 'https://red-ink.web.app/api',
 		uid: null,
 		userEmail: null,
 		userType: null,
@@ -50,6 +51,25 @@ const App = ({ firebase }) => {
 		}
 	};
 
+	const checkCollectionForUser = async (user) => {
+		try {
+			const res = await axios.get(
+				gState.url + `/${user.userType.toLowerCase()}s/` + user.uid
+			);
+			const targetUser = res.data;
+			if (targetUser.data.length === 0) {
+				alert(
+					`No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`
+				);
+				document.location.reload();
+			} else {
+				return true;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleLogIn = async (user) => {
 		try {
 			// validate emails
@@ -63,6 +83,8 @@ const App = ({ firebase }) => {
 				userEmail: newUserObject.user.email,
 				userType: user.userType,
 			};
+
+			await checkCollectionForUser(newUser, 'Writers');
 
 			setGState({
 				...gState,
