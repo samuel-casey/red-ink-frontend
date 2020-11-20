@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import './EditorAccount.scss';
+import './PasswordReset.scss';
 // import { GlobalCtx } from '../../App';
 import { Link } from 'react-router-dom';
 
-const EditorAccount = () => {
+const PasswordReset = ({ handlePasswordReset, history }) => {
 	const emptyForm = {
 		email: '',
 		confirmEmail: '',
@@ -17,29 +17,53 @@ const EditorAccount = () => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
-		console.log(formData);
 	};
 
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault;
-	// };
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (
+			formData.email === formData.confirmEmail &&
+			formData.password === formData.confirmPassword
+		) {
+			const newUser = {
+				email: formData.email,
+				password: formData.password,
+				userType: formData.userType,
+			};
+			await handlePasswordReset(newUser);
+			console.log(newUser);
+			const passwordReset = await alert(
+				'Password successfully reset. Logging you in.'
+			);
+			if (passwordReset === true) {
+				history.push('/account');
+			}
+		} else {
+			alert(
+				'Woops! Looks like your emails or passwords do not match. Please try again.'
+			);
+			setFormData(emptyForm);
+		}
+	};
+
+	const editorFields = formData.userType === 'Editor' ? 'Stuff' : null;
 
 	return (
-		<div>
-			<h3>My Account</h3>
-			{/* <form onSubmit={handleSubmit}>
+		<div className='sign-up-page'>
+			<h2>Reset Password</h2>
+			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
-					type='text'
-					name='title'
+					type='email'
+					name='email'
 					value={formData.email}
 					placeholder='Email'
 					onChange={handleChange}
 				/>
 				<input
 					className='input'
-					type='text'
-					name='artist'
+					type='email'
+					name='confirmEmail'
 					value={formData.confirmEmail}
 					placeholder='Confirm Email'
 					onChange={handleChange}
@@ -63,11 +87,11 @@ const EditorAccount = () => {
 				<input
 					type='submit'
 					className='button is-primary'
-					value={formBtnText}
+					value='ResetPassword'
 				/>
-			</form> */}
+			</form>
 		</div>
 	);
 };
 
-export default EditorAccount;
+export default PasswordReset;

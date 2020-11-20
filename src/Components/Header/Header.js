@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { GlobalCtx } from '../../App';
 import './Header.scss';
 
-const Header = () => {
+const Header = ({ handleLogOut, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
-	const { cUser } = gState;
+	const { uid } = gState;
 
 	const [activeMenu, setActiveMenu] = useState(false);
 
@@ -14,7 +14,9 @@ const Header = () => {
 	};
 
 	const logOut = () => {
-		console.log('loggedOut');
+		console.log('logging out', uid);
+		handleLogOut();
+		document.location.reload();
 	};
 
 	const menuClass = `navbar-burger burger ${activeMenu ? 'is-active' : ''}`;
@@ -37,11 +39,27 @@ const Header = () => {
 					<Link to='/' className='navbar-item'>
 						Home
 					</Link>
-					<Link to='/' className='navbar-item'>
-						My Account
+					<Link to='/about' className='navbar-item'>
+						About
 					</Link>
 					<Link to='/editors' className='navbar-item'>
 						Editors
+					</Link>
+					<Link
+						to='/signup'
+						style={{
+							display: activeMenu ? 'inherit' : 'none',
+						}}
+						className='navbar-item'>
+						Sign Up
+					</Link>
+					<Link
+						to='/login'
+						style={{
+							display: activeMenu ? 'inherit' : 'none',
+						}}
+						className='navbar-item'>
+						Log In
 					</Link>
 				</div>
 			</div>
@@ -105,7 +123,10 @@ const Header = () => {
 					<Link to='/' className='navbar-item'>
 						Home
 					</Link>
-					<Link to='/' className='navbar-item'>
+					<Link to='/about' className='navbar-item'>
+						About
+					</Link>
+					<Link to='/account' className='navbar-item'>
 						My Account
 					</Link>
 					<Link to='/editors' className='navbar-item'>
@@ -119,7 +140,7 @@ const Header = () => {
 		</nav>
 	);
 
-	return cUser ? loggedIn : loggedOut;
+	return uid ? loggedIn : loggedOut;
 };
 
 export default Header;
