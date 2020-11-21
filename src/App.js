@@ -1,14 +1,22 @@
+// IMPORT PACKAGES
 import React, { useState, createContext, useEffect } from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
+import axios from 'axios';
+
+// IMPORT COMPONENTS
 import SignUp from './Components/Forms/SignUp/SignUp';
 import Account from './Components/Account/Account';
 import Home from './Components/Home/Home';
 import Header from './Components/Header/Header';
 import LogIn from './Components/Forms/LogIn/LogIn';
 import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
-import axios from 'axios';
+import {
+	addUserToWritersCollection,
+	addUserToEditorsCollection,
+} from './apiHelpers/authHelpers';
+import ErrorDropdown from './Components/ErrorDropdown/ErrorDropdown';
 
 export const GlobalCtx = createContext(null);
 
@@ -21,39 +29,29 @@ const App = ({ firebase }) => {
 		userEmail: null,
 		userType: null,
 		errorDropdown: null,
-		checkCollectionForUser: checkCollectionForUser(),
 	};
 
 	const [gState, setGState] = useState(nullUserGState);
+	const { url } = gState;
 
-	const addUserToWritersCollection = async (user) => {
+	// not lifted to apiHelpers/authHelpers.js because setGState needed, but this is not a functional component -- moving function would require significant refactoring
+	const checkCollectionForUser = async (user, collection) => {
 		try {
-			const res = await axios.post(gState.url + `/writers/`, {
-				email: user.userEmail,
-				uid: user.uid,
-				about_me: user.aboutMe,
-			});
-			console.log(res.data);
+			// collection is either 'writers' or 'editors' and is case-sensitive
+			const res = await axios.get(gState.url + `/${collection}/` + user.uid);
+			const targetUser = res.data;
+			if (user.userEmail === undefined) {
+				console.log('no User Email');
+			} else if (targetUser.data.length === 0) {
+				setGState({
+					...gState,
+					errorDropdown: `No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`,
+				});
+			} else {
+				return true;
+			}
 		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const addUserToEditorsCollection = async (user) => {
-		try {
-			const res = await axios.post(gState.url + `/editors/`, {
-				email: user.userEmail,
-				uid: user.uid,
-				about_me: user.aboutMe,
-				twitter_url: user.twitterUrl,
-				linkedin_url: user.linkedInUrl,
-				profile_img_url: user.profileImgUrl,
-				first_name: user.firstName,
-				last_name: user.lastName,
-			});
-			console.log(res.data);
-		} catch (error) {
-			console.log(error);
+			return false;
 		}
 	};
 
@@ -75,7 +73,7 @@ const App = ({ firebase }) => {
 						userEmail: newUserObject.user.email,
 					};
 					console.log('new User', newUser);
-					await addUserToWritersCollection(newUser);
+					await addUserToWritersCollection(newUser, gState.url);
 					break;
 				case 'Editor':
 					newUser = {
@@ -89,7 +87,7 @@ const App = ({ firebase }) => {
 						twitterUrl: user.twitterUrl,
 						profileImgUrl: user.profileImgUrl,
 					};
-					await addUserToEditorsCollection(newUser);
+					await addUserToEditorsCollection(newUser, gState.url);
 					break;
 				default:
 					newUser = null;
@@ -116,27 +114,9 @@ const App = ({ firebase }) => {
 		}
 	};
 
-	async function checkCollectionForUser(user) {
-		try {
-			const res = await axios.get(
-				gState.url + `/${user.userType.toLowerCase()}s/` + user.uid
-			);
-			const targetUser = res.data;
-			if (user.userEmail === undefined) {
-				console.log('no User Email');
-			} else if (targetUser.data.length === 0) {
-				setGState({
-					...gState,
-					errorDropdown: `No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`,
-				});
-			} else {
-				return true;
-			}
-		} catch (error) {
-			return false;
-		}
-	}
 	const handleLogIn = async (user) => {
+		console.log('URL', url);
+
 		try {
 			// validate emails
 			const newUserObject = await auth.signInWithEmailAndPassword(
@@ -157,8 +137,8 @@ const App = ({ firebase }) => {
 				userType: newUser.userType,
 			});
 
-			await checkCollectionForUser(newUser, 'Writer');
-			await checkCollectionForUser(newUser, 'Editor');
+			await checkCollectionForUser(newUser, 'writers');
+			await checkCollectionForUser(newUser, 'editors');
 
 			if (gState.errorDropdown === null) {
 				return true;
@@ -206,30 +186,14 @@ const App = ({ firebase }) => {
 		});
 	}, [auth]);
 
-	const errorDropdownBanner = gState.errorDropdown ? (
-		<>
-			<p>{gState.errorDropdown}</p>
-			<button
-				className='button is-danger'
-				onClick={() => {
-					setGState({ ...gState, errorDropdown: null });
-					document.location.reload();
-				}}>
-				<i className='fas fa-times'></i>
-			</button>
-		</>
-	) : null;
-
-	const errorClass = gState.errorDropdown ? 'error-visible' : 'error-hidden';
+	const errorDropdownBanner = gState.errorDropdown ? <ErrorDropdown /> : null;
 
 	return (
 		<GlobalCtx.Provider value={{ gState, setGState }}>
 			<div className='App'>
 				<header>
 					<Header handleLogOut={handleLogOut} />
-					<div className={`error-dropdown ${errorClass}`}>
-						{errorDropdownBanner}
-					</div>
+					{errorDropdownBanner}
 				</header>
 				<main>
 					<Switch>

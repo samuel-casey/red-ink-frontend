@@ -1,0 +1,16 @@
+@import '../../variables.scss';
+
+.error-dropdown {
+  padding: 1rem 4rem;
+  text-align: center;
+  background-color: $c-error;
+  color: white;
+}
+
+.error-visible {
+  display: block;
+}
+
+.error-hidden {
+  display: none;
+}
