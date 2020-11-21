@@ -38,6 +38,27 @@ const App = ({ firebase }) => {
 		}
 	};
 
+	const addUserToEditorsCollection = async (user) => {
+		try {
+			const res = await axios.post(
+				gState.url + `/${user.userType.toLowerCase()}s/`,
+				{
+					email: user.userEmail,
+					uid: user.uid,
+					about_me: user.aboutMe,
+					twitter_url: user.twitterUrl,
+					linkedin_url: user.linkedInUrl,
+					profile_img_url: user.profileImgUrl,
+					first_name: user.firstName,
+					last_name: user.lastName,
+				}
+			);
+			console.log(res.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleSignUp = async (user) => {
 		try {
 			// validate emails
@@ -47,11 +68,33 @@ const App = ({ firebase }) => {
 				user.password
 			);
 
-			const newUser = {
-				uid: newUserObject.user.uid,
-				userEmail: newUserObject.user.email,
-				userType: user.userType,
-			};
+			let newUser;
+
+			switch (user.userType) {
+				case 'Writer':
+					newUser = {
+						uid: newUserObject.user.uid,
+						userEmail: newUserObject.user.email,
+					};
+					await addUserToWritersCollection(newUser);
+					break;
+				case 'Editor':
+					newUser = {
+						uid: newUserObject.user.uid,
+						userEmail: newUserObject.user.email,
+						aboutMe: user.aboutMe,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						userType: user.userType,
+						linkedInUrl: user.linkedInUrl,
+						twitterUrl: user.twitterUrl,
+						profileImgUrl: user.profileImgUrl,
+					};
+					await addUserToEditorsCollection(newUser);
+					break;
+				default:
+					newUser = null;
+			}
 
 			setGState({
 				...gState,

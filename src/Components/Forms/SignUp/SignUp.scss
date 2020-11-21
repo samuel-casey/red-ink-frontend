@@ -7,17 +7,95 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 500px;
-
-    input {
-        margin: 1rem;
+    
+    .heading-user-type {
+        color: $c-one;
+        font-family: 'Lobster Two', cursive;
     }
 
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        max-width: 500px;
+
+    
+        .radio-container {
+            box-shadow: 0px 1px 1px 1px $c-three;
+            border-radius: 5px 5px 0px 0px;
+            margin: 1rem 0;
+            
+            label {
+             padding: 0 0.5rem;
+            }                
+            
+            .user-type-label {
+                color: $c-one;
+                background-color: $c-two;
+                width: 100%;
+                border-radius: 5px 5px 0px 0px;
+            }
+        }
+        
+        
+        .extra-editor-fields {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            
+            .textarea {
+                border-radius: 0px 0px 5px 5px;
+            }
+            
+            .avatars-input {
+                margin: 0;
+                border-radius: 0px 0px 5px 5px;
+            }
+            
+            .default-avatars {
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                
+
+                .default-avatar-container {
+                    width: 50%;
+                    margin: 0.5rem;
+                    box-shadow: 0px 0px 1px 1px $c-three;
+                    padding: 0.25rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .avatar-img {
+                        width: 60px;
+                        box-shadow: 1px 1px 1px 1px $c-three;
+                        border-radius: 50%;
+                    }
+                    
+                    .avatar-url {
+                        font-size: 0.5rem;
+                        width: 50%;
+                        word-wrap: break-word !important;
+                        max-width: 90px;
+                    }
+                }
+            }
+
+            input {
+                margin: 0;
+                border-radius: 0px 0px 5px 5px;
+            }
+                
+            label {
+                width: 100%;
+                background-color: $c-two;
+                color: $c-one;
+                border-radius: 5px 5px 0px 0px;
+            }
+
+        }
+    }
 }
