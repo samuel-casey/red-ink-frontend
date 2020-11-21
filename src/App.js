@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import './App.scss';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import SignUp from './Components/Forms/SignUp/SignUp';
 import Account from './Components/Account/Account';
@@ -20,13 +20,28 @@ const App = ({ firebase }) => {
 		uid: null,
 		userEmail: null,
 		userType: null,
+		errorDropdown: null,
+		checkCollectionForUser: checkCollectionForUser(),
 	};
 
 	const [gState, setGState] = useState(nullUserGState);
 
+	const addUserToWritersCollection = async (user) => {
+		try {
+			const res = await axios.post(
+				gState.url + `/${user.userType.toLowerCase()}s/`,
+				{ email: user.userEmail, uid: user.uid, about_me: user.aboutMe }
+			);
+			console.log(res.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleSignUp = async (user) => {
 		try {
 			// validate emails
+
 			const newUserObject = await auth.createUserWithEmailAndPassword(
 				user.email,
 				user.password
@@ -46,30 +61,39 @@ const App = ({ firebase }) => {
 			});
 			return true;
 		} catch (error) {
-			alert(error);
-			document.location.reload();
+			if (
+				error.message ===
+				'The email address is already in use by another account.'
+			) {
+				setGState({
+					...gState,
+					errorDropdown:
+						'The email address you entered is already in use by another account. If you have a Writer account and are attempting to make an Editor account, or vice versa, please email red.ink.user.help@gmail.com. Our platform currently only allows for users to have one type of account.',
+				});
+			}
 		}
 	};
 
-	const checkCollectionForUser = async (user) => {
+	async function checkCollectionForUser(user) {
 		try {
 			const res = await axios.get(
 				gState.url + `/${user.userType.toLowerCase()}s/` + user.uid
 			);
 			const targetUser = res.data;
-			if (targetUser.data.length === 0) {
-				alert(
-					`No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`
-				);
-				document.location.reload();
+			if (user.userEmail === undefined) {
+				console.log('no User Email');
+			} else if (targetUser.data.length === 0) {
+				setGState({
+					...gState,
+					errorDropdown: `No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`,
+				});
 			} else {
 				return true;
 			}
 		} catch (error) {
-			console.log(error);
+			return false;
 		}
-	};
-
+	}
 	const handleLogIn = async (user) => {
 		try {
 			// validate emails
@@ -84,18 +108,25 @@ const App = ({ firebase }) => {
 				userType: user.userType,
 			};
 
-			await checkCollectionForUser(newUser, 'Writers');
-
 			setGState({
 				...gState,
 				uid: newUser.uid,
 				userEmail: newUser.userEmail,
 				userType: newUser.userType,
 			});
-			return true;
+
+			await checkCollectionForUser(newUser, 'Writer');
+			await checkCollectionForUser(newUser, 'Editor');
+
+			if (gState.errorDropdown === null) {
+				return true;
+			}
 		} catch (error) {
-			alert(error);
-			return false;
+			console.log('error', error);
+			setGState({
+				...gState,
+				errorDropdown: error.message,
+			});
 		}
 	};
 
@@ -112,16 +143,7 @@ const App = ({ firebase }) => {
 
 	const handleSendPasswordResetEmail = async (resetUser) => {
 		try {
-			// let sent;
-			// if (resetEmail === gState.userEmail) {
-			// 	sent = await auth.sendPasswordResetEmail();
-			// } else {
-			// 	console.log(gState.userEmail);
-			// 	throw new Error(
-			// 		'Please ensure you are trying to reset the password for your correct email address.'
-			// 	);
-			// }
-			const sent = await auth.sendPasswordResetEmail(resetUser.email);
+			await auth.sendPasswordResetEmail(resetUser.email);
 			alert(
 				`Password reset email successfully sent to ${resetUser.email}. Logging out.`
 			);
@@ -140,13 +162,32 @@ const App = ({ firebase }) => {
 				// console.log('not logged in');
 			}
 		});
-	}, [gState.uid]);
+	}, [auth]);
+
+	const errorDropdownBanner = gState.errorDropdown ? (
+		<>
+			<p>{gState.errorDropdown}</p>
+			<button
+				className='button is-danger'
+				onClick={() => {
+					setGState({ ...gState, errorDropdown: null });
+					document.location.reload();
+				}}>
+				<i className='fas fa-times'></i>
+			</button>
+		</>
+	) : null;
+
+	const errorClass = gState.errorDropdown ? 'error-visible' : 'error-hidden';
 
 	return (
 		<GlobalCtx.Provider value={{ gState, setGState }}>
 			<div className='App'>
 				<header>
 					<Header handleLogOut={handleLogOut} />
+					<div className={`error-dropdown ${errorClass}`}>
+						{errorDropdownBanner}
+					</div>
 				</header>
 				<main>
 					<Switch>

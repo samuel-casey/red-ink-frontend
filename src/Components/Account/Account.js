@@ -1,27 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './Account.scss';
 import { GlobalCtx } from '../../App';
 import SendPasswordResetEmail from '../Forms/SendPasswordResetEmail/SendPasswordResetEmail';
-import { Link } from 'react-router-dom';
 
 const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
-	const { gState, setGState } = useContext(GlobalCtx);
+	const { gState } = useContext(GlobalCtx);
 	const { userType, userEmail } = gState;
-
-	const emptyForm = {
-		email: '',
-		confirmEmail: '',
-		password: '',
-		confirmPassword: '',
-	};
-
-	const [formData, setFormData] = useState(emptyForm);
-
-	const handleChange = (e) => {
-		const key = e.target.name;
-		const value = e.target.value;
-		setFormData({ ...formData, [key]: value });
-	};
 
 	const loggedIn = (
 		<>

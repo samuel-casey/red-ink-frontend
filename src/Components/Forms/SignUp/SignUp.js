@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
+import { GlobalCtx } from '../../../App';
 import './SignUp.scss';
-// import { GlobalCtx } from '../../App';
-import { Link } from 'react-router-dom';
 
 const SignUp = ({ handleSignUp, history }) => {
+	const { gState, setGState } = useContext(GlobalCtx);
+
 	const emptyForm = {
 		email: '',
 		confirmEmail: '',
@@ -26,26 +27,54 @@ const SignUp = ({ handleSignUp, history }) => {
 		setFormData({ ...formData, [key]: value });
 	};
 
+	const validateSignUpFields = (fields) => {
+		let errorMessage;
+		if (
+			fields.password !== fields.confirmPassword ||
+			fields.email !== fields.confirmEmail
+		) {
+			errorMessage =
+				'Woops! Check that your emails and passwords match and try again';
+		} else if (
+			fields.email === '' ||
+			fields.confirmEmail === '' ||
+			fields.password === '' ||
+			fields.confirmPassword === '' ||
+			fields.userType === ''
+		) {
+			errorMessage = 'Please fill out all form fields';
+		} else {
+			errorMessage = null;
+		}
+		return errorMessage;
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (
-			formData.email === formData.confirmEmail &&
-			formData.password === formData.confirmPassword
-		) {
+		try {
 			const newUser = {
 				email: formData.email,
 				password: formData.password,
 				userType: formData.userType,
 			};
-			const signedUp = await handleSignUp(newUser);
+
+			const errorMessage = await validateSignUpFields(formData);
+			let signedUp;
+
+			if (!errorMessage) {
+				signedUp = await handleSignUp(newUser);
+			} else {
+				throw new Error(errorMessage);
+			}
+
 			if (signedUp === true) {
 				history.push('/account');
 			}
-		} else {
-			alert(
-				'Woops! Looks like your emails or passwords do not match. Please try again.'
-			);
-			setFormData(emptyForm);
+		} catch (error) {
+			setGState({
+				...gState,
+				errorDropdown: error.message,
+			});
 		}
 	};
 

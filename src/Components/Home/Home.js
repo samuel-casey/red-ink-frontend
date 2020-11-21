@@ -1,7 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import './Home.scss';
-// import { GlobalCtx } from '../../App';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
 	return (
