@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { GlobalCtx } from '../../../App';
 import './LogIn.scss';
-// import { GlobalCtx } from '../../App';
-import { Link } from 'react-router-dom';
 
 const LogIn = ({ handleLogIn, history }) => {
 	const emptyForm = {
@@ -9,6 +8,8 @@ const LogIn = ({ handleLogIn, history }) => {
 		password: '',
 		userType: '',
 	};
+
+	const { gState, setGState } = useContext(GlobalCtx);
 
 	const [formData, setFormData] = useState(emptyForm);
 
@@ -22,6 +23,28 @@ const LogIn = ({ handleLogIn, history }) => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
+	};
+
+	const validateLogInFields = (fields) => {
+		let errorMessage;
+		if (
+			fields.password !== fields.confirmPassword ||
+			fields.email !== fields.confirmEmail
+		) {
+			errorMessage =
+				'Woops! Check that your emails and passwords match and try again';
+		} else if (
+			fields.email === '' ||
+			fields.confirmEmail === '' ||
+			fields.password === '' ||
+			fields.confirmPassword === '' ||
+			fields.userType === ''
+		) {
+			errorMessage = 'Please fill out all form fields';
+		} else {
+			errorMessage = null;
+		}
+		return errorMessage;
 	};
 
 	const handleSubmit = async (e) => {
@@ -38,7 +61,7 @@ const LogIn = ({ handleLogIn, history }) => {
 				history.push('/account');
 			}
 		} catch (error) {
-			alert(error);
+			setGState({ ...gState, errorDropdown: error.message });
 			setFormData(emptyForm);
 		}
 	};

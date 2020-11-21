@@ -1,7 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './PasswordReset.scss';
-// import { GlobalCtx } from '../../App';
-import { Link } from 'react-router-dom';
 
 const PasswordReset = ({ handlePasswordReset, history }) => {
 	const emptyForm = {
@@ -45,8 +43,6 @@ const PasswordReset = ({ handlePasswordReset, history }) => {
 			setFormData(emptyForm);
 		}
 	};
-
-	const editorFields = formData.userType === 'Editor' ? 'Stuff' : null;
 
 	return (
 		<div className='sign-up-page'>

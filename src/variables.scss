@@ -1,11 +1,20 @@
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "../node_modules/bulma/sass/utilities/functions.sass";
 
+
+// color palette
 $c-one: #951D1F;
 $c-two: #931F2150;
 $c-three: #F0EBEB;
 $c-four: #2F2E41;
 $c-five: #3F3D56;
+$c-error: hsl(348, 100%, 61%);
+
+// typography
+@font-face {
+    font-family: 'Lobster Two';
+    src: url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+}
 
 // bulma variables
 $primary: $c-one;

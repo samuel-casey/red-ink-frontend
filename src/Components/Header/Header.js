@@ -4,7 +4,7 @@ import { GlobalCtx } from '../../App';
 import './Header.scss';
 
 const Header = ({ handleLogOut, history }) => {
-	const { gState, setGState } = useContext(GlobalCtx);
+	const { gState } = useContext(GlobalCtx);
 	const { uid } = gState;
 
 	const [activeMenu, setActiveMenu] = useState(false);
@@ -65,7 +65,6 @@ const Header = ({ handleLogOut, history }) => {
 			</div>
 
 			<button
-				role='button'
 				className={menuClass}
 				aria-label='menu'
 				aria-expanded='false'
@@ -105,7 +104,6 @@ const Header = ({ handleLogOut, history }) => {
 			</div>
 
 			<button
-				role='button'
 				className={menuClass}
 				aria-label='menu'
 				aria-expanded='false'
