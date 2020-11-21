@@ -36,26 +36,49 @@ const SignUp = ({ handleSignUp, history }) => {
 
 	const validateSignUpFields = (fields) => {
 		let errorMessage;
+
+		// check that emails and passwords match their confirms
 		if (
 			fields.password !== fields.confirmPassword ||
 			fields.email !== fields.confirmEmail
 		) {
 			errorMessage =
 				'Woops! Check that your emails and passwords match and try again';
-		} else if (
-			fields.email === '' ||
-			fields.confirmEmail === '' ||
-			fields.password === '' ||
-			fields.confirmPassword === '' ||
-			fields.userType === '' ||
-			fields.aboutMe === '' ||
-			fields.profileImgUrl === '' ||
-			fields.firstName === '' ||
-			fields.lastName === ''
-		) {
-			errorMessage = 'Please fill out all form fields';
+		}
+
+		// check that all additional Editor fields filled out if account type is Editor
+		if (fields.userType === 'Editor') {
+			if (
+				fields.email === '' ||
+				fields.confirmEmail === '' ||
+				fields.password === '' ||
+				fields.confirmPassword === '' ||
+				fields.aboutMe === '' ||
+				fields.profileImgUrl === '' ||
+				fields.firstName === '' ||
+				fields.lastName === ''
+			) {
+				errorMessage = 'Please fill out all form fields';
+			} else {
+				errorMessage = null;
+			}
+
+			// check that all fields filled out if Writer selected
+		} else if (fields.userType === 'Writer') {
+			if (
+				fields.email === '' ||
+				fields.confirmEmail === '' ||
+				fields.password === '' ||
+				fields.confirmPassword === ''
+			) {
+				errorMessage = 'Please fill out all form fields';
+			} else {
+				errorMessage = null;
+			}
+
+			// if no account type selected, tell user to pick one
 		} else {
-			errorMessage = null;
+			errorMessage = 'Please select an account type';
 		}
 		return errorMessage;
 	};
@@ -168,6 +191,7 @@ const SignUp = ({ handleSignUp, history }) => {
 						/>
 						<br />
 						<button
+							type='button'
 							className='button is-small is-success'
 							onClick={() =>
 								setFormData({
@@ -197,6 +221,7 @@ const SignUp = ({ handleSignUp, history }) => {
 						/>
 						<br />
 						<button
+							type='button'
 							className='button is-small is-success'
 							onClick={() =>
 								setFormData({

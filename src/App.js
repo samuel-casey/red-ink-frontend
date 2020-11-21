@@ -28,10 +28,11 @@ const App = ({ firebase }) => {
 
 	const addUserToWritersCollection = async (user) => {
 		try {
-			const res = await axios.post(
-				gState.url + `/${user.userType.toLowerCase()}s/`,
-				{ email: user.userEmail, uid: user.uid, about_me: user.aboutMe }
-			);
+			const res = await axios.post(gState.url + `/writers/`, {
+				email: user.userEmail,
+				uid: user.uid,
+				about_me: user.aboutMe,
+			});
 			console.log(res.data);
 		} catch (error) {
 			console.log(error);
@@ -40,19 +41,16 @@ const App = ({ firebase }) => {
 
 	const addUserToEditorsCollection = async (user) => {
 		try {
-			const res = await axios.post(
-				gState.url + `/${user.userType.toLowerCase()}s/`,
-				{
-					email: user.userEmail,
-					uid: user.uid,
-					about_me: user.aboutMe,
-					twitter_url: user.twitterUrl,
-					linkedin_url: user.linkedInUrl,
-					profile_img_url: user.profileImgUrl,
-					first_name: user.firstName,
-					last_name: user.lastName,
-				}
-			);
+			const res = await axios.post(gState.url + `/editors/`, {
+				email: user.userEmail,
+				uid: user.uid,
+				about_me: user.aboutMe,
+				twitter_url: user.twitterUrl,
+				linkedin_url: user.linkedInUrl,
+				profile_img_url: user.profileImgUrl,
+				first_name: user.firstName,
+				last_name: user.lastName,
+			});
 			console.log(res.data);
 		} catch (error) {
 			console.log(error);
@@ -76,6 +74,7 @@ const App = ({ firebase }) => {
 						uid: newUserObject.user.uid,
 						userEmail: newUserObject.user.email,
 					};
+					console.log('new User', newUser);
 					await addUserToWritersCollection(newUser);
 					break;
 				case 'Editor':
