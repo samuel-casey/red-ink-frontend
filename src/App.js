@@ -5,6 +5,12 @@ import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import axios from 'axios';
 
+// IMPORT HELPERS
+import {
+	addUserToWritersCollection,
+	addUserToEditorsCollection,
+} from './apiHelpers/authHelpers';
+
 // IMPORT COMPONENTS
 import SignUp from './Components/Forms/SignUp/SignUp';
 import Account from './Components/Account/Account';
@@ -12,11 +18,8 @@ import Home from './Components/Home/Home';
 import Header from './Components/Header/Header';
 import LogIn from './Components/Forms/LogIn/LogIn';
 import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
-import {
-	addUserToWritersCollection,
-	addUserToEditorsCollection,
-} from './apiHelpers/authHelpers';
 import ErrorDropdown from './Components/ErrorDropdown/ErrorDropdown';
+import AllEditors from './Components/AllEditors/AllEditors';
 
 export const GlobalCtx = createContext(null);
 
@@ -29,6 +32,7 @@ const App = ({ firebase }) => {
 		userEmail: null,
 		userType: null,
 		errorDropdown: null,
+		numEditors: null,
 	};
 
 	const [gState, setGState] = useState(nullUserGState);
@@ -80,6 +84,7 @@ const App = ({ firebase }) => {
 						uid: newUserObject.user.uid,
 						userEmail: newUserObject.user.email,
 						aboutMe: user.aboutMe,
+						areaOfExpertise: user.areaOfExpertise,
 						firstName: user.firstName,
 						lastName: user.lastName,
 						userType: user.userType,
@@ -237,6 +242,8 @@ const App = ({ firebase }) => {
 								'about'
 							}
 						/>
+
+						<Route path='/editors' render={(rp) => <AllEditors />} />
 
 						<Route
 							path='/resetpassword'

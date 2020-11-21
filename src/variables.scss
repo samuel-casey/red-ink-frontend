@@ -7,7 +7,7 @@ $c-one: #951D1F;
 $c-two: #931F2150;
 $c-three: #F0EBEB;
 $c-four: #2F2E41;
-$c-five: #3F3D56;
+$c-five: #46436b;
 $c-error: hsl(348, 100%, 61%);
 
 // typography
@@ -19,7 +19,7 @@ $c-error: hsl(348, 100%, 61%);
 // bulma variables
 $primary: $c-one;
 $success: $c-two;
-$warning: $c-four;
+// $warning: $c-four;
 
 @import '../node_modules/bulma/sass/utilities/derived-variables.sass';
 @import '../node_modules/bulma/bulma.sass'

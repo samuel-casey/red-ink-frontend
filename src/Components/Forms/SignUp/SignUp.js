@@ -14,6 +14,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		firstName: '',
 		lastName: '',
 		aboutMe: '',
+		areaOfExpertise: '',
 		profileImgUrl: '',
 		linkedInUrl: '',
 		twitterUrl: '',
@@ -24,7 +25,6 @@ const SignUp = ({ handleSignUp, history }) => {
 	const handleChange = (e) => {
 		const key = e.target.name;
 		const value = e.target.value;
-		console.log(formData);
 		setFormData({ ...formData, [key]: value });
 	};
 
@@ -55,6 +55,7 @@ const SignUp = ({ handleSignUp, history }) => {
 				fields.confirmPassword === '' ||
 				fields.aboutMe === '' ||
 				fields.profileImgUrl === '' ||
+				fields.areaOfExpertise === '' ||
 				fields.firstName === '' ||
 				fields.lastName === ''
 			) {
@@ -93,6 +94,7 @@ const SignUp = ({ handleSignUp, history }) => {
 				confirmPassword: formData.confirmPassword,
 				userType: formData.userType,
 				aboutMe: formData.aboutMe,
+				areaOfExpertise: formData.areaOfExpertise,
 				firstName: formData.firstName,
 				lastName: formData.lastName,
 				profileImgUrl: formData.profileImgUrl,
@@ -129,7 +131,7 @@ const SignUp = ({ handleSignUp, history }) => {
 						className='input'
 						name='firstName'
 						value={formData.firstName}
-						placeholder='Link to LinkedIn profile (optional)'
+						placeholder='First name'
 						onChange={handleChange}
 					/>
 					<br />
@@ -138,7 +140,16 @@ const SignUp = ({ handleSignUp, history }) => {
 						className='input'
 						name='lastName'
 						value={formData.lastName}
-						placeholder='Link to LinkedIn profile (optional)'
+						placeholder='Last name'
+						onChange={handleChange}
+					/>
+					<br />
+					<label htmlFor='areaOfExpertise'>Area of Expertise</label>
+					<input
+						className='input'
+						name='areaOfExpertise'
+						value={formData.areaOfExpertise}
+						placeholder='What do you know a lot about?'
 						onChange={handleChange}
 					/>
 					<br />
@@ -165,7 +176,7 @@ const SignUp = ({ handleSignUp, history }) => {
 						className='input'
 						name='twitterUrl'
 						value={formData.twitterUrl}
-						placeholder='Link to twitter profile (optional)'
+						placeholder='Link to Twitter profile (optional)'
 						onChange={handleChange}
 					/>
 				</>

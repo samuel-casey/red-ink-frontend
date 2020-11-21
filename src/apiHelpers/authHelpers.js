@@ -15,10 +15,12 @@ export const addUserToWritersCollection = async (user, url) => {
 
 export const addUserToEditorsCollection = async (user, url) => {
 	try {
-		const res = await axios.post(url + `/editors/`, {
+		console.log(user);
+		await axios.post(url + `/editors/`, {
 			email: user.userEmail,
 			uid: user.uid,
 			about_me: user.aboutMe,
+			area_of_expertise: user.areaOfExpertise,
 			twitter_url: user.twitterUrl,
 			linkedin_url: user.linkedInUrl,
 			profile_img_url: user.profileImgUrl,
