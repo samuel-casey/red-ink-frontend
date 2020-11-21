@@ -1,19 +1,21 @@
 @import '../../variables.scss';
 
 .editor-card {
-    max-width: 300px;
+    width: 310px;
     margin: 1rem;
 
     .editor-area-of-expertise {
         text-transform: capitalize;
         font-weight: bold;
-        color: $c-five;
+        color: $c-two;
+        text-shadow: 1px 1px $c-three;
         margin-bottom: 0.35rem !important;
     }
-
+    
     .editor-name {
         font-family: 'Lobster', cursive;
         color: $c-one;
+        text-shadow: 1px 1px $c-two;
         margin-top: 0.25rem;
     }
 

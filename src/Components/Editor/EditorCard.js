@@ -24,9 +24,9 @@ const EditorCard = ({
 					/>
 				</figure>
 			</div>
-			<h4 className='editor-name title is-4'>
+			<h3 className='editor-name title is-3'>
 				{first_name} {last_name}
-			</h4>
+			</h3>
 			<h5 className='editor-area-of-expertise subtitle is-5'>
 				{area_of_expertise}
 			</h5>

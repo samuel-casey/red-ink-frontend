@@ -23,12 +23,12 @@ const AllEditors = () => {
 	}, []);
 
 	const loading = (
-		<>
-			<p>Loading editors</p>
+		<div>
+			<h5 className='subtitle is-5'>Loading editors...</h5>
 			<button className='button is-loading is-warning loading-spinner' disabled>
 				{' '}
 			</button>
-		</>
+		</div>
 	);
 
 	const editors =

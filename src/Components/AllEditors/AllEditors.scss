@@ -1,6 +1,15 @@
 @import '../../variables.scss';
 
-.loading-spinner {
-    font-size: 3rem;
-    background-color: #00000000 !important;
+
+
+.all-editors-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .loading-spinner {
+        font-size: 3rem;
+        background-color: #00000000 !important;
+    }
 }
