@@ -1,1 +1,32 @@
 @import '../../variables.scss';
+
+.instructions-img-container {
+    min-width: 300px;
+    width: 70%;
+    object-fit: cover;
+    padding: 1rem 0;
+}
+
+.instructions-text {
+    color: red;
+}
+
+#instructions-intro {
+    color: blue;
+}    
+
+.checkbox {
+    .incomplete {
+
+        i {
+            color: $c-three !important;
+            padding: 1rem;
+        }
+    }
+
+    .complete {
+        i {
+            color: green;
+        }
+    }
+}
