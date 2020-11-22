@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './EditorCard.scss';
+import { GlobalCtx } from '../../App';
 
 const EditorCard = ({
 	email,
@@ -11,7 +12,31 @@ const EditorCard = ({
 	twitter_url,
 	linkedin_url,
 	profile_img_url,
+	history,
 }) => {
+	const { gState, setGState } = useContext(GlobalCtx);
+
+	const handleRequestEditsClick = () => {
+		const editorEmail = email;
+		const editorUid = uid;
+		setGState({ ...gState, editorEmail: editorEmail, editorUid: editorUid });
+		history.push('/submissionchecklist');
+	};
+
+	const twitterIcon =
+		twitter_url !== '' ? (
+			<a target='blank' href={twitter_url}>
+				<i className='fab fa-twitter'></i>
+			</a>
+		) : null;
+
+	const linkedInIcon =
+		linkedin_url !== '' ? (
+			<a target='blank' href={linkedin_url}>
+				<i className='fab fa-linkedin-in'></i>
+			</a>
+		) : null;
+
 	return (
 		<div className='card editor-card'>
 			<div className='card-image'>
@@ -33,12 +58,9 @@ const EditorCard = ({
 			<div className='card-content'>
 				<div className='media'>
 					<div className='media-content'>
-						<a target='blank' href={linkedin_url}>
-							<i className='fab fa-linkedin-in'></i>
-						</a>
-						<a target='blank' href={twitter_url}>
-							<i className='fab fa-twitter'></i>
-						</a>
+						{linkedInIcon}
+
+						{twitterIcon}
 					</div>
 				</div>
 				<div className='content'>
@@ -46,7 +68,9 @@ const EditorCard = ({
 					{about_me}
 					<br />
 				</div>
-				<button className='button is-primary request-edits'>
+				<button
+					className='button is-primary request-edits'
+					onClick={handleRequestEditsClick}>
 					Request Edits
 				</button>
 			</div>
