@@ -21,6 +21,7 @@ import LogIn from './Components/Forms/LogIn/LogIn';
 import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
 import ErrorDropdown from './Components/ErrorDropdown/ErrorDropdown';
 import AllEditors from './Components/AllEditors/AllEditors';
+import SubmissionChecklist from './Components/SubmissionChecklist/SubmissionChecklist';
 
 export const GlobalCtx = createContext(null);
 
@@ -276,7 +277,10 @@ const App = ({ firebase }) => {
 							}
 						/>
 
-						<Route path='/submissionchecklist' render={(rp) => 'checklist'} />
+						<Route
+							path='/submissionchecklist'
+							render={(rp) => <SubmissionChecklist />}
+						/>
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 
