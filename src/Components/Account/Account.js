@@ -7,6 +7,8 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState } = useContext(GlobalCtx);
 	const { userType, userEmail } = gState;
 
+	console.log(gState);
+
 	const loggedIn = (
 		<>
 			<h2 className='title is-2'>My Account</h2>
@@ -21,6 +23,7 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 
 	const loggedOut = (
 		<>
+			{userEmail}
 			<p>Please sign up and log in to access your red-ink account.</p>
 		</>
 	);

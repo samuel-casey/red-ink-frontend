@@ -29,14 +29,6 @@ const AllEditors = ({ history }) => {
 		</div>
 	);
 
-	const messageToCurrentEditor =
-		editorUid === currentUserUid
-			? 'Editors cannot request edits from themselves. For a preview of what your profile looks like to the rest of the world, visit your Account page.'
-			: null;
-
-	const messageToCurrentEditorHeading =
-		editorUid === currentUserUid ? 'Wondering where your profile is?' : null;
-
 	const filteredEditors =
 		editorsList.length > 0
 			? editorsList.filter((editor) => editor.uid !== currentUserUid)
@@ -49,18 +41,21 @@ const AllEditors = ({ history }) => {
 			  ))
 			: loading;
 
-	console.log(messageToCurrentEditor);
-
 	return (
-		<div className='all-editors-container'>
-			{editors}
+		<>
+			<div className='all-editors-container'>{editors}</div>
 			<div>
 				<h6 className='title is-6 message-to-current-editor-heading'>
-					{messageToCurrentEditorHeading}
+					Wondering where your Editor profile is?
 				</h6>
-				<p className='message-to-current-editor'>{messageToCurrentEditor}</p>
+				<p className='message-to-current-editor'>
+					If you don't have an Editor account, create one today! If you already
+					have an account and want to see a preview of your editor profile card,
+					visit the Account page. Editors cannot submit edit requests to
+					themselves.{' '}
+				</p>
 			</div>
-		</div>
+		</>
 	);
 };
 

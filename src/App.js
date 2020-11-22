@@ -4,6 +4,7 @@ import './App.scss';
 import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import axios from 'axios';
+import * as p from 'pluralize';
 
 // IMPORT HELPERS
 import {
@@ -26,18 +27,18 @@ export const GlobalCtx = createContext(null);
 const App = ({ firebase }) => {
 	const auth = firebase.auth();
 
-	const nullUserGState = {
+	const initialGState = {
 		url: 'https://red-ink.web.app/api',
-		uid: null,
-		userEmail: null,
-		userType: null,
+		uid: JSON.parse(window.localStorage.getItem('uid')),
+		userEmail: JSON.parse(window.localStorage.getItem('email')),
+		userType: JSON.parse(window.localStorage.getItem('userType')),
 		errorDropdown: null,
 		numEditors: null,
 		editorUid: null,
 		editorEmail: null,
 	};
 
-	const [gState, setGState] = useState(nullUserGState);
+	const [gState, setGState] = useState(initialGState);
 	const { url } = gState;
 
 	// not lifted to apiHelpers/authHelpers.js because setGState needed, but this is not a functional component -- moving function would require significant refactoring
@@ -51,12 +52,18 @@ const App = ({ firebase }) => {
 				console.log('no User Email');
 			} else if (targetUser.length === 0) {
 				console.log();
-				setGState({
-					...gState,
-					errorDropdown: `No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`,
-				});
+				throw new Error(
+					`No ${p.singular(collection)} account exists for ${
+						user.userEmail
+					}. Please try another account type or create a new account.`
+				);
 			} else {
-				return true;
+				window.localStorage.setItem(
+					'userType',
+					JSON.stringify(p.singular(collection))
+				);
+				setGState({ ...gState, userType: p.singular(collection) });
+				return collection;
 			}
 		} catch (error) {
 			return false;
@@ -136,28 +143,26 @@ const App = ({ firebase }) => {
 			const newUser = {
 				uid: newUserObject.user.uid,
 				userEmail: newUserObject.user.email,
-				userType: user.userType,
 			};
 
-			setGState({
-				...gState,
-				uid: newUser.uid,
-				userEmail: newUser.userEmail,
-				userType: newUser.userType,
-			});
+			let writer = await checkCollectionForUser(newUser, 'writers');
+			let editor = await checkCollectionForUser(newUser, 'editors');
 
-			switch (newUser.userType) {
-				case 'Writer':
-					await checkCollectionForUser(newUser, 'writers');
-					break;
-				case 'Editor':
-					await checkCollectionForUser(newUser, 'editors');
-					break;
-				default:
-					break;
-			}
+			console.log('ew', editor, writer);
+
+			if (writer) newUser.userType = p.singular(writer);
+			if (editor) newUser.userType = p.singular(editor);
 
 			if (gState.errorDropdown === null) {
+				window.localStorage.setItem('uid', JSON.stringify(newUser.uid));
+				window.localStorage.setItem('email', JSON.stringify(newUser.userEmail));
+				console.log(newUser.userType);
+				setGState({
+					...gState,
+					uid: newUser.uid,
+					userEmail: newUser.userEmail,
+					userType: newUser.userType,
+				});
 				return true;
 			}
 		} catch (error) {
@@ -171,7 +176,10 @@ const App = ({ firebase }) => {
 
 	const handleLogOut = () => {
 		auth.signOut();
-		setGState(nullUserGState);
+		window.localStorage.setItem('uid', JSON.stringify(null));
+		window.localStorage.setItem('email', JSON.stringify(null));
+		window.localStorage.setItem('userType', JSON.stringify(null));
+		setGState(initialGState);
 	};
 
 	let successMessage = '';
@@ -196,12 +204,25 @@ const App = ({ firebase }) => {
 		// calls this onStateChanged any time uid in gState changes
 		auth.onAuthStateChanged((firebaseUser) => {
 			if (firebaseUser) {
-				// console.log(firebaseUser);
+				console.log('firebaseUser');
+				const cUser = {
+					uid: JSON.parse(window.localStorage.getItem('uid')),
+					userEmail: JSON.parse(window.localStorage.getItem('email')),
+					userType: JSON.parse(window.localStorage.getItem('userType')),
+				};
+
+				setGState({
+					...gState,
+					uid: cUser.uid,
+					userEmail: cUser.userEmail,
+					userType: cUser.userType,
+				});
+				console.log(gState);
 			} else {
-				// console.log('not logged in');
+				setGState(initialGState);
 			}
 		});
-	}, [auth]);
+	}, []);
 
 	const errorDropdownBanner = gState.errorDropdown ? <ErrorDropdown /> : null;
 
