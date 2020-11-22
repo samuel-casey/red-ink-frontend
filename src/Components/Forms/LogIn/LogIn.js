@@ -25,27 +25,27 @@ const LogIn = ({ handleLogIn, history }) => {
 		setFormData({ ...formData, [key]: value });
 	};
 
-	const validateLogInFields = (fields) => {
-		let errorMessage;
-		if (
-			fields.password !== fields.confirmPassword ||
-			fields.email !== fields.confirmEmail
-		) {
-			errorMessage =
-				'Woops! Check that your emails and passwords match and try again';
-		} else if (
-			fields.email === '' ||
-			fields.confirmEmail === '' ||
-			fields.password === '' ||
-			fields.confirmPassword === '' ||
-			fields.userType === ''
-		) {
-			errorMessage = 'Please fill out all form fields';
-		} else {
-			errorMessage = null;
-		}
-		return errorMessage;
-	};
+	// const validateLogInFields = (fields) => {
+	// 	let errorMessage;
+	// 	if (
+	// 		fields.password !== fields.confirmPassword ||
+	// 		fields.email !== fields.confirmEmail
+	// 	) {
+	// 		errorMessage =
+	// 			'Woops! Check that your emails and passwords match and try again';
+	// 	} else if (
+	// 		fields.email === '' ||
+	// 		fields.confirmEmail === '' ||
+	// 		fields.password === '' ||
+	// 		fields.confirmPassword === '' ||
+	// 		fields.userType === ''
+	// 	) {
+	// 		errorMessage = 'Please fill out all form fields';
+	// 	} else {
+	// 		errorMessage = null;
+	// 	}
+	// 	return errorMessage;
+	// };
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

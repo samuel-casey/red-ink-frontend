@@ -3,10 +3,11 @@ import { GlobalCtx } from '../../App';
 import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import './AllEditors.scss';
 import EditorCard from '../Editor/EditorCard';
+import { Link } from 'react-router-dom';
 
 const AllEditors = ({ history }) => {
 	const { gState } = useContext(GlobalCtx);
-	const { url, uid } = gState;
+	const { url, uid, editorUid } = gState;
 	const [editorsList, setEditorsList] = useState([]);
 
 	const currentUserUid = uid;
@@ -28,6 +29,11 @@ const AllEditors = ({ history }) => {
 		</div>
 	);
 
+	const messageToCurrentEditor =
+		editorUid === currentUserUid
+			? 'Editors cannot request edits from themselves. For a preview of what your profile looks like to the rest of the world, visit your Account page.'
+			: null;
+
 	const filteredEditors =
 		editorsList.length > 0
 			? editorsList.filter((editor) => editor.uid !== currentUserUid)
@@ -40,7 +46,14 @@ const AllEditors = ({ history }) => {
 			  ))
 			: loading;
 
-	return <div className='all-editors-container'>{editors}</div>;
+	console.log(messageToCurrentEditor);
+
+	return (
+		<div className='all-editors-container'>
+			{editors}
+			<p>{messageToCurrentEditor}</p>
+		</div>
+	);
 };
 
 export default AllEditors;
