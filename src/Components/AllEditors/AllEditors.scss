@@ -3,10 +3,10 @@
 
 
 .all-editors-container {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(308px, 1fr));
     width: 100%;
-    flex-wrap: wrap;
+    justify-items: center;
 
     .loading-spinner {
         font-size: 3rem;

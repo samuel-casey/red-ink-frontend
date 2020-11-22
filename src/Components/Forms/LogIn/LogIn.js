@@ -86,17 +86,6 @@ const LogIn = ({ handleLogIn, history }) => {
 					placeholder='Password'
 					onChange={handleChange}
 				/>
-				<div onChange={handleRadioChange}>
-					<h3>Account Type</h3>
-					<label className='radio'>
-						<input type='radio' name='userType' value='Writer' />
-						Writer
-					</label>
-					<label className='radio'>
-						<input type='radio' name='userType' value='Editor' />
-						Editor
-					</label>
-				</div>
 				<input type='submit' className='button is-primary' value='Sign In' />
 			</form>
 		</div>
