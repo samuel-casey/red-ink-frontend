@@ -1,25 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalCtx } from '../../App';
-import axios from 'axios';
+import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import './AllEditors.scss';
 import EditorCard from '../Editor/EditorCard';
 
-const AllEditors = () => {
-	const { gState, setGState } = useContext(GlobalCtx);
-	const { url, numEditors } = gState;
+const AllEditors = ({ history }) => {
+	const { gState } = useContext(GlobalCtx);
+	const { url, uid } = gState;
 	const [editorsList, setEditorsList] = useState([]);
 
+	const currentUserUid = uid;
+
 	useEffect(() => {
-		const getAllEditors = async () => {
-			try {
-				const res = await axios.get(url + '/editors');
-				console.log(res.data.data);
-				setEditorsList(res.data.data);
-			} catch (error) {
-				console.log(error);
-			}
+		const getEditors = async () => {
+			const editorsData = await getAllEditors(url);
+			setEditorsList(editorsData);
 		};
-		getAllEditors();
+		getEditors();
 	}, []);
 
 	const loading = (
@@ -31,10 +28,15 @@ const AllEditors = () => {
 		</div>
 	);
 
+	const filteredEditors =
+		editorsList.length > 0
+			? editorsList.filter((editor) => editor.uid !== currentUserUid)
+			: null;
+
 	const editors =
 		editorsList.length > 0
-			? editorsList.map((editor) => (
-					<EditorCard key={editor.doc_id} {...editor} />
+			? filteredEditors.map((editor) => (
+					<EditorCard key={editor.doc_id} history={history} {...editor} />
 			  ))
 			: loading;
 

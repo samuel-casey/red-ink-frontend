@@ -33,6 +33,8 @@ const App = ({ firebase }) => {
 		userType: null,
 		errorDropdown: null,
 		numEditors: null,
+		editorUid: null,
+		editorEmail: null,
 	};
 
 	const [gState, setGState] = useState(nullUserGState);
@@ -43,10 +45,12 @@ const App = ({ firebase }) => {
 		try {
 			// collection is either 'writers' or 'editors' and is case-sensitive
 			const res = await axios.get(gState.url + `/${collection}/` + user.uid);
-			const targetUser = res.data;
+			const targetUser = await res.data.data;
+			console.log(collection, targetUser, targetUser.length);
 			if (user.userEmail === undefined) {
 				console.log('no User Email');
-			} else if (targetUser.data.length === 0) {
+			} else if (targetUser.length === 0) {
+				console.log();
 				setGState({
 					...gState,
 					errorDropdown: `No ${user.userType} account exists for ${user.userEmail}. Please try another account type or create a new account.`,
@@ -142,8 +146,16 @@ const App = ({ firebase }) => {
 				userType: newUser.userType,
 			});
 
-			await checkCollectionForUser(newUser, 'writers');
-			await checkCollectionForUser(newUser, 'editors');
+			switch (newUser.userType) {
+				case 'Writer':
+					await checkCollectionForUser(newUser, 'writers');
+					break;
+				case 'Editor':
+					await checkCollectionForUser(newUser, 'editors');
+					break;
+				default:
+					break;
+			}
 
 			if (gState.errorDropdown === null) {
 				return true;
@@ -243,7 +255,9 @@ const App = ({ firebase }) => {
 							}
 						/>
 
-						<Route path='/editors' render={(rp) => <AllEditors />} />
+						<Route path='/submissionchecklist' render={(rp) => 'checklist'} />
+
+						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 
 						<Route
 							path='/resetpassword'

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './EditorCard.scss';
+import { GlobalCtx } from '../../App';
 
 const EditorCard = ({
 	email,
@@ -11,7 +12,17 @@ const EditorCard = ({
 	twitter_url,
 	linkedin_url,
 	profile_img_url,
+	history,
 }) => {
+	const { gState, setGState } = useContext(GlobalCtx);
+
+	const handleRequestEditsClick = (e) => {
+		const editorEmail = email;
+		const editorUid = uid;
+		setGState({ ...gState, editorEmail: editorEmail, editorUid: editorUid });
+		history.push('/submissionchecklist');
+	};
+
 	return (
 		<div className='card editor-card'>
 			<div className='card-image'>
@@ -46,7 +57,9 @@ const EditorCard = ({
 					{about_me}
 					<br />
 				</div>
-				<button className='button is-primary request-edits'>
+				<button
+					className='button is-primary request-edits'
+					onClick={handleRequestEditsClick}>
 					Request Edits
 				</button>
 			</div>
