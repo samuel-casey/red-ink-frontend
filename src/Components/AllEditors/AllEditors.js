@@ -34,6 +34,9 @@ const AllEditors = ({ history }) => {
 			? 'Editors cannot request edits from themselves. For a preview of what your profile looks like to the rest of the world, visit your Account page.'
 			: null;
 
+	const messageToCurrentEditorHeading =
+		editorUid === currentUserUid ? 'Wondering where your profile is?' : null;
+
 	const filteredEditors =
 		editorsList.length > 0
 			? editorsList.filter((editor) => editor.uid !== currentUserUid)
@@ -51,7 +54,12 @@ const AllEditors = ({ history }) => {
 	return (
 		<div className='all-editors-container'>
 			{editors}
-			<p>{messageToCurrentEditor}</p>
+			<div>
+				<h6 className='title is-6 message-to-current-editor-heading'>
+					{messageToCurrentEditorHeading}
+				</h6>
+				<p className='message-to-current-editor'>{messageToCurrentEditor}</p>
+			</div>
 		</div>
 	);
 };

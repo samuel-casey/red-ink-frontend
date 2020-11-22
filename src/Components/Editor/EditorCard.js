@@ -23,6 +23,20 @@ const EditorCard = ({
 		history.push('/submissionchecklist');
 	};
 
+	const twitterIcon =
+		twitter_url !== '' ? (
+			<a target='blank' href={twitter_url}>
+				<i className='fab fa-twitter'></i>
+			</a>
+		) : null;
+
+	const linkedInIcon =
+		linkedin_url !== '' ? (
+			<a target='blank' href={linkedin_url}>
+				<i className='fab fa-linkedin-in'></i>
+			</a>
+		) : null;
+
 	return (
 		<div className='card editor-card'>
 			<div className='card-image'>
@@ -44,12 +58,9 @@ const EditorCard = ({
 			<div className='card-content'>
 				<div className='media'>
 					<div className='media-content'>
-						<a target='blank' href={linkedin_url}>
-							<i className='fab fa-linkedin-in'></i>
-						</a>
-						<a target='blank' href={twitter_url}>
-							<i className='fab fa-twitter'></i>
-						</a>
+						{linkedInIcon}
+
+						{twitterIcon}
 					</div>
 				</div>
 				<div className='content'>
