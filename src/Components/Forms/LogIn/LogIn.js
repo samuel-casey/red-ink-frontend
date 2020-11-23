@@ -68,7 +68,8 @@ const LogIn = ({ handleLogIn, history }) => {
 
 	return (
 		<div className='sign-up-page'>
-			<h2>Log In</h2>
+			<br></br>
+			<h3 className='title is-3'>Log In</h3>
 			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
@@ -86,7 +87,7 @@ const LogIn = ({ handleLogIn, history }) => {
 					placeholder='Password'
 					onChange={handleChange}
 				/>
-				<input type='submit' className='button is-primary' value='Sign In' />
+				<input type='submit' className='button is-primary' value='Log In' />
 			</form>
 		</div>
 	);
