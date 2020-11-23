@@ -205,7 +205,6 @@ const App = ({ firebase }) => {
 		// calls this onStateChanged any time uid in gState changes
 		auth.onAuthStateChanged((firebaseUser) => {
 			if (firebaseUser) {
-				console.log('firebaseUser');
 				const cUser = {
 					uid: JSON.parse(window.localStorage.getItem('uid')),
 					userEmail: JSON.parse(window.localStorage.getItem('email')),
@@ -218,7 +217,6 @@ const App = ({ firebase }) => {
 					userEmail: cUser.userEmail,
 					userType: cUser.userType,
 				});
-				console.log(gState);
 			} else {
 				setGState(initialGState);
 			}

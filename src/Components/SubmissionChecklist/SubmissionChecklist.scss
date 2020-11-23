@@ -8,25 +8,45 @@
 }
 
 .instructions-text {
-    color: red;
+    display: flex;
+    align-items: center;
+
+    .checkbox.incomplete {
+        font-size: 1.5rem;
+        margin: 0 1rem;
+        color: $c-three;
+    }
+
+    .checkbox.complete {
+        font-size: 1.5rem;
+        margin: 0 1rem;
+        color: darkgreen;
+    }
 }
+
+.proceed-button {
+    display: flex;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .fa-angle-double-right {
+        margin-left: 0.2rem;
+    }
+}
+
+.enabled {
+    opacity: 1;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
 
 #instructions-intro {
     color: blue;
 }    
-
-.checkbox {
-    .incomplete {
-
-        i {
-            color: $c-three !important;
-            padding: 1rem;
-        }
-    }
-
-    .complete {
-        i {
-            color: green;
-        }
-    }
-}
