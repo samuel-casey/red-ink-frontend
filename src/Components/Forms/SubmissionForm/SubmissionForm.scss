@@ -4,11 +4,12 @@
 .submission-form-container {
      width: 75%;
      margin: 0 auto;
+     min-width: 300px;
 
     .submission-form {
         display: flex;
         flex-direction: column;
-        width: 75%;
+        width: 100%;
         margin: 0 auto;
     
 

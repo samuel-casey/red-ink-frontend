@@ -8,10 +8,12 @@ export const createNewSubmission = async (submissionData, url) => {
 			created_at: createdAt,
 			editor_id: submissionData.editorUid,
 			edits_complete: submissionData.editsComplete,
+			editor_email: submissionData.editor_email,
 			title: submissionData.title,
 			notes: submissionData.notes,
 			url: submissionData.link,
 			writer_id: submissionData.writerUid,
+			writer_email: submissionData.writerEmail,
 		};
 		const res = await axios.post(url + '/submissions', newSubmissionDocument);
 		console.log(res.data.data);
