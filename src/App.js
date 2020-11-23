@@ -21,6 +21,7 @@ import LogIn from './Components/Forms/LogIn/LogIn';
 import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
 import ErrorDropdown from './Components/ErrorDropdown/ErrorDropdown';
 import AllEditors from './Components/AllEditors/AllEditors';
+import SubmissionChecklist from './Components/SubmissionChecklist/SubmissionChecklist';
 
 export const GlobalCtx = createContext(null);
 
@@ -204,7 +205,6 @@ const App = ({ firebase }) => {
 		// calls this onStateChanged any time uid in gState changes
 		auth.onAuthStateChanged((firebaseUser) => {
 			if (firebaseUser) {
-				console.log('firebaseUser');
 				const cUser = {
 					uid: JSON.parse(window.localStorage.getItem('uid')),
 					userEmail: JSON.parse(window.localStorage.getItem('email')),
@@ -217,7 +217,6 @@ const App = ({ firebase }) => {
 					userEmail: cUser.userEmail,
 					userType: cUser.userType,
 				});
-				console.log(gState);
 			} else {
 				setGState(initialGState);
 			}
@@ -276,7 +275,10 @@ const App = ({ firebase }) => {
 							}
 						/>
 
-						<Route path='/submissionchecklist' render={(rp) => 'checklist'} />
+						<Route
+							path='/submissionchecklist'
+							render={(rp) => <SubmissionChecklist />}
+						/>
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 

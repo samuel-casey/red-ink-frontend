@@ -1,0 +1,104 @@
+@import '../../variables.scss';
+
+.submissions-checklist-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+
+
+        .instructions-container {
+            margin: 0;
+        }
+
+        .instructions-img-container {
+            min-width: 300px;
+            width: 50%;
+            box-shadow: 2px 2px 2px 2px $c-three;
+            border: 2px solid $c-three;
+            border-radius: 5px;
+            object-fit: cover;
+            padding: 1rem 0;
+            margin: 0 auto;
+        }
+        
+        .instructions-text {
+            display: flex;
+            align-items: center;
+            min-width: 300px;
+            width: 50%;
+            margin: 0.5rem auto;
+            text-align: justify;
+            text-justify: distribute;
+            font-size: 1.1rem;
+            font-weight: 600;
+        
+            .checkbox.incomplete {
+                font-size: 1.5rem;
+                margin: 0 1rem;
+                color: $c-three;
+            }
+        
+            .checkbox.complete {
+                font-size: 1.5rem;
+                margin: 0 1rem;
+                color: darkgreen;
+            }
+
+            i {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .proceed-button {
+            display: flex;
+            align-items: center;
+            margin: 1rem;
+        
+            a {
+                text-decoration: none;
+                color: white;
+            }
+        
+            .fa-angle-double-right {
+                margin-left: 0.2rem;
+            }
+        }
+        
+        .enabled {
+            opacity: 1;
+        }
+        
+        .disabled {
+            opacity: 0.5;
+        }
+        
+
+        .hr-visible {
+            opacity: 1;
+            width: 60%;
+            max-width: 700px;
+            margin: 2rem auto;
+            border-top: 2.5px dashed #f5f5f5;
+        }
+        .hr-invisible {
+            opacity: 0;
+        }
+        
+        #instructions-intro {
+            color: $c-one;
+            font-size: 1.5rem;
+            max-width: 900px;
+            padding: 1rem;
+            background-color: $c-three;
+            border-radius: 5px;
+            margin: 1rem;
+            font-weight: 800;
+        }   
+
+        #red-ink-instructions {
+            font-family: 'Lobster', cursive;
+        }
+    
+}
