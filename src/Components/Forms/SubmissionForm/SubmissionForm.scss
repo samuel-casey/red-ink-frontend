@@ -1,0 +1,15 @@
+@import '../../../variables.scss';
+
+.button {
+    margin-top: 1rem;
+}
+
+.fa-paper-plane, .fa-angle-double-left {
+    margin: 0 0.5rem;
+}
+
+
+.form-btns {
+    display: flex;
+    flex-direction: column;
+}

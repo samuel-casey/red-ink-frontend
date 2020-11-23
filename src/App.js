@@ -22,6 +22,8 @@ import PasswordReset from './Components/Forms/PasswordReset/PasswordReset';
 import ErrorDropdown from './Components/ErrorDropdown/ErrorDropdown';
 import AllEditors from './Components/AllEditors/AllEditors';
 import SubmissionChecklist from './Components/SubmissionChecklist/SubmissionChecklist';
+import Footer from './Components/Footer/Footer';
+import SubmissionForm from './Components/Forms/SubmissionForm/SubmissionForm';
 
 export const GlobalCtx = createContext(null);
 
@@ -280,6 +282,8 @@ const App = ({ firebase }) => {
 							render={(rp) => <SubmissionChecklist />}
 						/>
 
+						<Route path='/submissionform' render={(rp) => <SubmissionForm />} />
+
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 
 						<Route
@@ -293,7 +297,9 @@ const App = ({ firebase }) => {
 						/>
 					</Switch>
 				</main>
-				<footer>Footer</footer>
+				<footer>
+					<Footer />
+				</footer>
 			</div>
 		</GlobalCtx.Provider>
 	);

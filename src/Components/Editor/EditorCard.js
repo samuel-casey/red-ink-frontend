@@ -19,7 +19,13 @@ const EditorCard = ({
 	const handleRequestEditsClick = () => {
 		const editorEmail = email;
 		const editorUid = uid;
-		setGState({ ...gState, editorEmail: editorEmail, editorUid: editorUid });
+		setGState({
+			...gState,
+			editorEmail: editorEmail,
+			editorUid: editorUid,
+			editorFirstName: first_name,
+			editorLastName: last_name,
+		});
 		history.push('/submissionchecklist');
 	};
 
