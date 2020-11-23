@@ -282,7 +282,10 @@ const App = ({ firebase }) => {
 							render={(rp) => <SubmissionChecklist />}
 						/>
 
-						<Route path='/submissionform' render={(rp) => <SubmissionForm />} />
+						<Route
+							path='/submissionform'
+							render={(rp) => <SubmissionForm {...rp} />}
+						/>
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 
