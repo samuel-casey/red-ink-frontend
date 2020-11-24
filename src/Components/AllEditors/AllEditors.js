@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalCtx } from '../../App';
 import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import './AllEditors.scss';
-import EditorCard from '../Editor/EditorCard';
+import EditorCard from '../EditorCard/EditorCard';
 import { Link } from 'react-router-dom';
 
 const AllEditors = ({ history }) => {

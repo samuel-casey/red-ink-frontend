@@ -74,11 +74,13 @@ const EditorCard = ({
 					{about_me}
 					<br />
 				</div>
-				<button
-					className='button is-primary request-edits'
-					onClick={handleRequestEditsClick}>
-					Request Edits
-				</button>
+				{history ? (
+					<button
+						className='button is-primary request-edits'
+						onClick={handleRequestEditsClick}>
+						Request Edits
+					</button>
+				) : null}
 			</div>
 		</div>
 	);

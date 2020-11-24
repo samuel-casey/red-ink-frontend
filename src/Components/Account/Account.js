@@ -1,30 +1,186 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Account.scss';
 import { GlobalCtx } from '../../App';
 import SendPasswordResetEmail from '../Forms/SendPasswordResetEmail/SendPasswordResetEmail';
 import EditorAssignments from '../EditorAssignments/EditorAssignments';
+import EditorAccountFields from '../Forms/EditorAccountFields/EditorAccountFields';
+import {
+	getSingleEditor,
+	updateEditorData,
+} from '../../apiHelpers/editorsHelpers';
+import EditorCard from '../EditorCard/EditorCard';
 
-const Account = ({
-	handleSendPasswordResetEmail,
-	successMessage,
-	location,
-}) => {
+const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState } = useContext(GlobalCtx);
-	const { userType, userEmail } = gState;
+	const { userType, userEmail, uid, url } = gState;
+
+	const [updating, setUpdating] = useState(false);
+	const [forgetPasswordToggle, setForgetPasswordToggle] = useState(false);
+	const [editorAccountData, setEditorAccountData] = useState({});
+	const [profilePreview, setProfilePreview] = useState(false);
+	const [formData, setFormData] = useState({
+		firstName: '',
+		lastName: '',
+		areaOfExpertise: '',
+		aboutMe: '',
+		linkedInUrl: '',
+		twitterUrl: '',
+		profileImgUrl: '',
+	});
+
+	const handleChange = (e) => {
+		const key = e.target.name;
+		const value = e.target.value;
+		setFormData({ ...formData, [key]: value });
+	};
+
+	const toggleProfilePreview = async () => {
+		const editorData = await getSingleEditor(url, uid);
+		const editorDataMap = {
+			firstName: editorData[0].first_name,
+			lastName: editorData[0].last_name,
+			areaOfExpertise: editorData[0].area_of_expertise,
+			aboutMe: editorData[0].about_me,
+			linkedInUrl: editorData[0].linkedin_url,
+			twitterUrl: editorData[0].twitter_url,
+			profileImgUrl: editorData[0].profile_img_url,
+		};
+		setEditorAccountData(editorDataMap);
+		setProfilePreview(!profilePreview);
+		setForgetPasswordToggle(false);
+	};
+
+	const handleEditorUpdateSubmit = async (e) => {
+		e.preventDefault();
+		const updatedEditor = await updateEditorData(url, uid, formData);
+		if (updatedEditor) {
+			setUpdating(false);
+		}
+	};
+
+	const toggleForgetPassword = () => {
+		setForgetPasswordToggle(!forgetPasswordToggle);
+		setProfilePreview(false);
+	};
+
+	const toggleUpdating = () => {
+		setUpdating(!updating);
+		setForgetPasswordToggle(false);
+	};
+
+	useEffect(() => {
+		if (userType === 'editor') {
+			let editorData;
+			const loadEditor = async () => {
+				editorData = await getSingleEditor(url, uid);
+				const editorDataMap = {
+					firstName: editorData[0].first_name,
+					lastName: editorData[0].last_name,
+					areaOfExpertise: editorData[0].area_of_expertise,
+					aboutMe: editorData[0].about_me,
+					linkedInUrl: editorData[0].linkedin_url,
+					twitterUrl: editorData[0].twitter_url,
+					profileImgUrl: editorData[0].profile_img_url,
+				};
+				setEditorAccountData(editorDataMap);
+				setFormData(editorDataMap);
+			};
+			loadEditor();
+		}
+	}, []);
 
 	const loggedIn = (
 		<>
+			<br></br>
 			<h2 className='title is-2'>My Account</h2>
-			<h3 className='welcome-msg subtitle is-3'>Welcome {userEmail}</h3>
-			<h4 className='subtitle is-4'>Account type: {userType}</h4>
+			<h4 className='welcome-msg subtitle is-4'>Welcome {userEmail}!</h4>
+			<h5 className='subtitle is-5'>
+				Account type: <span className='user-type'>{userType}</span>
+			</h5>
 			{successMessage}
-			<SendPasswordResetEmail
-				handleSendPasswordResetEmail={handleSendPasswordResetEmail}
-			/>
+			<div className='change-profile-sections'>
+				{updating ? (
+					<button
+						className='button is-primary is-small'
+						onClick={toggleUpdating}>
+						View Editing Assignments
+					</button>
+				) : (
+					<button
+						className='button is-primary is-small'
+						onClick={toggleUpdating}>
+						Update Profile Info
+					</button>
+				)}
+				{profilePreview ? (
+					<>
+						<button
+							className='button is-primary is-small'
+							onClick={() => toggleProfilePreview()}>
+							Hide Profile Preview
+						</button>
+						<EditorCard
+							email={editorAccountData.email}
+							about_me={editorAccountData.aboutMe}
+							uid={editorAccountData.uid}
+							area_of_expertise={editorAccountData.areaOfExpertise}
+							first_name={editorAccountData.firstName}
+							last_name={editorAccountData.lastName}
+							twitter_url={editorAccountData.twitterUrl}
+							linkedin_url={editorAccountData.linkedInUrl}
+							profile_img_url={editorAccountData.profileImgUrl}
+						/>
+					</>
+				) : (
+					<button
+						className='button is-primary is-small'
+						onClick={() => toggleProfilePreview()}>
+						Show Profile Preview
+					</button>
+				)}
+				{forgetPasswordToggle ? (
+					<SendPasswordResetEmail
+						handleSendPasswordResetEmail={handleSendPasswordResetEmail}
+						toggleForgetPassword={toggleForgetPassword}
+					/>
+				) : updating ? (
+					''
+				) : (
+					<button
+						className='button is-small is-ghost'
+						onClick={() => toggleForgetPassword()}>
+						Reset Password
+					</button>
+				)}
+			</div>
 			{userType === 'editor' ? (
-				<EditorAssignments />
+				updating ? (
+					<form className='auth-form' onSubmit={handleEditorUpdateSubmit}>
+						<h4 className='title is-4'>Update Profile Info</h4>
+						<button
+							className='button is-warning is-light save-updates'
+							type='submit'>
+							Save Updates <i className='far fa-save'></i>
+						</button>
+						<br />
+						<EditorAccountFields
+							handleChange={handleChange}
+							formData={formData}
+							setFormData={setFormData}
+						/>
+						<button
+							className='button is-warning is-light save-updates'
+							type='submit'>
+							Save Updates <i className='far fa-save'></i>
+						</button>
+					</form>
+				) : (
+					<EditorAssignments />
+				)
+			) : updating ? (
+				<form></form>
 			) : (
-				<p>Writer Submissions</p>
+				<div>Writing Submissions</div>
 			)}
 		</>
 	);

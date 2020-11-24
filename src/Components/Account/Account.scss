@@ -6,4 +6,37 @@
 
 .welcome-msg {
     color: $c-one;
+    margin-bottom: 0.5rem !important;
+}
+
+.user-type {
+    font-family: 'Lobster', cursive;
+    color: $c-one;
+    text-transform: capitalize;
+    font-weight: bold !important;
+}
+
+.change-profile-sections {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    width: 50%;
+    min-width: 290px;
+    align-items: center;
+
+    button {
+        margin: 0.25rem;
+        width: 155px;
+    }
+}
+
+.fa-save {
+    margin-left: 0.25rem;
+}
+
+.auth-form {
+    .save-updates {
+       position: sticky;
+       top: 0;
+    }
 }
