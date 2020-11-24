@@ -18,7 +18,32 @@ export const createNewSubmission = async (submissionData, url) => {
 			last_name: submissionData.editorLastName,
 		};
 		const res = await axios.post(url + '/submissions', newSubmissionDocument);
-		console.log(res.data.data);
+		// console.log(res.data.data);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const getAllAssignmentsForEditor = async (editorId, url) => {
+	try {
+		const res = await axios.get(url + '/submissions/editors/' + editorId);
+		const assignments = res.data.data;
+		console.log(assignments);
+		return assignments;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const toggleSubmissionDocumentCompleted = async (submissionId, url) => {
+	try {
+		console.log(submissionId, url);
+		const res = await axios.put(`${url}/submissions/${submissionId}`, {
+			edits_complete: true,
+		});
+		const updatedAssignment = res.data.data;
+		console.log(updatedAssignment);
+		return updatedAssignment;
 	} catch (error) {
 		console.log(error);
 	}

@@ -2,12 +2,15 @@ import React, { useContext } from 'react';
 import './Account.scss';
 import { GlobalCtx } from '../../App';
 import SendPasswordResetEmail from '../Forms/SendPasswordResetEmail/SendPasswordResetEmail';
+import EditorAssignments from '../EditorAssignments/EditorAssignments';
 
-const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
+const Account = ({
+	handleSendPasswordResetEmail,
+	successMessage,
+	location,
+}) => {
 	const { gState } = useContext(GlobalCtx);
 	const { userType, userEmail } = gState;
-
-	console.log(gState);
 
 	const loggedIn = (
 		<>
@@ -18,6 +21,11 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 			<SendPasswordResetEmail
 				handleSendPasswordResetEmail={handleSendPasswordResetEmail}
 			/>
+			{userType === 'editor' ? (
+				<EditorAssignments />
+			) : (
+				<p>Writer Submissions</p>
+			)}
 		</>
 	);
 
