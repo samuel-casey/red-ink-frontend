@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.scss';
 import { GlobalCtx } from '../../App';
 
@@ -20,6 +21,9 @@ const Footer = () => {
 				) : null}
 			</p>
 			<div id='footer-container'>
+				<Link to='/faq' target='blank'>
+					FAQ
+				</Link>
 				<a
 					href='mailto:red.ink.user.help@gmail.com'
 					target='_blank'

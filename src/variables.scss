@@ -8,10 +8,12 @@ $c-two: #931F2150;
 $c-three: #F0EBEB;
 $c-four: #2F2E41;
 $c-five: #46436b;
-$c-complete: #3EC46D;
+$c-six: #525a72;
+$c-complete: #3ec46dc4;
 $c-waiting: #e0bb12;
 $c-error: hsl(348, 100%, 61%);
 $light-gray: #f5f5f5;
+$dark-gray: #646363;
 
 // element dimensions
 $header-height: 9.09vh;
@@ -27,6 +29,8 @@ $primary: $c-one;
 $success: $c-two;
 $warning: $c-complete;
 $info: $c-waiting;
+$link: $c-six;
+$dark: $dark-gray;
 
 @import '../node_modules/bulma/sass/utilities/derived-variables.sass';
 @import '../node_modules/bulma/bulma.sass'

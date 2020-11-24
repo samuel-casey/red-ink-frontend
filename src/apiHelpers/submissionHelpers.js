@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isCompositeComponent } from 'react-dom/test-utils';
 
 const createdAt = new Date(Date.now()).toUTCString();
 
@@ -7,7 +8,7 @@ export const createNewSubmission = async (submissionData, url) => {
 		const newSubmissionDocument = {
 			created_at: createdAt,
 			editor_id: submissionData.editorUid,
-			edits_complete: submissionData.editsComplete,
+			edits_status: 'awaiting',
 			editor_email: submissionData.editorEmail,
 			title: submissionData.title,
 			notes: submissionData.notes,
@@ -33,11 +34,39 @@ export const getAllAssignmentsForEditor = async (editorId, url) => {
 	}
 };
 
-export const toggleSubmissionDocumentCompleted = async (submissionId, url) => {
+export const toggleSubmissionDocumentCompleted = async (
+	submissionId,
+	url,
+	submissionObject
+) => {
 	try {
-		console.log(submissionId, url);
+		let completionStatus = submissionObject.edits_status;
+		let newCompletionStatus;
+
+		if (completionStatus === 'awaiting') {
+			newCompletionStatus = 'ongoing';
+		} else if (completionStatus === 'ongoing') {
+			newCompletionStatus = 'complete';
+		} else {
+			newCompletionStatus = 'awaiting';
+		}
+
 		const res = await axios.put(`${url}/submissions/${submissionId}`, {
-			edits_complete: true,
+			edits_status: newCompletionStatus,
+			type: 'status',
+		});
+		const updatedAssignment = res.data.data;
+		return updatedAssignment;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const notifyWriter = async (submissionId, url) => {
+	try {
+		const res = await axios.put(`${url}/submissions/${submissionId}`, {
+			writer_notified: true,
+			type: 'notify',
 		});
 		const updatedAssignment = res.data.data;
 		return updatedAssignment;
@@ -58,7 +87,6 @@ export const getAllSubmissionsForWriter = async (writerId, url) => {
 
 export const formatSubmissionDate = (date) => {
 	const dateObj = new Date(date);
-
 	const day = dateObj.getDate();
 	const monthNo = dateObj.getMonth() + 1;
 	const year = dateObj.getFullYear();

@@ -42,6 +42,10 @@
             .link-button, .toggle-complete-button {
                 align-self: center;
                 margin: 0.25rem 0;
+                    
+                    a, button {
+                        width: 130px !important;
+                    }
 
             }
 
@@ -71,4 +75,13 @@
         }
     }
 
+    
+}
+
+
+.loading-container {
+    .loading-spinner {
+        font-size: 3rem;
+        border: none !important;
+    }
 }
