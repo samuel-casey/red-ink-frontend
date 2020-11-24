@@ -4,6 +4,7 @@ nav {
     box-shadow: 0px 0px 5px 1px $c-one;
     margin-bottom: 5px;
 
+   height: $header-height;
 
     .navbar-burger {
         top: 0;
@@ -15,5 +16,15 @@ nav {
         color: $c-one;
     }
 
+    a:hover, a:active {
+        color: $c-one !important;
+        font-family: "Lobster Two", cursive;
+        font-weight: bold;
+    }
+
+    a:visited {
+        color: $c-one !important;
+    }
+    
     padding: 0.75rem;
 }

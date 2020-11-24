@@ -17,8 +17,7 @@ export const createNewSubmission = async (submissionData, url) => {
 			first_name: submissionData.editorFirstName,
 			last_name: submissionData.editorLastName,
 		};
-		const res = await axios.post(url + '/submissions', newSubmissionDocument);
-		// console.log(res.data.data);
+		await axios.post(url + '/submissions', newSubmissionDocument);
 	} catch (error) {
 		console.log(error);
 	}
@@ -28,7 +27,6 @@ export const getAllAssignmentsForEditor = async (editorId, url) => {
 	try {
 		const res = await axios.get(url + '/submissions/editors/' + editorId);
 		const assignments = res.data.data;
-		console.log(assignments);
 		return assignments;
 	} catch (error) {
 		console.log(error);
@@ -42,9 +40,45 @@ export const toggleSubmissionDocumentCompleted = async (submissionId, url) => {
 			edits_complete: true,
 		});
 		const updatedAssignment = res.data.data;
-		console.log(updatedAssignment);
 		return updatedAssignment;
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+export const getAllSubmissionsForWriter = async (writerId, url) => {
+	try {
+		const res = await axios.get(url + '/submissions/writers/' + writerId);
+		const submissions = await res.data.data;
+		return submissions;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const formatSubmissionDate = (date) => {
+	const dateObj = new Date(date);
+
+	const day = dateObj.getDate();
+	const monthNo = dateObj.getMonth() + 1;
+	const year = dateObj.getFullYear();
+
+	const months = {
+		1: 'Jan',
+		2: 'Feb',
+		3: 'Mar',
+		4: 'Apr',
+		5: 'May',
+		6: 'Jun',
+		7: 'Jul',
+		8: 'Aug',
+		9: 'Sept',
+		10: 'Oct',
+		11: 'Nov',
+		12: 'Dec',
+	};
+
+	const newFormat = `${day} ${months[monthNo]}, ${year}`;
+
+	return newFormat;
 };

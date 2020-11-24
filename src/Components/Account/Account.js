@@ -9,6 +9,7 @@ import {
 	updateEditorData,
 } from '../../apiHelpers/editorsHelpers';
 import EditorCard from '../EditorCard/EditorCard';
+import WriterSubmissions from '../WriterSubmissions/WriterSubmissions';
 
 const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState } = useContext(GlobalCtx);
@@ -98,46 +99,57 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 				Account type: <span className='user-type'>{userType}</span>
 			</h5>
 			{successMessage}
+
+			{/* render button to change whether editing assignments or profile update form is showing is userType === editor */}
 			<div className='change-profile-sections'>
-				{updating ? (
-					<button
-						className='button is-primary is-small'
-						onClick={toggleUpdating}>
-						View Editing Assignments
-					</button>
-				) : (
-					<button
-						className='button is-primary is-small'
-						onClick={toggleUpdating}>
-						Update Profile Info
-					</button>
-				)}
-				{profilePreview ? (
-					<>
+				{userType === 'editor' ? (
+					updating ? (
+						<button
+							className='button is-primary is-small'
+							onClick={toggleUpdating}>
+							View Editing Assignments
+						</button>
+					) : (
+						<button
+							className='button is-primary is-small'
+							onClick={toggleUpdating}>
+							Update Profile Info
+						</button>
+					)
+				) : null}
+
+				{/* render button to toggle profile preview if user is an editor,
+				otherwise render nothing */}
+				{userType === 'editor' ? (
+					profilePreview ? (
+						<>
+							<button
+								className='button is-primary is-small'
+								onClick={() => toggleProfilePreview()}>
+								Hide Profile Preview
+							</button>
+							<EditorCard
+								email={editorAccountData.email}
+								about_me={editorAccountData.aboutMe}
+								uid={editorAccountData.uid}
+								area_of_expertise={editorAccountData.areaOfExpertise}
+								first_name={editorAccountData.firstName}
+								last_name={editorAccountData.lastName}
+								twitter_url={editorAccountData.twitterUrl}
+								linkedin_url={editorAccountData.linkedInUrl}
+								profile_img_url={editorAccountData.profileImgUrl}
+							/>
+						</>
+					) : (
 						<button
 							className='button is-primary is-small'
 							onClick={() => toggleProfilePreview()}>
-							Hide Profile Preview
+							Show Profile Preview
 						</button>
-						<EditorCard
-							email={editorAccountData.email}
-							about_me={editorAccountData.aboutMe}
-							uid={editorAccountData.uid}
-							area_of_expertise={editorAccountData.areaOfExpertise}
-							first_name={editorAccountData.firstName}
-							last_name={editorAccountData.lastName}
-							twitter_url={editorAccountData.twitterUrl}
-							linkedin_url={editorAccountData.linkedInUrl}
-							profile_img_url={editorAccountData.profileImgUrl}
-						/>
-					</>
-				) : (
-					<button
-						className='button is-primary is-small'
-						onClick={() => toggleProfilePreview()}>
-						Show Profile Preview
-					</button>
-				)}
+					)
+				) : null}
+
+				{/* render form to reset password if forgetPasswordToggle set to true */}
 				{forgetPasswordToggle ? (
 					<SendPasswordResetEmail
 						handleSendPasswordResetEmail={handleSendPasswordResetEmail}
@@ -153,6 +165,8 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 					</button>
 				)}
 			</div>
+
+			{/* render editor update form if user type === editor and updating === true */}
 			{userType === 'editor' ? (
 				updating ? (
 					<form className='auth-form' onSubmit={handleEditorUpdateSubmit}>
@@ -177,10 +191,8 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 				) : (
 					<EditorAssignments />
 				)
-			) : updating ? (
-				<form></form>
 			) : (
-				<div>Writing Submissions</div>
+				<WriterSubmissions />
 			)}
 		</>
 	);

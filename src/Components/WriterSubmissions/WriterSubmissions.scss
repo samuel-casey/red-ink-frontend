@@ -1,0 +1,103 @@
+@import '../../variables.scss';
+
+.submissions-section {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $c-one;
+    border-radius: 5px;
+    
+    .submissions-heading {
+        padding: 0.5rem 0;
+        align-self: center;
+        background-color: $light-gray;
+        color: $c-one;
+        width: 100%;
+        border-radius: 5px 5px 0px 0px;
+        border-bottom: 1px solid $c-one;
+    }
+    
+    .submissions-container {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        max-width: 1440px;
+        margin: 0 auto;
+        
+        .writer-submission {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem;
+            padding: 1rem 1rem;
+            box-shadow: 2px 2px 2px 2px $c-three;
+            border: 1px solid $c-three;
+            border-radius: 5px;
+            width: 100%;
+
+            .submission-start {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 5px;
+                justify-content: flex-start;
+                text-align: left;
+                width: 50%;
+            }
+
+            .submission-end {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 5px;
+                align-items: center;
+                width: 38%;
+
+                .fa-check {
+                    color: $c-complete;
+                }
+
+                .fa-spinner {
+                    color: $c-waiting;
+                }
+            }
+
+            .submission-text-container {
+
+                .title {
+                    color: $c-one;
+                    margin: 0 !important;
+                    text-align: left;
+                }
+            }
+        }
+        
+        i {
+            margin-left: 0.25rem;
+
+        }
+
+        i.fas.fa-check-square {
+                color: $c-complete;
+        }
+        
+    }
+
+
+    .loading-container {
+        .loading-spinner {
+        font-size: 3rem;
+        border: none !important;
+    }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .writer-submission {
+        flex-direction: column;
+        width: fit-content;
+        margin: 0.5rem auto !important;
+    }
+
+    .submission-end, .submission-start{
+        display: flex !important;
+        flex-direction: column;
+        width: 100% !important;
+    }
+}

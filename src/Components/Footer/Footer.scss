@@ -1,10 +1,74 @@
 @import '../../variables.scss';
 
+.error-message {
+    color: $c-error;
+    margin: 0 auto;
+    background-color: $c-error;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+              
+    i { 
+        animation: bounce 0.5s; 
+        animation-direction: alternate; 
+        animation-timing-function: cubic-bezier(.5, 0.05, 1, .5); 
+        animation-iteration-count: infinite; 
+    } 
+          
+    // https://www.geeksforgeeks.org/how-to-make-smooth-bounce-animation-using-css/
+    @keyframes bounce { 
+        from { 
+            transform: translate3d(0, 0, 0); 
+        } 
+        to { 
+            transform: translate3d(0, 8px, 0); 
+        } 
+    } 
+}
+
+
 #footer-container {
-    background-color: $c-two;
+    background-color: $c-one;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: center;
     padding: 0.5rem;
+    font-size: 1rem;
+    height: $header-height;
+
+
+    a:visited {
+        color: $light-gray;
+    }
+    
+    // https://www.w3schools.com/css/css_tooltip.asp
+    a.tooltip {
+          color: $light-gray;
+          position: relative;
+          display: inline-block;
+        }
+            
+     .tooltip .tooltip-text {
+        visibility: hidden;
+        width: fit-content;
+        background-color: $c-five;
+        color: $light-gray;
+        text-align: center;
+        border-radius: 5px;
+        padding: 0.25rem;
+            
+        /* Position the tooltip */
+        position: absolute;
+        top: -5px;
+        right: 105%;
+        z-index: 1;
+    }
+            
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+    }
 }
