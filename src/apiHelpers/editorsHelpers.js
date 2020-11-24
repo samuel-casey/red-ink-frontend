@@ -13,7 +13,6 @@ export const getAllEditors = async (url) => {
 export const getSingleEditor = async (url, editorId) => {
 	try {
 		const res = await axios.get(url + '/editors/' + editorId);
-		console.log('SHOW', res.data.data);
 		const editor = res.data.data;
 		return editor;
 	} catch (error) {

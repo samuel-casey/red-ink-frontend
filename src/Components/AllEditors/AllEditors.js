@@ -23,7 +23,7 @@ const AllEditors = ({ history }) => {
 	const loading = (
 		<div>
 			<h5 className='subtitle is-5'>Loading editors...</h5>
-			<button className='button is-loading is-warning loading-spinner' disabled>
+			<button className='button is-loading loading-spinner' disabled>
 				{' '}
 			</button>
 		</div>

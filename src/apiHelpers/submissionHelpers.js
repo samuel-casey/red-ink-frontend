@@ -48,10 +48,37 @@ export const toggleSubmissionDocumentCompleted = async (submissionId, url) => {
 
 export const getAllSubmissionsForWriter = async (writerId, url) => {
 	try {
-		const res = await axios.get(url + '/submissions/writers' + writerId);
-		const submissions = res.data.data;
-		console.log(submissions);
+		const res = await axios.get(url + '/submissions/writers/' + writerId);
+		const submissions = await res.data.data;
+		return submissions;
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+export const formatSubmissionDate = (date) => {
+	const dateObj = new Date(date);
+
+	const day = dateObj.getDate();
+	const monthNo = dateObj.getMonth() + 1;
+	const year = dateObj.getFullYear();
+
+	const months = {
+		1: 'Jan',
+		2: 'Feb',
+		3: 'Mar',
+		4: 'Apr',
+		5: 'May',
+		6: 'Jun',
+		7: 'Jul',
+		8: 'Aug',
+		9: 'Sept',
+		10: 'Oct',
+		11: 'Nov',
+		12: 'Dec',
+	};
+
+	const newFormat = `${day} ${months[monthNo]}, ${year}`;
+
+	return newFormat;
 };

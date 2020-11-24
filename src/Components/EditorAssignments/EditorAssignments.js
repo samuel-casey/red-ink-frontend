@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
 	getAllAssignmentsForEditor,
 	toggleSubmissionDocumentCompleted,
+	formatSubmissionDate,
 } from '../../apiHelpers/submissionHelpers';
 import { GlobalCtx } from '../../App';
 import SubmissionEditedButton from '../SubmissionEditedButton/SubmissionEditedButton';
@@ -29,7 +30,7 @@ const EditorAssignments = () => {
 					</div>
 					<div className='assignment-text-container'>
 						<h6 className='title is-6'>Submitted:</h6>
-						<p>{formatDate(assignment.created_at)}</p>
+						<p>{formatSubmissionDate(assignment.created_at)}</p>
 					</div>
 					<div className='assignment-text-container'>
 						<h6 className='title is-6'>Status:</h6>{' '}
@@ -81,30 +82,3 @@ const EditorAssignments = () => {
 };
 
 export default EditorAssignments;
-
-function formatDate(date) {
-	const dateObj = new Date(date);
-
-	const day = dateObj.getDate();
-	const monthNo = dateObj.getMonth() + 1;
-	const year = dateObj.getFullYear();
-
-	const months = {
-		1: 'Jan',
-		2: 'Feb',
-		3: 'Mar',
-		4: 'Apr',
-		5: 'May',
-		6: 'Jun',
-		7: 'Jul',
-		8: 'Aug',
-		9: 'Sept',
-		10: 'Oct',
-		11: 'Nov',
-		12: 'Dec',
-	};
-
-	const newFormat = `${day} ${months[monthNo]}, ${year}`;
-
-	return newFormat;
-}
