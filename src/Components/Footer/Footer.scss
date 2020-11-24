@@ -1,0 +1,10 @@
+@import '../../variables.scss';
+
+#footer-container {
+    background-color: $c-two;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0.5rem;
+}

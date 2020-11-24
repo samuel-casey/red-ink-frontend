@@ -1,0 +1,73 @@
+@import '../../variables.scss';
+
+.assignments-section {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $c-one;
+    border-radius: 5px;
+    
+    .assignments-heading {
+        grid-column: 1 / end;
+        padding: 0.5rem 0;
+        align-self: center;
+        background-color: $c-three;
+        color: $c-one;
+        width: 100%;
+        border-radius: 5px 5px 0px 0px;
+        border-bottom: 1px solid $c-one;
+    }
+    
+    .assignments-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        
+        .editor-assignment {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin: 0.5rem;
+            padding: 1rem 1rem;
+            box-shadow: 2px 2px 2px 2px $c-three;
+            border: 1px solid $c-three;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+
+            .link-button, .toggle-complete-button {
+                align-self: center;
+                margin: 0.25rem 0;
+
+            }
+
+            .assignment-text-container {
+                margin: 0.25rem 0;
+
+                .title {
+                    color: $c-one;
+                }
+            }
+        }
+        
+        i {
+            margin-left: 0.25rem;
+
+        }
+
+        i.fas.fa-check-square {
+                color: $c-complete;
+        }
+        
+
+        
+        .title {
+            margin: 0 !important;
+            text-align: left;
+        }
+    }
+
+}
