@@ -33,7 +33,9 @@ const SendPasswordResetEmail = ({
 
 	return (
 		<div className='password-reset'>
-			<h4>Reset Password</h4>
+			<h6 className='title is-6'>
+				Confirm Email below to Send Password Reset Email
+			</h6>
 			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
