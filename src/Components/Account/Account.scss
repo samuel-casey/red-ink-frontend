@@ -6,4 +6,12 @@
 
 .welcome-msg {
     color: $c-one;
+    margin-bottom: 0.5rem !important;
+}
+
+.user-type {
+    font-family: 'Lobster', cursive;
+    color: $c-one;
+    text-transform: capitalize;
+    font-weight: bold !important;
 }

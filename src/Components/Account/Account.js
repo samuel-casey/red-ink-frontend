@@ -1,30 +1,79 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './Account.scss';
 import { GlobalCtx } from '../../App';
 import SendPasswordResetEmail from '../Forms/SendPasswordResetEmail/SendPasswordResetEmail';
 import EditorAssignments from '../EditorAssignments/EditorAssignments';
+import EditorAccountFields from '../Forms/EditorAccountFields/EditorAccountFields';
 
-const Account = ({
-	handleSendPasswordResetEmail,
-	successMessage,
-	location,
-}) => {
+const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState } = useContext(GlobalCtx);
 	const { userType, userEmail } = gState;
 
+	const [updating, setUpdating] = useState(false);
+	const [forgetPasswordToggle, setForgetPasswordToggle] = useState(false);
+	const [formData, setFormData] = useState({});
+
+	const handleChange = (e) => {
+		const key = e.target.name;
+		const value = e.target.value;
+		setFormData({ ...formData, [key]: value });
+	};
+
+	const handleEditorUpdateSubmit = () => {};
+
+	const toggleForgetPassword = () => {
+		setForgetPasswordToggle(!forgetPasswordToggle);
+	};
+
+	const editorProfilePage = (
+		<>
+			<EditorAssignments />
+			<EditorAccountFields
+				handleChange={handleChange}
+				formData={formData}
+				setFormData={setFormData}
+			/>
+		</>
+	);
+
 	const loggedIn = (
 		<>
+			<br></br>
 			<h2 className='title is-2'>My Account</h2>
-			<h3 className='welcome-msg subtitle is-3'>Welcome {userEmail}</h3>
-			<h4 className='subtitle is-4'>Account type: {userType}</h4>
+			<h4 className='welcome-msg subtitle is-4'>Welcome {userEmail}!</h4>
+			<h5 className='subtitle is-5'>
+				Account type: <span className='user-type'>{userType}</span>
+			</h5>
 			{successMessage}
-			<SendPasswordResetEmail
-				handleSendPasswordResetEmail={handleSendPasswordResetEmail}
-			/>
-			{userType === 'editor' ? (
-				<EditorAssignments />
+			{forgetPasswordToggle ? (
+				<SendPasswordResetEmail
+					handleSendPasswordResetEmail={handleSendPasswordResetEmail}
+					toggleForgetPassword={toggleForgetPassword}
+				/>
 			) : (
-				<p>Writer Submissions</p>
+				<button
+					className='button is-small is-ghost'
+					onClick={() => toggleForgetPassword()}>
+					Reset Password
+				</button>
+			)}
+			{userType === 'editor' ? (
+				updating ? (
+					<form className='auth-form' onSubmit={handleEditorUpdateSubmit}>
+						<h4 className='title is-4'>Update Profile Info</h4>
+						<EditorAccountFields
+							handleChange={handleChange}
+							formData={formData}
+							setFormData={setFormData}
+						/>
+					</form>
+				) : (
+					<EditorAssignments />
+				)
+			) : updating ? (
+				<form></form>
+			) : (
+				<div>Writing Submissions</div>
 			)}
 		</>
 	);

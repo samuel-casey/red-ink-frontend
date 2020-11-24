@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './SendPasswordResetEmail.scss';
 
-const SendPasswordResetEmail = ({ handleSendPasswordResetEmail }) => {
+const SendPasswordResetEmail = ({
+	handleSendPasswordResetEmail,
+	toggleForgetPassword,
+}) => {
 	const emptyForm = {
 		email: '',
 	};
@@ -40,11 +43,18 @@ const SendPasswordResetEmail = ({ handleSendPasswordResetEmail }) => {
 					placeholder='Email'
 					onChange={handleChange}
 				/>
-				<input
-					type='submit'
-					className='button is-success'
-					value='Reset Password'
-				/>
+				<div className='reset-buttons'>
+					<input
+						type='submit'
+						className='button is-primary is-light'
+						value='Reset Password'
+					/>
+					<button
+						className='button is-ghost'
+						onClick={() => toggleForgetPassword()}>
+						<i className='far fa-window-close'></i>
+					</button>
+				</div>
 			</form>
 		</div>
 	);
