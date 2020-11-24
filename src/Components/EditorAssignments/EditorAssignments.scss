@@ -5,6 +5,7 @@
     flex-direction: column;
     border: 1px solid $c-one;
     border-radius: 5px;
+    margin: 1rem;
     
     .assignments-heading {
         grid-column: 1 / end;
@@ -22,8 +23,8 @@
         justify-content: space-around;
         flex-wrap: wrap;
         width: 100%;
-        max-width: 1440px;
         margin: 0 auto;
+        max-width: 1440px;
         
         .editor-assignment {
             display: flex;

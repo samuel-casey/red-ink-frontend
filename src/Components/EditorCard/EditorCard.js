@@ -45,13 +45,13 @@ const EditorCard = ({
 
 	return (
 		<div className='card editor-card'>
-			<div className='card-image'>
+			<div className='card-img'>
 				<div className='editor-bg-block'></div>
 				<figure className='image is-96x96'>
 					<img
 						className='is-rounded'
 						src={profile_img_url}
-						alt='Editor Profile Picture'
+						alt='Editor Profile img'
 					/>
 				</figure>
 			</div>

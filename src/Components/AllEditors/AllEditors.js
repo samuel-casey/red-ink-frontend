@@ -3,11 +3,10 @@ import { GlobalCtx } from '../../App';
 import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import './AllEditors.scss';
 import EditorCard from '../EditorCard/EditorCard';
-import { Link } from 'react-router-dom';
 
 const AllEditors = ({ history }) => {
 	const { gState } = useContext(GlobalCtx);
-	const { url, uid, editorUid } = gState;
+	const { url, uid } = gState;
 	const [editorsList, setEditorsList] = useState([]);
 
 	const currentUserUid = uid;
