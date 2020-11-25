@@ -1,0 +1,36 @@
+@import '../../variables.scss';
+
+.FAQ-page {
+    margin: 1rem auto;
+    
+    .question-container {
+    
+        
+        .question {
+            background-color: $light-gray;
+            display: flex;
+            padding: 0.5rem;
+            align-items: center;
+            margin: 1rem 0;
+            
+            .question-number {
+                    color: $c-one;
+                    font-family: 'Lobster Two', cursive; 
+                    font-weight: bold;
+                    margin: 0.5rem 1rem;  
+                }
+
+            .question-text {
+            background-color: $light-gray;
+            margin: 0.5rem none;
+            }
+        
+        }
+        
+        .answer {
+            text-align: left;
+            margin: 0 0.5rem;
+            text-indent: 50px;
+        }
+    }
+}

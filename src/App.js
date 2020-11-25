@@ -24,6 +24,7 @@ import AllEditors from './Components/AllEditors/AllEditors';
 import SubmissionChecklist from './Components/SubmissionChecklist/SubmissionChecklist';
 import Footer from './Components/Footer/Footer';
 import SubmissionForm from './Components/Forms/SubmissionForm/SubmissionForm';
+import FAQ from './Components/FAQ/FAQ';
 
 export const GlobalCtx = createContext(null);
 
@@ -288,6 +289,8 @@ const App = ({ firebase }) => {
 						/>
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
+
+						<Route path='/faq' render={(rp) => <FAQ {...rp} />} />
 
 						<Route
 							path='/resetpassword'
