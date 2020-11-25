@@ -9,6 +9,7 @@ import { GlobalCtx } from '../../App';
 import { getSingleEditor } from '../../apiHelpers/editorsHelpers';
 import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
 import RemindEditor from '../RemindEditor/RemindEditor';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const WriterSubmissions = () => {
 	const { gState } = useContext(GlobalCtx);
@@ -87,12 +88,7 @@ const WriterSubmissions = () => {
 				</div>
 			))
 		) : (
-			<div className='loading-container'>
-				<h5 className='subtitle is-5'>Loading submissions...</h5>
-				<button className='button is-loading loading-spinner' disabled>
-					{' '}
-				</button>
-			</div>
+			<LoadingSpinner msg='Loading Submissions...' />
 		);
 
 	useEffect(() => {
