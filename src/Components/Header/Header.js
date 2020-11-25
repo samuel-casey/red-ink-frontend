@@ -26,7 +26,6 @@ const Header = ({ handleLogOut, history }) => {
 			<div className='navbar-brand'>
 				<Link className='navbar-item' to='/'>
 					<img
-						width='115'
 						src='https://res.cloudinary.com/scimgcloud/image/upload/v1605818361/red-ink/logo2_transparent.png'
 						alt='red-ink-logo'
 					/>
@@ -98,7 +97,6 @@ const Header = ({ handleLogOut, history }) => {
 			<div className='navbar-brand'>
 				<Link className='navbar-item' to='/'>
 					<img
-						width='115'
 						src='https://res.cloudinary.com/scimgcloud/image/upload/v1605818361/red-ink/logo2_transparent.png'
 						alt='red-ink-logo'
 					/>

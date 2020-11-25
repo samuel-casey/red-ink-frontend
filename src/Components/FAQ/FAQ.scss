@@ -1,0 +1,40 @@
+@import '../../variables.scss';
+
+.FAQ-page {
+    margin: 1rem auto;
+    
+    .question-container {
+    
+        
+        .question {
+            display: flex;
+            padding: 0.5rem;
+            align-items: center;
+            margin: 1rem 0;
+            border-bottom: 2px solid $c-two;
+            
+            
+            .question-number, .question-text {
+                margin: 0.5rem 0.5rem 0 0;
+            }
+
+            .question-number {
+                color: $c-one;
+                font-family: 'Lobster Two', cursive; 
+                font-weight: bold;
+            }
+            
+            .question-text {
+                font-weight: bold;
+            }
+
+        }
+        
+        .answer {
+            text-align: justify;
+            margin: 0 0.5rem;
+            text-indent: 1rem;
+        }
+
+    }
+}
