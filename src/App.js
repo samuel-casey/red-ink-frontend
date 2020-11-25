@@ -38,6 +38,7 @@ const App = ({ firebase }) => {
 		userType: JSON.parse(window.localStorage.getItem('userType')),
 		errorDropdown: null,
 		numEditors: null,
+		numWriters: null,
 		editorUid: null,
 		editorEmail: null,
 	};

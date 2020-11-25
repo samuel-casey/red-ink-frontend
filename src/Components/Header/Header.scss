@@ -1,10 +1,11 @@
 @import '../../variables.scss';
 
 nav {
-    box-shadow: 0px 0px 5px 1px $c-one;
-    margin-bottom: 5px;
+    -webkit-box-shadow: inset 0px -5px 3px -3px #951D1F; 
+    box-shadow: inset 0px -5px 3px -3px #951D1F;
+    padding: 0.75rem;
+    height: $header-height;
 
-   height: $header-height;
 
     .navbar-burger {
         top: 0;
@@ -26,5 +27,8 @@ nav {
         color: $c-one !important;
     }
     
-    padding: 0.75rem;
+
+    img {
+        width: 100px;
+    }
 }

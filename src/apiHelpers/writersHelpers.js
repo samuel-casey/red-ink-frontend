@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+export const getAllWriters = async (url) => {
+	try {
+		const res = await axios.get(url + '/writers');
+		const writers = res.data.data;
+		console.log('writahs', writers);
+		return writers;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const getSingleWriter = async (url, writerId) => {
 	try {
 		const res = await axios.get(url + '/writers/' + writerId);
