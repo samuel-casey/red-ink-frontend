@@ -6,10 +6,14 @@ import {
 } from '../../apiHelpers/submissionHelpers';
 import './WriterSubmissions.scss';
 import { GlobalCtx } from '../../App';
-import { getSingleEditor } from '../../apiHelpers/editorsHelpers';
+import {
+	getSingleEditor,
+	sendEditorReminderEmail,
+} from '../../apiHelpers/editorsHelpers';
 import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
 import RemindEditor from '../RemindEditor/RemindEditor';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import SubmissionForm from '../Forms/SubmissionForm/SubmissionForm';
 
 const WriterSubmissions = () => {
 	const { gState } = useContext(GlobalCtx);
@@ -20,11 +24,12 @@ const WriterSubmissions = () => {
 
 	const handleRemindEditorClick = async (
 		submissionId,
+		editorId,
 		editorRemindedStatus,
-		link,
 		title,
-		createdAt,
-		editorName
+		link,
+		editorName,
+		createdAt
 	) => {
 		const reminderStatusSetToTrue = await updateReminderStatusForSubmission(
 			url,
@@ -32,8 +37,16 @@ const WriterSubmissions = () => {
 			editorRemindedStatus
 		);
 		if (reminderStatusSetToTrue) {
-			console.log('reminder status updated to true');
 			setReminderCount(reminderCount + 1);
+			const sent = await sendEditorReminderEmail(
+				url,
+				editorId,
+				title,
+				link,
+				editorName,
+				createdAt
+			);
+			console.log(sent);
 		} else {
 			console.log('editor already reminded about this buckaroo');
 		}
@@ -68,11 +81,14 @@ const WriterSubmissions = () => {
 												submissionStatus={submission.edits_status}
 											/>
 											<RemindEditor
-												editorRemindedStatus={submission.editor_reminded}
 												handleClick={handleRemindEditorClick}
 												writerEmail={userEmail}
+												editorRemindedStatus={submission.editor_reminded}
 												submissionId={submission.submission_id}
+												editorId={submission.editor_id}
 												title={submission.title}
+												link={submission.url}
+												editorName={submission.editorName}
 												createdAt={formatSubmissionDate(submission.created_at)}
 											/>
 										</div>

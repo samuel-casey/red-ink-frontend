@@ -79,7 +79,6 @@ export const getAllSubmissionsForWriter = async (writerId, url) => {
 	try {
 		const res = await axios.get(url + '/submissions/writers/' + writerId);
 		const submissions = await res.data.data;
-		console.log(submissions, 'subs');
 		return submissions;
 	} catch (error) {
 		console.log(error);
@@ -101,7 +100,6 @@ export const updateReminderStatusForSubmission = async (
 				url + '/submissions/reminders/' + submissionId,
 				{ editor_reminded: true }
 			);
-			console.log(updatedReminderStatus.data);
 			return true;
 		}
 	} catch (error) {

@@ -2,13 +2,14 @@ import React from 'react';
 import './RemindEditor.scss';
 
 const RemindEditor = ({
+	handleClick,
 	editorRemindedStatus,
 	submissionId,
+	editorId,
 	link,
 	title,
 	createdAt,
 	editorName,
-	handleClick,
 }) => {
 	return editorRemindedStatus ? (
 		<button className='button is-primary is-small is-light' disabled>
@@ -20,11 +21,12 @@ const RemindEditor = ({
 			onClick={() =>
 				handleClick(
 					submissionId,
+					editorId,
 					editorRemindedStatus,
 					title,
-					createdAt,
 					link,
-					editorName
+					editorName,
+					createdAt
 				)
 			}>
 			<i className='fas fa-bell'></i>
