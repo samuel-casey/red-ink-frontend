@@ -56,6 +56,10 @@ const EditorAssignments = () => {
 								: `Edits ${assignment.edits_status}`}
 						</p>
 					</div>
+					<div className='assignment-text-container'>
+						<h6 className='title is-6'>Notes from writer:</h6>{' '}
+						<p>{assignment.notes}</p>
+					</div>
 					<div className='link-button'>
 						<a
 							className='button is-primary is-small'
