@@ -3,6 +3,9 @@ import React from 'react';
 const NotifyWriterButton = ({
 	handleClick,
 	submissionObject,
+	title,
+	link,
+	writerId,
 	submissionId,
 }) => {
 	const buttonClass = submissionObject.writer_notified
@@ -12,7 +15,7 @@ const NotifyWriterButton = ({
 	return (
 		<button
 			className={`button is-small ${buttonClass}`}
-			onClick={() => handleClick(submissionId)}>
+			onClick={() => handleClick(submissionId, writerId, title, link)}>
 			{submissionObject.writer_notified ? (
 				<>
 					<span>Writer Notified</span>

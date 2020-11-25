@@ -3,12 +3,13 @@ import {
 	getAllAssignmentsForEditor,
 	toggleSubmissionDocumentCompleted,
 	formatSubmissionDate,
-	notifyWriter,
+	toggleWriterNotifiedInDB,
 } from '../../apiHelpers/submissionHelpers';
 import { GlobalCtx } from '../../App';
 import SubmissionEditStatusButton from '../SubmissionEditedButton/SubmissionEditedButton';
 import NotifyWriterButton from '../NotifyWriterButton/NotifyWriterButton';
 import './EditorAssignments.scss';
+import { sendWriterEmailNotification } from '../../apiHelpers/writersHelpers';
 
 const EditorAssignments = () => {
 	const { gState } = useContext(GlobalCtx);
@@ -27,8 +28,10 @@ const EditorAssignments = () => {
 		setClicks(clicks + 1);
 	};
 
-	const handleNotifyClick = async (documentId) => {
-		await notifyWriter(documentId, url);
+	const handleNotifyClick = async (submissionId, writerId, title, link) => {
+		console.log(writerId, title, link);
+		await toggleWriterNotifiedInDB(submissionId, url);
+		await sendWriterEmailNotification(writerId, title, link, url);
 		setClicks(clicks + 1);
 	};
 
@@ -74,6 +77,9 @@ const EditorAssignments = () => {
 						<NotifyWriterButton
 							handleClick={handleNotifyClick}
 							submissionId={assignment.submission_id}
+							writerId={assignment.writer_id}
+							title={assignment.title}
+							link={assignment.url}
 							submissionObject={assignment}
 							url={url}
 						/>

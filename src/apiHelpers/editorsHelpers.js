@@ -41,3 +41,4 @@ export const updateEditorData = async (url, editorId, newEditorData) => {
 		console.log(error);
 	}
 };
+

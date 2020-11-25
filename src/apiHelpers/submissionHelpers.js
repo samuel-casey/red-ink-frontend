@@ -62,7 +62,7 @@ export const toggleSubmissionDocumentCompleted = async (
 	}
 };
 
-export const notifyWriter = async (submissionId, url) => {
+export const toggleWriterNotifiedInDB = async (submissionId, url) => {
 	try {
 		const res = await axios.put(`${url}/submissions/${submissionId}`, {
 			writer_notified: true,
@@ -80,6 +80,20 @@ export const getAllSubmissionsForWriter = async (writerId, url) => {
 		const res = await axios.get(url + '/submissions/writers/' + writerId);
 		const submissions = await res.data.data;
 		return submissions;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const sendRemindEditorEmailForSubmission = async (
+	url,
+	submissionId,
+	title,
+	writerId,
+	createdAt
+) => {
+	try {
+		console.log('a', url, submissionId, title, writerId, createdAt);
 	} catch (error) {
 		console.log(error);
 	}

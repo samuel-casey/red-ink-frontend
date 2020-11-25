@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import {
 	getAllSubmissionsForWriter,
 	formatSubmissionDate,
+	sendRemindEditorEmailForSubmission,
 } from '../../apiHelpers/submissionHelpers';
 import './WriterSubmissions.scss';
 import { GlobalCtx } from '../../App';
@@ -15,9 +16,19 @@ const WriterSubmissions = () => {
 
 	const [submissions, setSubmissions] = useState([]);
 
-	const handleRemindEditorClick = async (docId, writerEmail) => {
-		console.log(docId, writerEmail);
-		// await remindEditor(docId, userEmail);
+	const handleRemindEditorClick = async (
+		submissionId,
+		writerEmail,
+		title,
+		createdAt
+	) => {
+		await sendRemindEditorEmailForSubmission(
+			url,
+			submissionId,
+			userEmail,
+			title,
+			createdAt
+		);
 	};
 
 	const listOfSubmissions =
@@ -51,6 +62,9 @@ const WriterSubmissions = () => {
 												reminded={submission.editor_reminded}
 												handleClick={handleRemindEditorClick}
 												writerEmail={userEmail}
+												docId={submission.submission_id}
+												title={submission.title}
+												createdAt={formatSubmissionDate(submission.created_at)}
 											/>
 										</>
 									) : (
