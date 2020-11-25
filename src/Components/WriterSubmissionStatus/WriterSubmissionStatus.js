@@ -13,7 +13,7 @@ const WriterSubmissionStatus = ({ submissionStatus }) => {
 	} else if (submissionStatus === 'ongoing') {
 		submissionStatusElement = (
 			<span>
-				Edits in progress <i className='fas fa-spinner'></i>
+				In progress <i className='fas fa-spinner'></i>
 			</span>
 		);
 	} else {

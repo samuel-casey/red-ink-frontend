@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import {
 	getAllSubmissionsForWriter,
 	formatSubmissionDate,
-	sendRemindEditorEmailForSubmission,
+	updateReminderStatusForSubmission,
 } from '../../apiHelpers/submissionHelpers';
 import './WriterSubmissions.scss';
 import { GlobalCtx } from '../../App';
@@ -16,20 +16,27 @@ const WriterSubmissions = () => {
 	const { uid, url, userEmail } = gState;
 
 	const [submissions, setSubmissions] = useState([]);
+	const [reminderCount, setReminderCount] = useState(0);
 
 	const handleRemindEditorClick = async (
 		submissionId,
-		writerEmail,
+		editorRemindedStatus,
+		link,
 		title,
-		createdAt
+		createdAt,
+		editorName
 	) => {
-		await sendRemindEditorEmailForSubmission(
+		const reminderStatusSetToTrue = await updateReminderStatusForSubmission(
 			url,
 			submissionId,
-			userEmail,
-			title,
-			createdAt
+			editorRemindedStatus
 		);
+		if (reminderStatusSetToTrue) {
+			console.log('reminder status updated to true');
+			setReminderCount(reminderCount + 1);
+		} else {
+			console.log('editor already reminded about this buckaroo');
+		}
 	};
 
 	const listOfSubmissions =
@@ -54,24 +61,32 @@ const WriterSubmissions = () => {
 						<div className='toggle-complete-button'>
 							{
 								<div className='remind-container'>
-									{submission.edits_status !== 'complete' ? (
-										<>
+									{submission.edits_status !== 'complete' &&
+									submission.editor_reminded === false ? (
+										<div className='submission-status-container'>
 											<WriterSubmissionStatus
 												submissionStatus={submission.edits_status}
 											/>
 											<RemindEditor
-												reminded={submission.editor_reminded}
+												editorRemindedStatus={submission.editor_reminded}
 												handleClick={handleRemindEditorClick}
 												writerEmail={userEmail}
-												docId={submission.submission_id}
+												submissionId={submission.submission_id}
 												title={submission.title}
 												createdAt={formatSubmissionDate(submission.created_at)}
 											/>
-										</>
+										</div>
 									) : (
-										<WriterSubmissionStatus
-											submissionStatus={submission.edits_status}
-										/>
+										<>
+											<WriterSubmissionStatus
+												submissionStatus={submission.edits_status}
+											/>
+											<span className='reminder-sent-msg'>
+												{submission.editor_reminded === true
+													? 'editor reminded'
+													: null}
+											</span>
+										</>
 									)}
 								</div>
 							}
@@ -106,7 +121,7 @@ const WriterSubmissions = () => {
 			setSubmissions(allSubmissions);
 		};
 		getSubmissions();
-	}, []);
+	}, [reminderCount]);
 
 	return (
 		<section className='submissions-section'>

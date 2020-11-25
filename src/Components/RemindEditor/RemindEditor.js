@@ -2,22 +2,33 @@ import React from 'react';
 import './RemindEditor.scss';
 
 const RemindEditor = ({
-	reminded,
-	handleClick,
-	writerEmail,
-	docId,
+	editorRemindedStatus,
+	submissionId,
+	link,
 	title,
 	createdAt,
+	editorName,
+	handleClick,
 }) => {
-	return reminded ? (
+	return editorRemindedStatus ? (
 		<button className='button is-primary is-small is-light' disabled>
 			Editor reminded
 		</button>
 	) : (
 		<button
-			className='button is-small is-light'
-			onClick={() => handleClick(docId, writerEmail, title, createdAt)}>
-			Remind Editor
+			className='button is-small is-ghost tooltip'
+			onClick={() =>
+				handleClick(
+					submissionId,
+					editorRemindedStatus,
+					title,
+					createdAt,
+					link,
+					editorName
+				)
+			}>
+			<i className='fas fa-bell'></i>
+			<span className='tooltip-text'>Remind Editor</span>
 		</button>
 	);
 };

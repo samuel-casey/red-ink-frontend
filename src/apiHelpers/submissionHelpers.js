@@ -79,21 +79,31 @@ export const getAllSubmissionsForWriter = async (writerId, url) => {
 	try {
 		const res = await axios.get(url + '/submissions/writers/' + writerId);
 		const submissions = await res.data.data;
+		console.log(submissions, 'subs');
 		return submissions;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const sendRemindEditorEmailForSubmission = async (
+export const updateReminderStatusForSubmission = async (
 	url,
 	submissionId,
-	title,
-	writerId,
-	createdAt
+	editorRemindedStatus
 ) => {
 	try {
-		console.log('a', url, submissionId, title, writerId, createdAt);
+		console.log(editorRemindedStatus);
+		console.log(submissionId);
+		if (editorRemindedStatus === true) {
+			return false;
+		} else {
+			const updatedReminderStatus = await axios.put(
+				url + '/submissions/reminders/' + submissionId,
+				{ editor_reminded: true }
+			);
+			console.log(updatedReminderStatus.data);
+			return true;
+		}
 	} catch (error) {
 		console.log(error);
 	}
