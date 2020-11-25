@@ -6,13 +6,19 @@ import {
 import './WriterSubmissions.scss';
 import { GlobalCtx } from '../../App';
 import { getSingleEditor } from '../../apiHelpers/editorsHelpers';
+import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
+import RemindEditor from '../RemindEditor/RemindEditor';
 
 const WriterSubmissions = () => {
 	const { gState } = useContext(GlobalCtx);
-	const { uid, url } = gState;
+	const { uid, url, userEmail } = gState;
 
 	const [submissions, setSubmissions] = useState([]);
-	// const [clicks, setClicks] = useState(0);
+
+	const handleRemindEditorClick = async (docId, writerEmail) => {
+		console.log(docId, writerEmail);
+		// await remindEditor(docId, userEmail);
+	};
 
 	const listOfSubmissions =
 		submissions.length > 0 ? (
@@ -34,15 +40,26 @@ const WriterSubmissions = () => {
 					</div>
 					<div className='submission-end'>
 						<div className='toggle-complete-button'>
-							{submission.edits_complete ? (
-								<span>
-									Edits complete<i className='fas fa-check'></i>
-								</span>
-							) : (
-								<span>
-									Awaiting edits <i className='fas fa-spinner'></i>
-								</span>
-							)}
+							{
+								<div className='remind-container'>
+									{submission.edits_status !== 'complete' ? (
+										<>
+											<WriterSubmissionStatus
+												submissionStatus={submission.edits_status}
+											/>
+											<RemindEditor
+												reminded={submission.editor_reminded}
+												handleClick={handleRemindEditorClick}
+												writerEmail={userEmail}
+											/>
+										</>
+									) : (
+										<WriterSubmissionStatus
+											submissionStatus={submission.edits_status}
+										/>
+									)}
+								</div>
+							}
 						</div>
 						<div className='link-button'>
 							<a
@@ -67,8 +84,8 @@ const WriterSubmissions = () => {
 	useEffect(() => {
 		const getSubmissions = async () => {
 			const allSubmissions = await getAllSubmissionsForWriter(uid, url);
-			// get editor names to add to writerSubmission and add them to allSubmissions objects
 
+			// get editor names to add to writerSubmission and add them to allSubmissions objects
 			for (let submission of allSubmissions) {
 				let editorArr = await getSingleEditor(url, submission.editor_id);
 				submission.editorName = `${editorArr[0].first_name} ${editorArr[0].last_name}`;
