@@ -5,6 +5,7 @@
     flex-direction: column;
     border: 1px solid $c-one;
     border-radius: 5px;
+    margin: 1rem auto;
     
     .submissions-heading {
         padding: 0.5rem 0;
@@ -21,7 +22,7 @@
         flex-direction: column;
         width: 95%;
         max-width: 1440px;
-        margin: 0 auto;
+        margin: 1rem auto;
         
         .writer-submission {
             display: flex;
@@ -47,7 +48,7 @@
                 grid-template-columns: repeat(2, 1fr);
                 grid-gap: 5px;
                 align-items: center;
-                width: 38%;
+                width: 40%;
 
                 .fa-check {
                     color: $c-complete;
@@ -59,7 +60,8 @@
             }
 
             .submission-text-container {
-
+                margin-bottom: 0.2rem;
+                
                 .title {
                     color: $c-one;
                     margin: 0 !important;
@@ -94,6 +96,28 @@
         button {
             width: fit-content;
             align-self: center;
+        }
+
+    }
+
+    .reminder-sent-msg {
+        font-style: italic;
+        color: $c-one;
+        font-size: 0.85rem;
+    }
+
+
+
+    .submission-status-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 0.2rem auto;
+        width: fit-content;
+        justify-self: center;
+
+        .button {
+            margin-left: 0.2rem;
         }
     }
 }

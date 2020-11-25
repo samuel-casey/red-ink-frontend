@@ -85,15 +85,23 @@ export const getAllSubmissionsForWriter = async (writerId, url) => {
 	}
 };
 
-export const sendRemindEditorEmailForSubmission = async (
+export const updateReminderStatusForSubmission = async (
 	url,
 	submissionId,
-	title,
-	writerId,
-	createdAt
+	editorRemindedStatus
 ) => {
 	try {
-		console.log('a', url, submissionId, title, writerId, createdAt);
+		console.log(editorRemindedStatus);
+		console.log(submissionId);
+		if (editorRemindedStatus === true) {
+			return false;
+		} else {
+			const updatedReminderStatus = await axios.put(
+				url + '/submissions/reminders/' + submissionId,
+				{ editor_reminded: true }
+			);
+			return true;
+		}
 	} catch (error) {
 		console.log(error);
 	}

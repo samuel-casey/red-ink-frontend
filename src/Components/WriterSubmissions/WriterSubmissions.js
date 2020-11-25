@@ -2,34 +2,54 @@ import React, { useEffect, useState, useContext } from 'react';
 import {
 	getAllSubmissionsForWriter,
 	formatSubmissionDate,
-	sendRemindEditorEmailForSubmission,
+	updateReminderStatusForSubmission,
 } from '../../apiHelpers/submissionHelpers';
 import './WriterSubmissions.scss';
 import { GlobalCtx } from '../../App';
-import { getSingleEditor } from '../../apiHelpers/editorsHelpers';
+import {
+	getSingleEditor,
+	sendEditorReminderEmail,
+} from '../../apiHelpers/editorsHelpers';
 import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
 import RemindEditor from '../RemindEditor/RemindEditor';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import SubmissionForm from '../Forms/SubmissionForm/SubmissionForm';
 
 const WriterSubmissions = () => {
 	const { gState } = useContext(GlobalCtx);
 	const { uid, url, userEmail } = gState;
 
 	const [submissions, setSubmissions] = useState([]);
+	const [reminderCount, setReminderCount] = useState(0);
 
 	const handleRemindEditorClick = async (
 		submissionId,
-		writerEmail,
+		editorId,
+		editorRemindedStatus,
 		title,
+		link,
+		editorName,
 		createdAt
 	) => {
-		await sendRemindEditorEmailForSubmission(
+		const reminderStatusSetToTrue = await updateReminderStatusForSubmission(
 			url,
 			submissionId,
-			userEmail,
-			title,
-			createdAt
+			editorRemindedStatus
 		);
+		if (reminderStatusSetToTrue) {
+			setReminderCount(reminderCount + 1);
+			const sent = await sendEditorReminderEmail(
+				url,
+				editorId,
+				title,
+				link,
+				editorName,
+				createdAt
+			);
+			console.log(sent);
+		} else {
+			console.log('editor already reminded about this buckaroo');
+		}
 	};
 
 	const listOfSubmissions =
@@ -54,24 +74,35 @@ const WriterSubmissions = () => {
 						<div className='toggle-complete-button'>
 							{
 								<div className='remind-container'>
-									{submission.edits_status !== 'complete' ? (
-										<>
+									{submission.edits_status !== 'complete' &&
+									submission.editor_reminded === false ? (
+										<div className='submission-status-container'>
 											<WriterSubmissionStatus
 												submissionStatus={submission.edits_status}
 											/>
 											<RemindEditor
-												reminded={submission.editor_reminded}
 												handleClick={handleRemindEditorClick}
 												writerEmail={userEmail}
-												docId={submission.submission_id}
+												editorRemindedStatus={submission.editor_reminded}
+												submissionId={submission.submission_id}
+												editorId={submission.editor_id}
 												title={submission.title}
+												link={submission.url}
+												editorName={submission.editorName}
 												createdAt={formatSubmissionDate(submission.created_at)}
 											/>
-										</>
+										</div>
 									) : (
-										<WriterSubmissionStatus
-											submissionStatus={submission.edits_status}
-										/>
+										<>
+											<WriterSubmissionStatus
+												submissionStatus={submission.edits_status}
+											/>
+											<span className='reminder-sent-msg'>
+												{submission.editor_reminded === true
+													? 'editor reminded'
+													: null}
+											</span>
+										</>
 									)}
 								</div>
 							}
@@ -106,7 +137,7 @@ const WriterSubmissions = () => {
 			setSubmissions(allSubmissions);
 		};
 		getSubmissions();
-	}, []);
+	}, [reminderCount]);
 
 	return (
 		<section className='submissions-section'>

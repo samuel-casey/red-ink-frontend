@@ -1,0 +1,34 @@
+@import '../../variables.scss';
+
+.button {
+    padding: 0.1rem !important;
+    .fa-bell {
+        color: $c-waiting;
+
+}
+}
+
+.tooltip {
+          color: $light-gray;
+          position: relative;
+          display: inline-block;
+        }
+            
+     .tooltip .tooltip-text {
+        visibility: hidden;
+        width: fit-content;
+        background-color: $light-gray;
+        color: $c-one;
+        text-align: center;
+        border-radius: 5px;
+        padding: 0.25rem;
+            
+        /* Position the tooltip */
+        position: absolute;
+        top: 100%;
+        z-index: 1;
+    }
+            
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+    }

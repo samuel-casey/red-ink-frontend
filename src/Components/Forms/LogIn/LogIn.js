@@ -19,12 +19,6 @@ const LogIn = ({ handleLogIn, history }) => {
 		setFormData({ ...formData, [key]: value });
 	};
 
-	const handleRadioChange = (e) => {
-		const key = e.target.name;
-		const value = e.target.value;
-		setFormData({ ...formData, [key]: value });
-	};
-
 	// const validateLogInFields = (fields) => {
 	// 	let errorMessage;
 	// 	if (

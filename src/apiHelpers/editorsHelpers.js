@@ -42,3 +42,27 @@ export const updateEditorData = async (url, editorId, newEditorData) => {
 	}
 };
 
+export const sendEditorReminderEmail = async (
+	url,
+	editorId,
+	title,
+	link,
+	editorName,
+	createdAt
+) => {
+	try {
+		const submissionToSendReminderFor = {
+			title: title,
+			link: link,
+			editorName: editorName,
+			createdAt: createdAt,
+		};
+		const remindEditor = await axios.put(
+			url + '/editors/remind/' + editorId,
+			submissionToSendReminderFor
+		);
+		return remindEditor;
+	} catch (error) {
+		console.log(error);
+	}
+};
