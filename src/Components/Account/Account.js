@@ -10,6 +10,7 @@ import {
 } from '../../apiHelpers/editorsHelpers';
 import EditorCard from '../EditorCard/EditorCard';
 import WriterSubmissions from '../WriterSubmissions/WriterSubmissions';
+import NotAuthenticatedMsg from '../NotAuthenticateMsg/NotAuthenticatedMsg';
 
 const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 	const { gState } = useContext(GlobalCtx);
@@ -199,8 +200,7 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 
 	const loggedOut = (
 		<>
-			{userEmail}
-			<p>Please sign up and log in to access your red-ink account.</p>
+			<NotAuthenticatedMsg pageMsg={'your account.'} />
 		</>
 	);
 
