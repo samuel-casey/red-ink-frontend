@@ -19,11 +19,16 @@ nav {
       }
     }
 
+    .navbar-brand {
+        margin-left: 1rem;
+    }    
+
+
     .navbar-burger {
         top: 0;
         right: 0;
         position: absolute;
-        margin: 0.5rem;
+        margin: 0.75rem 1rem 0.5rem 0.5rem;
         span {
             border-top: 2px solid $c-one;
         }
