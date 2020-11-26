@@ -27,6 +27,7 @@ h1 {
 .learn-more {
     width: 100%;
     text-align: center;
+    margin-top: 3rem;
     
         .fa-caret-down {
             animation-duration: 2s;
@@ -69,10 +70,12 @@ h1 {
 
     .home-about-container {
         width: 90%;
+        max-width: 1200px;
         background-color: $c-three;
         margin: 0 auto;
         height: 70vh;
         border-radius: 5px;
+        box-shadow: 2px 4px 10px 2px $c-one;
 
         .how-it-works-heading {
             background-color: $c-one;
@@ -97,7 +100,8 @@ h1 {
             color: $c-one;
 
             .active-info {
-                font-weight: bold;  
+                font-weight: bold;
+                text-decoration: underline;  
             }
 
             .inactive-info {
@@ -114,12 +118,16 @@ h1 {
 
 // ubiquitous styles for page sections
 .buttons-container {
-    width: 25%;
+    width: 40%;
     min-width: 200px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 1rem auto;
     font-weight: bold;
+
+    .button {
+        width: 45%;
+    }
 
 }
 .bounce-3 {

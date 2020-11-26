@@ -6,8 +6,9 @@ import SvgLogo from '../Svgs/SvgLogo/SvgLogo';
 import SvgEditingHome from '../Svgs/SvgEditingImage/SvgEditingHome';
 import { Link } from 'react-router-dom';
 import { getAllWriters } from '../../apiHelpers/writersHelpers';
+import DemoButton from '../DemoButton/DemoButton';
 
-const Home = () => {
+const Home = ({ handleLogIn, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const { numEditors, numWriters, url } = gState;
 	const [aboutType, setAboutType] = useState('mission');
@@ -46,9 +47,7 @@ const Home = () => {
 					<Link to='/signup' className='button is-primary'>
 						Sign Up
 					</Link>
-					<button to='/signup' className='button is-success'>
-						Demo
-					</button>
+					<DemoButton history={history} handleLogIn={handleLogIn} />
 				</div>
 				<div className='learn-more'>
 					<p>Learn more</p>
@@ -57,7 +56,7 @@ const Home = () => {
 			</div>
 			<div className='page-middle'>
 				<div id='video-container'>
-					<h3 className='title is-3'>What to expect</h3>
+					<h3 className='title is-3'>How it works</h3>
 					<iframe
 						src='https://www.youtube.com/embed/XIMLoLxmTDw'
 						frameborder='0'
@@ -68,9 +67,7 @@ const Home = () => {
 					<Link to='/signup' className='button is-primary'>
 						Sign Up
 					</Link>
-					<button to='/signup' className='button is-success'>
-						Demo
-					</button>
+					<DemoButton history={history} handleLogIn={handleLogIn} />
 				</div>
 			</div>
 			<div className='page-bottom'>

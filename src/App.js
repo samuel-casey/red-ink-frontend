@@ -243,7 +243,7 @@ const App = ({ firebase }) => {
 							path='/'
 							render={(rp) => (
 								<>
-									<Home {...rp} />
+									<Home {...rp} handleLogIn={handleLogIn} />
 								</>
 							)}
 						/>
