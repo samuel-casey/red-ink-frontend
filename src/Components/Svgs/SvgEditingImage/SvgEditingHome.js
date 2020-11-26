@@ -2,6 +2,7 @@ import React from 'react';
 import './SvgEditingHome.scss';
 
 const SvgEditingHome = () => {
+	// SVG from undraw.io
 	return (
 		<svg
 			id='svg-editing-home'

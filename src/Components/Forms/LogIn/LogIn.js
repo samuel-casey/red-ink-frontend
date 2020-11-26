@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { GlobalCtx } from '../../../App';
+import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import './LogIn.scss';
 
 const LogIn = ({ handleLogIn, history }) => {
@@ -10,6 +11,7 @@ const LogIn = ({ handleLogIn, history }) => {
 	};
 
 	const { gState, setGState } = useContext(GlobalCtx);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const [formData, setFormData] = useState(emptyForm);
 
@@ -49,6 +51,8 @@ const LogIn = ({ handleLogIn, history }) => {
 				password: formData.password,
 				userType: formData.userType,
 			};
+			setIsLoading(true);
+
 			const loggedIn = await handleLogIn(newUser);
 
 			if (loggedIn === true) {
@@ -81,7 +85,18 @@ const LogIn = ({ handleLogIn, history }) => {
 					placeholder='Password'
 					onChange={handleChange}
 				/>
-				<input type='submit' className='button is-primary' value='Log In' />
+				{isLoading ? (
+					<LoadingSpinner />
+				) : (
+					<>
+						<br />{' '}
+						<input
+							type='submit'
+							className={`button is-primary`}
+							value='Log In'
+						/>
+					</>
+				)}
 			</form>
 		</div>
 	);

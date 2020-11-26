@@ -17,8 +17,6 @@ const EditorCard = ({
 }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 
-	console.log(gState.uid);
-
 	const handleRequestEditsClick = () => {
 		const editorEmail = email;
 		const editorUid = uid;

@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { GlobalCtx } from '../../../App';
+import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import EditorAccountFields from '../EditorAccountFields/EditorAccountFields';
 import './SignUp.scss';
 
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const emptyForm = {
 		email: '',
@@ -107,6 +109,7 @@ const SignUp = ({ handleSignUp, history }) => {
 			let signedUp;
 
 			if (!errorMessage) {
+				setIsLoading(true);
 				signedUp = await handleSignUp(newUser);
 			} else {
 				throw new Error(errorMessage);
@@ -136,7 +139,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		<div className='sign-up-page'>
 			<br></br>
 			<h3 className='title is-3'>
-				Sign Up for red ink{' '}
+				Sign Up
 				{formData.userType !== '' ? (
 					<span className='heading-user-type'>
 						{formData.userType.toLowerCase()}
@@ -188,8 +191,18 @@ const SignUp = ({ handleSignUp, history }) => {
 					</label>
 				</div>
 				{editorFields}
-				<br />
-				<input type='submit' className='button is-primary' value='Sign Up' />
+				{isLoading ? (
+					<LoadingSpinner />
+				) : (
+					<>
+						<br />{' '}
+						<input
+							type='submit'
+							className={`button is-primary`}
+							value='Sign Up'
+						/>
+					</>
+				)}
 			</form>
 		</div>
 	);

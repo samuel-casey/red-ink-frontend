@@ -6,6 +6,9 @@ nav {
     padding: 0.75rem;
     height: $header-height;
 
+    #sign-up-button-nav:hover {
+        color: white !important;
+    }
 
     .navbar-burger {
         top: 0;
