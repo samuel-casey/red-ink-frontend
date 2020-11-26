@@ -10,6 +10,15 @@ nav {
         color: white !important;
     }
 
+    .navbar-end {
+      margin-right: 2rem;
+      .buttons {
+          a {
+              width: 80px;
+          }
+      }
+    }
+
     .navbar-burger {
         top: 0;
         right: 0;
