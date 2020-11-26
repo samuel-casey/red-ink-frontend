@@ -36,7 +36,7 @@ const SubmissionForm = ({ history }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		createNewSubmission(formData, url);
-		// history.push('/account');
+		history.push('/account');
 	};
 
 	const handleChange = (e) => {

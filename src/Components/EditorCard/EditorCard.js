@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import './EditorCard.scss';
 import { GlobalCtx } from '../../App';
 
@@ -15,6 +16,8 @@ const EditorCard = ({
 	history,
 }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
+
+	console.log(gState.uid);
 
 	const handleRequestEditsClick = () => {
 		const editorEmail = email;
@@ -74,13 +77,19 @@ const EditorCard = ({
 					{about_me}
 					<br />
 				</div>
-				{history ? (
+				{history && gState.uid ? (
 					<button
 						className='button is-primary request-edits'
 						onClick={handleRequestEditsClick}>
 						Request Edits
 					</button>
-				) : null}
+				) : (
+					<Link to='/login'>
+						<button className='button is-primary request-edits'>
+							Log in to Request Edits
+						</button>
+					</Link>
+				)}
 			</div>
 		</div>
 	);
