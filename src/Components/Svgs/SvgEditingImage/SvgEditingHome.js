@@ -9,7 +9,7 @@ const SvgEditingHome = () => {
 			viewBox='0 0 216 158'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'>
-			<g clip-path='url(#clip0)'>
+			<g clipPath='url(#clip0)'>
 				<g opacity='0.1'>
 					<path
 						opacity='0.1'
@@ -218,8 +218,8 @@ const SvgEditingHome = () => {
 				<path
 					d='M27.3357 83.5647C27.3357 83.5647 35.1267 95.3262 34.5403 109.897'
 					stroke='#535461'
-					stroke-width='0.197441'
-					stroke-miterlimit='10'
+					strokeWidth='0.197441'
+					strokeMiterlimit='10'
 				/>
 				<path
 					d='M41.0321 99.5634C41.0321 99.5634 33.9598 95.7193 34.8621 109.907C34.8621 109.907 40.7557 109.696 42.8466 104.888C43.2552 103.953 43.3068 102.901 42.9917 101.931C42.6766 100.96 42.0166 100.139 41.1368 99.6227L41.0321 99.5634Z'
@@ -228,8 +228,8 @@ const SvgEditingHome = () => {
 				<path
 					d='M41.1486 99.5872C41.1486 99.5872 40.2364 106.952 34.8621 109.907'
 					stroke='#535461'
-					stroke-width='0.197441'
-					stroke-miterlimit='10'
+					strokeWidth='0.197441'
+					strokeMiterlimit='10'
 				/>
 				<path
 					opacity='0.05'
@@ -363,9 +363,9 @@ const SvgEditingHome = () => {
 					x2='115.706'
 					y2='0'
 					gradientUnits='userSpaceOnUse'>
-					<stop stop-color='#808080' stop-opacity='0.25' />
-					<stop offset='0.54' stop-color='#808080' stop-opacity='0.12' />
-					<stop offset='1' stop-color='#808080' stop-opacity='0.1' />
+					<stop stopColor='#808080' stopOpacity='0.25' />
+					<stop offset='0.54' stopColor='#808080' stopOpacity='0.12' />
+					<stop offset='1' stopColor='#808080' stopOpacity='0.1' />
 				</linearGradient>
 				<linearGradient
 					id='paint1_linear'
@@ -374,9 +374,9 @@ const SvgEditingHome = () => {
 					x2='-4146.03'
 					y2='2885.67'
 					gradientUnits='userSpaceOnUse'>
-					<stop stop-color='#808080' stop-opacity='0.25' />
-					<stop offset='0.54' stop-color='#808080' stop-opacity='0.12' />
-					<stop offset='1' stop-color='#808080' stop-opacity='0.1' />
+					<stop stopColor='#808080' stopOpacity='0.25' />
+					<stop offset='0.54' stopColor='#808080' stopOpacity='0.12' />
+					<stop offset='1' stopColor='#808080' stopOpacity='0.1' />
 				</linearGradient>
 				<linearGradient
 					id='paint2_linear'
@@ -385,9 +385,9 @@ const SvgEditingHome = () => {
 					x2='73790.1'
 					y2='22332.4'
 					gradientUnits='userSpaceOnUse'>
-					<stop stop-color='#808080' stop-opacity='0.25' />
-					<stop offset='0.54' stop-color='#808080' stop-opacity='0.12' />
-					<stop offset='1' stop-color='#808080' stop-opacity='0.1' />
+					<stop stopColor='#808080' stopOpacity='0.25' />
+					<stop offset='0.54' stopColor='#808080' stopOpacity='0.12' />
+					<stop offset='1' stopColor='#808080' stopOpacity='0.1' />
 				</linearGradient>
 				<clipPath id='clip0'>
 					<rect width='216' height='157.587' fill='white' />

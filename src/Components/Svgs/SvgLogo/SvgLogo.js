@@ -32,8 +32,8 @@ const SvgLogo = () => {
 						width='223.351'
 						height='68.4764'
 						filterUnits='userSpaceOnUse'
-						color-interpolation-filters='sRGB'>
-						<feFlood flood-opacity='0' result='BackgroundImageFix' />
+						colorInterpolationFilters='sRGB'>
+						<feFlood floodOpacity='0' result='BackgroundImageFix' />
 						<feColorMatrix
 							in='SourceAlpha'
 							type='matrix'
