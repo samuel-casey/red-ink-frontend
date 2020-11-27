@@ -139,7 +139,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		<div className='sign-up-page'>
 			<br></br>
 			<h3 className='title is-3'>
-				Sign Up
+				Sign Up{' '}
 				{formData.userType !== '' ? (
 					<span className='heading-user-type'>
 						{formData.userType.toLowerCase()}
