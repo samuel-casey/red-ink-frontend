@@ -6,7 +6,7 @@ import DemoButton from '../DemoButton/DemoButton';
 const NotAuthenticatedMsg = ({ pageMsg }) => {
 	return (
 		<div className='not-authenticated-page'>
-			{/* <div className='arrow-down'></div> */}
+			<div className='arrow-down'></div>
 			<div className='not-authenticated-msg-container'>
 				<p>Please Log in, Sign Up, or try a demo to access {pageMsg}</p>
 				<div className='buttons-container'>
