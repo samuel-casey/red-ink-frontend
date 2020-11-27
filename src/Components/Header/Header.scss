@@ -20,9 +20,8 @@ nav {
     }
 
     .navbar-brand {
-        margin-left: 1rem;
+        margin-left: 0.75rem;
     }    
-
 
     .navbar-burger {
         top: 0;
@@ -48,8 +47,16 @@ nav {
         color: $c-one !important;
     }
     
-
     img {
         width: 100px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    nav {
+        .navbar-brand {
+            margin-left: 0.25rem;
+        }
     }
 }

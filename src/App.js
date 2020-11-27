@@ -84,6 +84,8 @@ const App = ({ firebase }) => {
 				user.password
 			);
 
+			console.log('handle', user.userType);
+
 			let newUser;
 
 			switch (user.userType) {
@@ -91,8 +93,8 @@ const App = ({ firebase }) => {
 					newUser = {
 						uid: newUserObject.user.uid,
 						userEmail: newUserObject.user.email,
+						userType: user.userType,
 					};
-					console.log('new User', newUser);
 					await addUserToWritersCollection(newUser, gState.url);
 					break;
 				case 'Editor':
@@ -113,6 +115,9 @@ const App = ({ firebase }) => {
 				default:
 					newUser = null;
 			}
+
+			window.localStorage.setItem('uid', JSON.stringify(newUser.uid));
+			window.localStorage.setItem('email', JSON.stringify(newUser.userEmail));
 
 			setGState({
 				...gState,
@@ -161,7 +166,6 @@ const App = ({ firebase }) => {
 			if (gState.errorDropdown === null) {
 				window.localStorage.setItem('uid', JSON.stringify(newUser.uid));
 				window.localStorage.setItem('email', JSON.stringify(newUser.userEmail));
-				console.log(newUser.userType);
 				setGState({
 					...gState,
 					uid: newUser.uid,
