@@ -13,6 +13,7 @@ import {
 import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
 import RemindEditor from '../RemindEditor/RemindEditor';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import NoSubmissionsMsg from '../NoSubmissionsMsg/NoSubmissionsMsg';
 
 const WriterSubmissions = () => {
 	const { gState, setGState } = useContext(GlobalCtx);
@@ -120,6 +121,8 @@ const WriterSubmissions = () => {
 					</div>
 				</div>
 			))
+		) : submissions.length === 0 ? (
+			<NoSubmissionsMsg />
 		) : (
 			<LoadingSpinner msg='Loading Submissions...' />
 		);
