@@ -13,10 +13,9 @@ import {
 import WriterSubmissionStatus from '../WriterSubmissionStatus/WriterSubmissionStatus';
 import RemindEditor from '../RemindEditor/RemindEditor';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import SubmissionForm from '../Forms/SubmissionForm/SubmissionForm';
 
 const WriterSubmissions = () => {
-	const { gState } = useContext(GlobalCtx);
+	const { gState, setGState } = useContext(GlobalCtx);
 	const { uid, url, userEmail } = gState;
 
 	const [submissions, setSubmissions] = useState([]);
@@ -46,9 +45,12 @@ const WriterSubmissions = () => {
 				editorName,
 				createdAt
 			);
-			console.log(sent);
 		} else {
-			console.log('editor already reminded about this buckaroo');
+			setGState({
+				...gState,
+				errorDropdown:
+					'You may only remind an editor about each assignment once.',
+			});
 		}
 	};
 

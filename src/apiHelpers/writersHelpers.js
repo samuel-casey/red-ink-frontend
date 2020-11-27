@@ -4,7 +4,6 @@ export const getAllWriters = async (url) => {
 	try {
 		const res = await axios.get(url + '/writers');
 		const writers = res.data.data;
-		console.log('writahs', writers);
 		return writers;
 	} catch (error) {
 		console.log(error);
@@ -33,7 +32,6 @@ export const sendWriterEmailNotification = async (
 			updatedLink: link,
 		});
 		const updateMessage = res.data.data;
-		console.log(updateMessage);
 	} catch (error) {
 		console.log(error);
 	}
