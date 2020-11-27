@@ -118,6 +118,7 @@ const App = ({ firebase }) => {
 
 			window.localStorage.setItem('uid', JSON.stringify(newUser.uid));
 			window.localStorage.setItem('email', JSON.stringify(newUser.userEmail));
+			window.localStorage.setItem('userType', JSON.stringify(newUser.userType));
 
 			setGState({
 				...gState,
@@ -141,8 +142,6 @@ const App = ({ firebase }) => {
 	};
 
 	const handleLogIn = async (user) => {
-		console.log('URL', url);
-
 		try {
 			// validate emails
 			const newUserObject = await auth.signInWithEmailAndPassword(
@@ -157,8 +156,6 @@ const App = ({ firebase }) => {
 
 			let writer = await checkCollectionForUser(newUser, 'writers');
 			let editor = await checkCollectionForUser(newUser, 'editors');
-
-			console.log('ew', editor, writer);
 
 			if (writer) newUser.userType = p.singular(writer);
 			if (editor) newUser.userType = p.singular(editor);

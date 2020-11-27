@@ -11,9 +11,9 @@
     height: 95vh;
 
     .not-authenticated-msg-container {
-        box-shadow: 2px 2px 2px 2px $c-three;
+        padding: 0.5rem;
         border: 1px solid $c-three;
-        font-size: 2.25rem;
+        font-size: 2rem;
         width: 90%;
         max-width: 1000px;
         min-width: 285px;
@@ -41,6 +41,6 @@
 
 @media screen and (max-width: 400px) {
     .not-authenticated-msg-container {
-        font-size: 1.5rem !important;
+        font-size: 1.25rem !important;
     }
 }

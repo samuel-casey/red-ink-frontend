@@ -200,7 +200,7 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 
 	const loggedOut = (
 		<>
-			<NotAuthenticatedMsg pageMsg={'your account.'} />
+			<NotAuthenticatedMsg pageMsg={'the account page.'} />
 		</>
 	);
 
