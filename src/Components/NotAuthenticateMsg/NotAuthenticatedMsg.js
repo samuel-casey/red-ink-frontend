@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './NotAuthenticatedMsg.scss';
 import { Link } from 'react-router-dom';
 import DemoButton from '../DemoButton/DemoButton';
+import { GlobalCtx } from '../../App';
 
-const NotAuthenticatedMsg = ({ pageMsg }) => {
+const NotAuthenticatedMsg = ({ pageMsg, handleLogIn, history }) => {
+	const { gState, setGState } = useContext(GlobalCtx);
+
+	console.log(handleLogIn);
+
 	return (
 		<div className='not-authenticated-page'>
 			<div className='arrow-down'></div>
@@ -16,7 +21,7 @@ const NotAuthenticatedMsg = ({ pageMsg }) => {
 					<Link to='/login' className='button is-primary'>
 						Log in
 					</Link>
-					<DemoButton />
+					<DemoButton handleLogIn={handleLogIn} history={history} />
 				</div>
 			</div>
 		</div>

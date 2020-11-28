@@ -12,7 +12,12 @@ import EditorCard from '../EditorCard/EditorCard';
 import WriterSubmissions from '../WriterSubmissions/WriterSubmissions';
 import NotAuthenticatedMsg from '../NotAuthenticateMsg/NotAuthenticatedMsg';
 
-const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
+const Account = ({
+	handleSendPasswordResetEmail,
+	successMessage,
+	handleLogIn,
+	history,
+}) => {
 	const { gState } = useContext(GlobalCtx);
 	const { userType, userEmail, uid, url } = gState;
 
@@ -200,7 +205,11 @@ const Account = ({ handleSendPasswordResetEmail, successMessage }) => {
 
 	const loggedOut = (
 		<>
-			<NotAuthenticatedMsg pageMsg={'the account page.'} />
+			<NotAuthenticatedMsg
+				pageMsg={'the account page.'}
+				handleLogIn={handleLogIn}
+				history={history}
+			/>
 		</>
 	);
 

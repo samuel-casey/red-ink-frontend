@@ -10,7 +10,6 @@ import * as p from 'pluralize';
 import {
 	addUserToWritersCollection,
 	addUserToEditorsCollection,
-	checkCollection,
 } from './apiHelpers/authHelpers';
 
 // IMPORT COMPONENTS
@@ -45,11 +44,15 @@ const App = ({ firebase }) => {
 	};
 
 	const [gState, setGState] = useState(initialGState);
+	const { url } = gState;
 
-	const checkUserType = async (user, collection) => {
+	// not lifted to apiHelpers/authHelpers.js because setGState needed, but this is not a functional component -- moving function would require significant refactoring
+	const checkCollectionForUser = async (user, collection) => {
 		try {
 			// collection is either 'writers' or 'editors' and is case-sensitive
-			const targetUser = await checkCollection(user, collection, gState.url);
+			const res = await axios.get(gState.url + `/${collection}/` + user.uid);
+			const targetUser = await res.data.data;
+			console.log(collection, targetUser, targetUser.length);
 			if (user.userEmail === undefined) {
 				console.log('no User Email');
 			} else if (targetUser.length === 0) {
@@ -151,8 +154,8 @@ const App = ({ firebase }) => {
 				userEmail: newUserObject.user.email,
 			};
 
-			let writer = await checkUserType(newUser, 'writers');
-			let editor = await checkUserType(newUser, 'editors');
+			let writer = await checkCollectionForUser(newUser, 'writers');
+			let editor = await checkCollectionForUser(newUser, 'editors');
 
 			if (writer) newUser.userType = p.singular(writer);
 			if (editor) newUser.userType = p.singular(editor);
@@ -264,6 +267,7 @@ const App = ({ firebase }) => {
 										{...rp}
 										handleSendPasswordResetEmail={handleSendPasswordResetEmail}
 										successMessage={successMessage}
+										handleLogIn={handleLogIn}
 									/>
 								</>
 							)}
