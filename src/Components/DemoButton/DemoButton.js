@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const DemoButton = ({ handleLogIn, history }) => {
+	const [loading, setLoading] = useState(false);
 	const handleClick = async () => {
+		setLoading(true);
 		await handleLogIn({
 			email: 'demoWriter@red-ink.app',
 			password: 'demoWriter',
@@ -9,7 +12,13 @@ const DemoButton = ({ handleLogIn, history }) => {
 		history.push('/account');
 	};
 
-	return (
+	return loading ? (
+		<>
+			<button className='button is-success is-loading' onClick={handleClick}>
+				Demo
+			</button>
+		</>
+	) : (
 		<button className='button is-success' onClick={handleClick}>
 			Demo
 		</button>
