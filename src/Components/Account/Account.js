@@ -75,8 +75,10 @@ const Account = ({
 		setForgetPasswordToggle(false);
 	};
 
+	console.log(gState.userType);
+
 	useEffect(() => {
-		if (userType === 'editor') {
+		if (userType === 'Editor') {
 			let editorData;
 			const loadEditor = async () => {
 				editorData = await getSingleEditor(url, uid);
@@ -108,7 +110,7 @@ const Account = ({
 
 			{/* render button to change whether editing assignments or profile update form is showing is userType === editor */}
 			<div className='change-profile-sections'>
-				{userType === 'editor' ? (
+				{userType && userType.toLowerCase() === 'editor' ? (
 					updating ? (
 						<button
 							className='button is-primary is-small'
@@ -126,7 +128,7 @@ const Account = ({
 
 				{/* render button to toggle profile preview if user is an editor,
 				otherwise render nothing */}
-				{userType === 'editor' ? (
+				{userType && userType.toLowerCase() === 'editor' ? (
 					profilePreview ? (
 						<>
 							<button
@@ -173,7 +175,7 @@ const Account = ({
 			</div>
 
 			{/* render editor update form if user type === editor and updating === true */}
-			{userType === 'editor' ? (
+			{userType && userType.toLowerCase() === 'editor' ? (
 				updating ? (
 					<form className='auth-form' onSubmit={handleEditorUpdateSubmit}>
 						<h4 className='title is-4'>Update Profile Info</h4>
