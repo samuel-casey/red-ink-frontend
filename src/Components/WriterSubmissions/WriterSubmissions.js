@@ -56,7 +56,7 @@ const WriterSubmissions = () => {
 	};
 
 	const listOfSubmissions =
-		submissions.length > 0 ? (
+		submissions.length > 0 && submissions[0] !== 'empty' ? (
 			submissions.map((submission) => (
 				<div className='writer-submission' key={submission.submission_id}>
 					<div className='submission-start'>
@@ -121,8 +121,8 @@ const WriterSubmissions = () => {
 					</div>
 				</div>
 			))
-		) : submissions.length === 0 ? (
-			<NoSubmissionsMsg />
+		) : submissions[0] === 'empty' ? (
+			<NoSubmissionsMsg userType='writer' />
 		) : (
 			<LoadingSpinner msg='Loading Submissions...' />
 		);
@@ -137,9 +137,12 @@ const WriterSubmissions = () => {
 				submission.editorName = `${editorArr[0].first_name} ${editorArr[0].last_name}`;
 			}
 
-			console.log(allSubmissions);
-
-			setSubmissions(allSubmissions);
+			if (allSubmissions.length === 0) {
+				console.log(allSubmissions);
+				setSubmissions(['empty']);
+			} else {
+				setSubmissions(allSubmissions);
+			}
 		};
 		getSubmissions();
 	}, [reminderCount]);

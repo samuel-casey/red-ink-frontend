@@ -11,6 +11,7 @@ import NotifyWriterButton from '../NotifyWriterButton/NotifyWriterButton';
 import './EditorAssignments.scss';
 import { sendWriterEmailNotification } from '../../apiHelpers/writersHelpers';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import NoSubmissionsMsg from '../NoSubmissionsMsg/NoSubmissionsMsg';
 
 const EditorAssignments = () => {
 	const { gState } = useContext(GlobalCtx);
@@ -37,7 +38,7 @@ const EditorAssignments = () => {
 	};
 
 	const listOfAssignments =
-		assignments.length > 0 ? (
+		assignments.length > 0 && assignments[0] !== 'empty' ? (
 			assignments.map((assignment) => (
 				<div className='editor-assignment' key={assignment.submission_id}>
 					<div className='assignment-text-container'>
@@ -93,6 +94,8 @@ const EditorAssignments = () => {
 					</div>
 				</div>
 			))
+		) : assignments[0] === 'empty' ? (
+			<NoSubmissionsMsg userType='editor' />
 		) : (
 			<LoadingSpinner msg='Loading Assignments...' />
 		);
@@ -100,7 +103,12 @@ const EditorAssignments = () => {
 	useEffect(() => {
 		const getAssignments = async () => {
 			const allAssignments = await getAllAssignmentsForEditor(uid, url);
-			setAssignments(allAssignments);
+			console.log(allAssignments);
+			if (allAssignments.length === 0) {
+				setAssignments(['empty']);
+			} else {
+				setAssignments(allAssignments);
+			}
 		};
 		getAssignments();
 		console.log(assignments);

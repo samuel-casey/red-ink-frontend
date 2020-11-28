@@ -65,39 +65,41 @@ const LogIn = ({ handleLogIn, history }) => {
 	};
 
 	return (
-		<div className='sign-up-page'>
-			<br></br>
-			<h3 className='title is-3'>Log In</h3>
-			<form onSubmit={handleSubmit} className='auth-form'>
-				<input
-					className='input'
-					type='email'
-					name='email'
-					value={formData.email}
-					placeholder='Email'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='password'
-					name='password'
-					value={formData.password}
-					placeholder='Password'
-					onChange={handleChange}
-				/>
-				{isLoading ? (
-					<LoadingSpinner />
-				) : (
-					<>
-						<br />{' '}
-						<input
-							type='submit'
-							className={`button is-primary`}
-							value='Log In'
-						/>
-					</>
-				)}
-			</form>
+		<div className='sign-up-log-in-bg'>
+			<div className='sign-up-log-in-page'>
+				<br></br>
+				<h3 className='title is-3'>Log In</h3>
+				<form onSubmit={handleSubmit} className='auth-form'>
+					<input
+						className='input'
+						type='email'
+						name='email'
+						value={formData.email}
+						placeholder='Email'
+						onChange={handleChange}
+					/>
+					<input
+						className='input'
+						type='password'
+						name='password'
+						value={formData.password}
+						placeholder='Password'
+						onChange={handleChange}
+					/>
+					{isLoading ? (
+						<LoadingSpinner />
+					) : (
+						<>
+							<br />{' '}
+							<input
+								type='submit'
+								className={`button is-primary`}
+								value='Log In'
+							/>
+						</>
+					)}
+				</form>
+			</div>
 		</div>
 	);
 };
