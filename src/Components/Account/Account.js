@@ -75,8 +75,6 @@ const Account = ({
 		setForgetPasswordToggle(false);
 	};
 
-	console.log(gState.userType);
-
 	useEffect(() => {
 		if (userType === 'Editor') {
 			let editorData;
