@@ -15,12 +15,17 @@
         width: 95%;
         max-width: 1000px;
 
-        p {
+        .about-section {
             padding: 1rem;
+
             background-color: white;
             border-radius: 0px 0px 5px 5px;
             text-align: left;
             font-size: 1.25rem;
+            
+            ul {
+                margin-top: 0.5rem;
+            }
 
             li {
                 list-style: circle;
