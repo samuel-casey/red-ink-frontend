@@ -25,6 +25,7 @@ import SubmissionChecklist from './Components/SubmissionChecklist/SubmissionChec
 import Footer from './Components/Footer/Footer';
 import SubmissionForm from './Components/Forms/SubmissionForm/SubmissionForm';
 import FAQ from './Components/FAQ/FAQ';
+import About from './Components/About/About';
 
 export const GlobalCtx = createContext(null);
 
@@ -283,13 +284,7 @@ const App = ({ firebase }) => {
 							)}
 						/>
 
-						<Route
-							path='/about'
-							render={(rp) =>
-								// <About />
-								'about'
-							}
-						/>
+						<Route path='/about' render={(rp) => <About {...rp} />} />
 
 						<Route
 							path='/submissionchecklist'

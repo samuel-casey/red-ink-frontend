@@ -1,0 +1,47 @@
+@import '../../variables.scss';
+
+.about-main {
+    width: 100vw;
+    height: fit-content;
+    padding: 1rem;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(255,255,255);
+    background: linear-gradient(350deg, rgba(255,255,255,1) 0%, rgba(240,223,224,0.2) 10%, rgba(149,29,31,0.2) 40%, rgba(149,29,31,0.3) 60%, rgba(149,29,31,0.4) 80%, rgba(149,29,31,0.5) 100%);
+
+    .about-page {
+        width: 95%;
+        max-width: 1000px;
+
+        p {
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0px 0px 5px 5px;
+            text-align: left;
+            font-size: 1.25rem;
+
+            li {
+                list-style: circle;
+                margin-left: 2rem;
+            }
+        }
+
+        .app-name {
+            color: $c-one;
+            font-family: 'Lobster Two', cursive;
+            font-weight: bold;
+        }       
+
+        .is-4 {
+            width: 100%;
+            text-align: left;
+            color: $c-three;
+            background-color: $c-one;
+            margin: 0;
+            padding: 1rem;
+            border-radius: 5px 5px 0px 0px;
+        }
+    }
+}

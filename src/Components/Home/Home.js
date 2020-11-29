@@ -17,8 +17,8 @@ const Home = ({ handleSignUp, history }) => {
 		aboutType === 'mission' ? (
 			<>
 				<span className='mission-name'>red ink</span> is a platform for
-				connecting students and other people looking to improve their writing
-				with editors who have specific types of knowledge. As a writer,
+				connecting students, bloggers, and other people looking to improve their
+				writing with editors who have specific types of knowledge. As a writer,
 				sometimes you want feedback from an editor on things other than just
 				spelling, grammar, and punctuation.
 				<br />
