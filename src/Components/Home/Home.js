@@ -13,7 +13,45 @@ const Home = ({ handleSignUp, history }) => {
 	const { numEditors, numWriters, url } = gState;
 	const [aboutType, setAboutType] = useState('mission');
 
-	const about = aboutType === 'mission' ? 'mission' : 'EdItOrS ArE VeTtEd';
+	const about =
+		aboutType === 'mission' ? (
+			<>
+				<span className='mission-name'>red ink</span> is a platform for
+				connecting students and other people looking to improve their writing
+				with editors who have specific types of knowledge. As a writer,
+				sometimes you want feedback from an editor on things other than just
+				spelling, grammar, and punctuation.
+				<br />
+				<br />
+				<span className='mission-name'>red ink</span> aims to help writers by
+				connecting them to subject matter experts who can provide feedback on
+				the content and tone of a specific piece of writing in addition to the
+				feedback you would get from an editor with no specific content
+				knowledge.
+			</>
+		) : (
+			<>
+				<span className='mission-name'>red ink</span> currently leverages Google
+				Docs for document editing, and serves primarily as a way to connect
+				Writers and Editors.
+				<br />
+				<br />
+				Writers and Editors are notified via email about new edits and new
+				assignments respectively. Writers and Editors can trigger emails to each
+				other through the Account page to communicate about status changes for
+				documents.
+				<br />
+				<br />
+				Right now, anyone can sign up to be an Editor and Editors work on a
+				volunteer basis. Editors must provide some information about themselves
+				so that writers have information about who they are choosing to edit
+				their work.
+				<br />
+				<br />
+				If you love reading and helping others with their writing, sign up to
+				edit today!
+			</>
+		);
 
 	useEffect(() => {
 		const getCounts = async () => {
@@ -75,7 +113,7 @@ const Home = ({ handleSignUp, history }) => {
 				<br />
 				<br />
 				<div className='home-about-container'>
-					<h3 className='title is-3 how-it-works-heading'>
+					<h3 className='title is-3 home-about-heading'>
 						About <span>red ink</span>
 					</h3>
 					<div className='instructions-toggle'>
@@ -94,7 +132,7 @@ const Home = ({ handleSignUp, history }) => {
 							Editing
 						</span>
 					</div>
-					<div className='how-it-works-info'>{about}</div>
+					<div className='home-about-info'>{about}</div>
 				</div>
 			</div>
 		</div>
