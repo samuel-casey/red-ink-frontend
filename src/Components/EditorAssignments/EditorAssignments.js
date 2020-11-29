@@ -59,7 +59,7 @@ const EditorAssignments = () => {
 					</div>
 					<div className='assignment-text-container'>
 						<h6 className='title is-6'>Notes from writer:</h6>{' '}
-						<p>{assignment.notes}</p>
+						<p className='assignment-notes'>{assignment.notes}</p>
 					</div>
 					<div className='link-button'>
 						<a
