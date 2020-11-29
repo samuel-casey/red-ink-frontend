@@ -15,7 +15,7 @@ import NotAuthenticatedMsg from '../NotAuthenticateMsg/NotAuthenticatedMsg';
 const Account = ({
 	handleSendPasswordResetEmail,
 	successMessage,
-	handleLogIn,
+	handleSignUp,
 	history,
 }) => {
 	const { gState } = useContext(GlobalCtx);
@@ -207,7 +207,7 @@ const Account = ({
 		<>
 			<NotAuthenticatedMsg
 				pageMsg={'the account page.'}
-				handleLogIn={handleLogIn}
+				handleSignUp={handleSignUp}
 				history={history}
 			/>
 		</>

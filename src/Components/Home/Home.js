@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { getAllWriters } from '../../apiHelpers/writersHelpers';
 import DemoButton from '../DemoButton/DemoButton';
 
-const Home = ({ handleLogIn, history }) => {
+const Home = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const { numEditors, numWriters, url } = gState;
 	const [aboutType, setAboutType] = useState('mission');
@@ -47,7 +47,7 @@ const Home = ({ handleLogIn, history }) => {
 					<Link to='/signup' className='button is-primary'>
 						Sign Up
 					</Link>
-					<DemoButton history={history} handleLogIn={handleLogIn} />
+					<DemoButton history={history} handleSignUp={handleSignUp} />
 				</div>
 				<div className='learn-more'>
 					<p>Learn more</p>
@@ -67,7 +67,7 @@ const Home = ({ handleLogIn, history }) => {
 					<Link to='/signup' className='button is-primary'>
 						Sign Up
 					</Link>
-					<DemoButton history={history} handleLogIn={handleLogIn} />
+					<DemoButton history={history} handleSignUp={handleSignUp} />
 				</div>
 			</div>
 			<div className='page-bottom'>

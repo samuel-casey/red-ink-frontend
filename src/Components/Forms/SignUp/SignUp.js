@@ -136,76 +136,74 @@ const SignUp = ({ handleSignUp, history }) => {
 		) : null;
 
 	return (
-		<div className='sign-up-log-in-bg'>
-			<div className='sign-up-log-in-page'>
-				<br></br>
-				<h3 className='title is-3'>
-					Sign Up{' '}
-					{formData.userType !== '' ? (
-						<span className='heading-user-type'>
-							{formData.userType.toLowerCase()}
-						</span>
-					) : null}
-				</h3>
-				<form onSubmit={handleSubmit} className='auth-form'>
-					<input
-						className='input'
-						type='email'
-						name='email'
-						value={formData.email}
-						placeholder='Email'
-						onChange={handleChange}
-					/>
-					<input
-						className='input'
-						type='email'
-						name='confirmEmail'
-						value={formData.confirmEmail}
-						placeholder='Confirm Email'
-						onChange={handleChange}
-					/>
-					<input
-						className='input'
-						type='password'
-						name='password'
-						value={formData.password}
-						placeholder='Password'
-						onChange={handleChange}
-					/>
-					<input
-						className='input'
-						type='password'
-						name='confirmPassword'
-						value={formData.confirmPassword}
-						placeholder='Confirm Password'
-						onChange={handleChange}
-					/>
-					<div className='radio-container' onChange={handleRadioChange}>
-						<p className='user-type-label'>Account Type</p>
-						<label className='radio'>
-							<input type='radio' name='userType' value='Writer' />
-							Writer
-						</label>
-						<label className='radio'>
-							<input type='radio' name='userType' value='Editor' />
-							Editor
-						</label>
-					</div>
-					{editorFields}
-					{isLoading ? (
-						<LoadingSpinner />
-					) : (
-						<>
-							<br />{' '}
-							<input
-								type='submit'
-								className={`button is-primary`}
-								value='Sign Up'
-							/>
-						</>
-					)}
-				</form>
-			</div>
+		<div className='sign-up-log-in-page'>
+			<br></br>
+			<h3 className='title is-3'>
+				Sign Up{' '}
+				{formData.userType !== '' ? (
+					<span className='heading-user-type'>
+						{formData.userType.toLowerCase()}
+					</span>
+				) : null}
+			</h3>
+			<form onSubmit={handleSubmit} className='auth-form'>
+				<input
+					className='input'
+					type='email'
+					name='email'
+					value={formData.email}
+					placeholder='Email'
+					onChange={handleChange}
+				/>
+				<input
+					className='input'
+					type='email'
+					name='confirmEmail'
+					value={formData.confirmEmail}
+					placeholder='Confirm Email'
+					onChange={handleChange}
+				/>
+				<input
+					className='input'
+					type='password'
+					name='password'
+					value={formData.password}
+					placeholder='Password'
+					onChange={handleChange}
+				/>
+				<input
+					className='input'
+					type='password'
+					name='confirmPassword'
+					value={formData.confirmPassword}
+					placeholder='Confirm Password'
+					onChange={handleChange}
+				/>
+				<div className='radio-container' onChange={handleRadioChange}>
+					<p className='user-type-label'>Account Type</p>
+					<label className='radio'>
+						<input type='radio' name='userType' value='Writer' />
+						Writer
+					</label>
+					<label className='radio'>
+						<input type='radio' name='userType' value='Editor' />
+						Editor
+					</label>
+				</div>
+				{editorFields}
+				{isLoading ? (
+					<LoadingSpinner />
+				) : (
+					<>
+						<br />{' '}
+						<input
+							type='submit'
+							className={`button is-primary`}
+							value='Sign Up'
+						/>
+					</>
+				)}
+			</form>
 		</div>
 	);
 };

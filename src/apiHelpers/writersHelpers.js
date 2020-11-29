@@ -36,3 +36,13 @@ export const sendWriterEmailNotification = async (
 		console.log(error);
 	}
 };
+
+export const getDemoWriters = async (url) => {
+	try {
+		const res = await axios.get(url + '/writers/demo');
+		const writers = res.data.data;
+		return writers;
+	} catch (error) {
+		console.log(error);
+	}
+};

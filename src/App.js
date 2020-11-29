@@ -112,6 +112,15 @@ const App = ({ firebase }) => {
 					};
 					await addUserToEditorsCollection(newUser, gState.url);
 					break;
+				case 'demo':
+					newUser = {
+						uid: newUserObject.user.uid,
+						userEmail: newUserObject.user.email,
+						userType: 'writer',
+						isDemo: true,
+					};
+					await addUserToWritersCollection(newUser, gState.url);
+					break;
 				default:
 					newUser = null;
 			}
@@ -244,7 +253,7 @@ const App = ({ firebase }) => {
 							path='/'
 							render={(rp) => (
 								<>
-									<Home {...rp} handleLogIn={handleLogIn} />
+									<Home {...rp} handleSignUp={handleSignUp} />
 								</>
 							)}
 						/>
@@ -267,7 +276,7 @@ const App = ({ firebase }) => {
 										{...rp}
 										handleSendPasswordResetEmail={handleSendPasswordResetEmail}
 										successMessage={successMessage}
-										handleLogIn={handleLogIn}
+										handleSignUp={handleSignUp}
 									/>
 								</>
 							)}

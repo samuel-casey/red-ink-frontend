@@ -91,17 +91,23 @@ export const updateReminderStatusForSubmission = async (
 	editorRemindedStatus
 ) => {
 	try {
-		console.log(editorRemindedStatus);
-		console.log(submissionId);
 		if (editorRemindedStatus === true) {
 			return false;
 		} else {
-			const updatedReminderStatus = await axios.put(
-				url + '/submissions/reminders/' + submissionId,
-				{ editor_reminded: true }
-			);
+			await axios.put(url + '/submissions/reminders/' + submissionId, {
+				editor_reminded: true,
+			});
 			return true;
 		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const seedDemoData = async (url, demoWriterId) => {
+	try {
+		await axios.put(url + '/submissions/writers/demo/' + demoWriterId);
+		return true;
 	} catch (error) {
 		console.log(error);
 	}

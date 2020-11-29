@@ -137,8 +137,8 @@ const WriterSubmissions = () => {
 				submission.editorName = `${editorArr[0].first_name} ${editorArr[0].last_name}`;
 			}
 
+			console.log('allSubmissions', allSubmissions);
 			if (allSubmissions.length === 0) {
-				console.log(allSubmissions);
 				setSubmissions(['empty']);
 			} else {
 				setSubmissions(allSubmissions);

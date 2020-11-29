@@ -6,6 +6,7 @@ export const addUserToWritersCollection = async (user, url) => {
 			email: user.userEmail,
 			uid: user.uid,
 			about_me: user.aboutMe,
+			isDemo: user.isDemo ? true : null,
 		});
 	} catch (error) {
 		console.log(error);
