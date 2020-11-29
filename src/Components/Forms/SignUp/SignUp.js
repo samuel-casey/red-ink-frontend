@@ -148,6 +148,9 @@ const SignUp = ({ handleSignUp, history }) => {
 				) : null}
 			</h3>
 			<form onSubmit={handleSubmit} className='auth-form'>
+				<label className='main-label' htmlFor='email'>
+					Email
+				</label>
 				<input
 					className='input'
 					type='email'
@@ -156,6 +159,9 @@ const SignUp = ({ handleSignUp, history }) => {
 					placeholder='Email'
 					onChange={handleChange}
 				/>
+				<label className='main-label' htmlFor='confirm-email'>
+					Confirm Email
+				</label>
 				<input
 					className='input'
 					type='email'
@@ -164,6 +170,9 @@ const SignUp = ({ handleSignUp, history }) => {
 					placeholder='Confirm Email'
 					onChange={handleChange}
 				/>
+				<label className='main-label' htmlFor='password'>
+					Password
+				</label>
 				<input
 					className='input'
 					type='password'
@@ -172,6 +181,9 @@ const SignUp = ({ handleSignUp, history }) => {
 					placeholder='Password'
 					onChange={handleChange}
 				/>
+				<label className='main-label' htmlFor='confirmPassword'>
+					Confirm Password
+				</label>
 				<input
 					className='input'
 					type='password'

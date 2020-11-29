@@ -48,6 +48,9 @@ const LogIn = ({ handleLogIn, history }) => {
 			<br></br>
 			<h3 className='title is-3'>Log In</h3>
 			<form onSubmit={handleSubmit} className='auth-form'>
+				<label className='main-label' htmlFor='email'>
+					Email
+				</label>
 				<input
 					className='input'
 					type='email'
@@ -56,6 +59,9 @@ const LogIn = ({ handleLogIn, history }) => {
 					placeholder='Email'
 					onChange={handleChange}
 				/>
+				<label className='main-label' htmlFor='email'>
+					Password
+				</label>
 				<input
 					className='input'
 					type='password'
