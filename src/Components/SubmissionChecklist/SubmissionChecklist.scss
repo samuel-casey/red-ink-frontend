@@ -14,7 +14,7 @@
 
         .instructions-img-container {
             min-width: 300px;
-            width: 50%;
+            width: 60%;
             box-shadow: 2px 2px 2px 2px $c-three;
             border: 2px solid $c-three;
             border-radius: 5px;
@@ -27,9 +27,9 @@
             display: flex;
             align-items: center;
             min-width: 300px;
-            width: 50%;
+            width: 60%;
             margin: 0.5rem auto;
-            text-align: justify;
+            text-align: center;
             text-justify: distribute;
             font-size: 1.1rem;
             font-weight: 600;
@@ -87,18 +87,58 @@
         }
         
         #instructions-intro {
-            color: $c-one;
             font-size: 1.5rem;
             max-width: 900px;
             padding: 1rem;
-            background-color: $c-three;
             border-radius: 5px;
             margin: 1rem;
-            font-weight: 800;
-        }   
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-name {
+            color: $c-one;
+            font-family: 'Lobster Two', cursive;
+            font-weight: bold;
+        }  
 
         #red-ink-instructions {
             font-family: 'Lobster', cursive;
         }
     
+
+
+        .scroll-down {
+        width: 100%;
+        text-align: center;
+        margin-top: 3rem;
+        
+        .fa-caret-down {
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            font-size: 1.5rem;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: -0.8rem;
+        }
+    }
+}
+        
+
+.bounce-3 {
+    animation-name: bounce-3;
+    animation-timing-function: ease;
+}
+
+@keyframes bounce-3 {
+        0%   { transform: translateY(0); }
+        30%  { transform: translateY(1rem); }
+        50%  { transform: translateY(0); }
+        100% { transform: translateY(0); }
 }

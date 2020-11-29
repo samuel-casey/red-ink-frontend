@@ -101,13 +101,19 @@ const SubmissionChecklist = () => {
 
 	return (
 		<div className='submissions-checklist-page'>
-			<p id='instructions-intro'>
-				<span id='red-ink-instructions'>red ink</span> currently utilizes Google
-				Docs as an editing tool. In order to submit your writing to your editor,
-				please take a moment to create a Google Doc, and check the 4 boxes below
-				to enable sharing so that your editor can leave comments and suggestions
-				on your writing!
-			</p>
+			<div id='instructions-intro'>
+				<p>
+					<span className='app-name'>red ink</span> currently utilizes Google
+					Docs as an editing tool. In order to submit your writing to your
+					editor, please take a moment to create a Google Doc, and check the 4
+					boxes below to enable sharing so that your editor can leave comments
+					and suggestions on your writing!
+				</p>
+				<div className='scroll-down'>
+					<p>Scroll down</p>
+					<i className='fas fa-caret-down bounce-3'></i>
+				</div>
+			</div>
 			<div className='submission-checklist-container'>{instructions}</div>
 			{proceedButton}
 		</div>
