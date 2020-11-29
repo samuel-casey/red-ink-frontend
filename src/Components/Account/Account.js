@@ -17,6 +17,7 @@ const Account = ({
 	successMessage,
 	handleSignUp,
 	history,
+	location,
 }) => {
 	const { gState } = useContext(GlobalCtx);
 	const { userType, uid, url } = gState;
@@ -151,6 +152,7 @@ const Account = ({
 								twitter_url={editorAccountData.twitterUrl}
 								linkedin_url={editorAccountData.linkedInUrl}
 								profile_img_url={editorAccountData.profileImgUrl}
+								location={location}
 							/>
 						</>
 					) : (

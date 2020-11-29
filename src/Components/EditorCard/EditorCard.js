@@ -14,6 +14,7 @@ const EditorCard = ({
 	linkedin_url,
 	profile_img_url,
 	history,
+	location,
 }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 
@@ -75,19 +76,19 @@ const EditorCard = ({
 					{about_me}
 					<br />
 				</div>
-				{history && gState.uid ? (
+				{location.pathname !== '/account' && gState.uid ? (
 					<button
 						className='button is-primary request-edits'
 						onClick={handleRequestEditsClick}>
 						Request Edits
 					</button>
-				) : (
+				) : location.pathname !== '/account' ? (
 					<Link to='/login'>
 						<button className='button is-primary request-edits'>
 							Log in to Request Edits
 						</button>
 					</Link>
-				)}
+				) : null}
 			</div>
 		</div>
 	);

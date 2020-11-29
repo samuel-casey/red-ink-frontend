@@ -19,34 +19,25 @@ const PasswordReset = ({ handlePasswordReset, history }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (
-			formData.email === formData.confirmEmail &&
-			formData.password === formData.confirmPassword
-		) {
+		if (formData.email === formData.confirmEmail) {
 			const newUser = {
 				email: formData.email,
 				password: formData.password,
 				userType: formData.userType,
 			};
-			await handlePasswordReset(newUser);
-			console.log(newUser);
-			const passwordReset = await alert(
-				'Password successfully reset. Logging you in.'
-			);
-			if (passwordReset === true) {
-				history.push('/account');
-			}
+			const passwordReset = await handlePasswordReset(newUser);
+			setFormData(emptyForm);
+			if (passwordReset) history.push('/');
 		} else {
-			alert(
-				'Woops! Looks like your emails or passwords do not match. Please try again.'
-			);
+			alert('Woops! Looks like your emails do not match. Please try again.');
 			setFormData(emptyForm);
 		}
 	};
 
 	return (
-		<div className='sign-up-page'>
-			<h2>Reset Password</h2>
+		<div className='reset-password-page'>
+			<br />
+			<h2 className='title is-2'>Reset Password</h2>
 			<form onSubmit={handleSubmit} className='auth-form'>
 				<input
 					className='input'
@@ -65,25 +56,9 @@ const PasswordReset = ({ handlePasswordReset, history }) => {
 					onChange={handleChange}
 				/>
 				<input
-					className='input'
-					type='password'
-					name='password'
-					value={formData.password}
-					placeholder='Password'
-					onChange={handleChange}
-				/>
-				<input
-					className='input'
-					type='password'
-					name='confirmPassword'
-					value={formData.confirmPassword}
-					placeholder='Confirm Password'
-					onChange={handleChange}
-				/>
-				<input
 					type='submit'
 					className='button is-primary'
-					value='ResetPassword'
+					value='Reset Password'
 				/>
 			</form>
 		</div>

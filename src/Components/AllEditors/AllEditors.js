@@ -4,7 +4,7 @@ import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import './AllEditors.scss';
 import EditorCard from '../EditorCard/EditorCard';
 
-const AllEditors = ({ history }) => {
+const AllEditors = ({ history, location }) => {
 	const { gState } = useContext(GlobalCtx);
 	const { url, uid } = gState;
 	const [editorsList, setEditorsList] = useState([]);
@@ -36,7 +36,12 @@ const AllEditors = ({ history }) => {
 	const editors =
 		editorsList.length > 0
 			? filteredEditors.map((editor) => (
-					<EditorCard key={editor.doc_id} history={history} {...editor} />
+					<EditorCard
+						key={editor.doc_id}
+						history={history}
+						location={location}
+						{...editor}
+					/>
 			  ))
 			: loading;
 

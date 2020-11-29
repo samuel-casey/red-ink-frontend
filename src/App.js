@@ -199,10 +199,6 @@ const App = ({ firebase }) => {
 
 	let successMessage = '';
 
-	const handlePasswordReset = async (resetUser) => {
-		console.log(resetUser);
-	};
-
 	const handleSendPasswordResetEmail = async (resetUser) => {
 		try {
 			await auth.sendPasswordResetEmail(resetUser.email);
@@ -213,6 +209,11 @@ const App = ({ firebase }) => {
 		} catch (error) {
 			alert(error);
 		}
+	};
+
+	const handlePasswordReset = async (resetUser) => {
+		await handleSendPasswordResetEmail(resetUser);
+		return true;
 	};
 
 	useEffect(() => {

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { GlobalCtx } from '../../../App';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import './LogIn.scss';
+import { Link } from 'react-router-dom';
 
 const LogIn = ({ handleLogIn, history }) => {
 	const emptyForm = {
@@ -20,28 +21,6 @@ const LogIn = ({ handleLogIn, history }) => {
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
 	};
-
-	// const validateLogInFields = (fields) => {
-	// 	let errorMessage;
-	// 	if (
-	// 		fields.password !== fields.confirmPassword ||
-	// 		fields.email !== fields.confirmEmail
-	// 	) {
-	// 		errorMessage =
-	// 			'Woops! Check that your emails and passwords match and try again';
-	// 	} else if (
-	// 		fields.email === '' ||
-	// 		fields.confirmEmail === '' ||
-	// 		fields.password === '' ||
-	// 		fields.confirmPassword === '' ||
-	// 		fields.userType === ''
-	// 	) {
-	// 		errorMessage = 'Please fill out all form fields';
-	// 	} else {
-	// 		errorMessage = null;
-	// 	}
-	// 	return errorMessage;
-	// };
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -95,6 +74,10 @@ const LogIn = ({ handleLogIn, history }) => {
 							className={`button is-primary`}
 							value='Log In'
 						/>
+						<Link className='login-redirect' to='/resetpassword'>
+							Forgot password?
+						</Link>
+						<br />
 					</>
 				)}
 			</form>

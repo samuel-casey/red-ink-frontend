@@ -103,7 +103,6 @@ const EditorAssignments = () => {
 	useEffect(() => {
 		const getAssignments = async () => {
 			const allAssignments = await getAllAssignmentsForEditor(uid, url);
-			console.log(allAssignments);
 			if (allAssignments.length === 0) {
 				setAssignments(['empty']);
 			} else {

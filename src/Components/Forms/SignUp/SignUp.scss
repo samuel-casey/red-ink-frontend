@@ -104,7 +104,14 @@
                 color: $c-one;
                 border-radius: 5px 5px 0px 0px;
             }
+        }
 
+        .login-redirect {
+            font-size: 0.9rem;
+            a {
+                color: $c-five;
+                text-decoration: underline
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ import { GlobalCtx } from '../../../App';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import EditorAccountFields from '../EditorAccountFields/EditorAccountFields';
 import './SignUp.scss';
+import { Link } from 'react-router-dom';
 
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
@@ -201,6 +202,11 @@ const SignUp = ({ handleSignUp, history }) => {
 							className={`button is-primary`}
 							value='Sign Up'
 						/>
+						<div className='login-redirect'>
+							<span>Already have an account? </span>
+							<Link to='/login'>Log in.</Link>
+						</div>
+						<br />
 					</>
 				)}
 			</form>
