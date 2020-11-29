@@ -49,7 +49,7 @@ const SendPasswordResetEmail = ({
 					<input
 						type='submit'
 						className='button is-primary is-light'
-						value='Reset Password'
+						value='Reset'
 					/>
 					<button
 						className='button is-ghost'

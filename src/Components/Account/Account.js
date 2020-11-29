@@ -19,7 +19,12 @@ const Account = ({
 	history,
 }) => {
 	const { gState } = useContext(GlobalCtx);
-	const { userType, userEmail, uid, url } = gState;
+	const { userType, uid, url } = gState;
+
+	const userEmail =
+		gState.userEmail && gState.userEmail.includes('@red-ink.app')
+			? 'to the demo'
+			: gState.userEmail;
 
 	const [updating, setUpdating] = useState(false);
 	const [forgetPasswordToggle, setForgetPasswordToggle] = useState(false);
@@ -99,7 +104,9 @@ const Account = ({
 	const loggedIn = (
 		<>
 			<br></br>
-			<h2 className='title is-2'>My Account</h2>
+			<h2 className='title is-2'>
+				{userEmail === 'to the demo' ? 'Demo' : 'My'} Account
+			</h2>
 			<h4 className='welcome-msg subtitle is-4'>Welcome {userEmail}!</h4>
 			<h5 className='subtitle is-5'>
 				Account type: <span className='user-type'>{userType}</span>
@@ -161,7 +168,7 @@ const Account = ({
 						handleSendPasswordResetEmail={handleSendPasswordResetEmail}
 						toggleForgetPassword={toggleForgetPassword}
 					/>
-				) : updating ? (
+				) : updating || userEmail === 'to the demo' ? (
 					''
 				) : (
 					<button
