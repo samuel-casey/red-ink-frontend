@@ -47,7 +47,7 @@ const Account = ({
 		setFormData({ ...formData, [key]: value });
 	};
 
-	const toggleProfilePreview = async () => {
+	const getProfileData = async (url, uid) => {
 		const editorData = await getSingleEditor(url, uid);
 		const editorDataMap = {
 			firstName: editorData[0].first_name,
@@ -58,8 +58,14 @@ const Account = ({
 			twitterUrl: editorData[0].twitter_url,
 			profileImgUrl: editorData[0].profile_img_url,
 		};
-		setEditorAccountData(editorDataMap);
+		return editorDataMap;
+	};
+
+	const toggleProfilePreview = async () => {
+		const profileData = await getProfileData(url, uid);
+		setEditorAccountData(profileData);
 		setProfilePreview(!profilePreview);
+
 		setForgetPasswordToggle(false);
 	};
 
@@ -76,8 +82,10 @@ const Account = ({
 		setProfilePreview(false);
 	};
 
-	const toggleUpdating = () => {
+	const toggleUpdating = async () => {
 		setUpdating(!updating);
+		const currentProfileData = await getProfileData(url, uid);
+		setFormData(currentProfileData);
 		setForgetPasswordToggle(false);
 	};
 
