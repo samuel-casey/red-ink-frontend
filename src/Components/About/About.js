@@ -7,7 +7,7 @@ const About = () => {
 			<div className='about-page'>
 				<br />
 				<h2 className='title is-2'>
-					About <span className='app-name'>red ink</span>
+					About <span className='app-name-heading'>red ink</span>
 				</h2>
 				<br />
 				<h4 className='title is-4'>Background</h4>

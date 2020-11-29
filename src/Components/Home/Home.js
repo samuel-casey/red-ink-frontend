@@ -16,22 +16,15 @@ const Home = ({ handleSignUp, history }) => {
 	const about =
 		aboutType === 'mission' ? (
 			<>
-				<span className='mission-name'>red ink</span> is a platform for
-				connecting students, bloggers, and other people looking to improve their
-				writing with editors who have specific types of knowledge. As a writer,
-				sometimes you want feedback from an editor on things other than just
-				spelling, grammar, and punctuation.
-				<br />
-				<br />
-				<span className='mission-name'>red ink</span> aims to help writers by
-				connecting them to subject matter experts who can provide feedback on
-				the content and tone of a specific piece of writing in addition to the
-				feedback you would get from an editor with no specific content
-				knowledge.
+				<span className='app-name'>red ink</span> is a platform for connecting
+				students, bloggers, and others looking to improve their writing with
+				editors who have specific subject-matter expertise. The goal of{' '}
+				<span className='app-name'>red ink</span> is to help individuals improve
+				the content, style and tone of their writing.
 			</>
 		) : (
 			<>
-				<span className='mission-name'>red ink</span> currently leverages Google
+				<span className='app-name'>red ink</span> currently leverages Google
 				Docs for document editing, and serves primarily as a way to connect
 				Writers and Editors.
 				<br />
