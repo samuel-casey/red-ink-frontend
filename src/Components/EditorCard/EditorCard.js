@@ -67,7 +67,6 @@ const EditorCard = ({
 				<div className='media'>
 					<div className='media-content'>
 						{linkedInIcon}
-
 						{twitterIcon}
 					</div>
 				</div>
@@ -82,7 +81,7 @@ const EditorCard = ({
 						onClick={handleRequestEditsClick}>
 						Request Edits
 					</button>
-				) : location.pathname !== '/account' ? (
+				) : location !== '/account' ? (
 					<Link to='/login'>
 						<button className='button is-primary request-edits'>
 							Log in to Request Edits
