@@ -11,11 +11,6 @@ const FAQ = () => {
 				"Anyone can be an editor. It's up to writers to judge whether or not an editor would be a good fit for them using the information provided about each editor on the Editors page.",
 		},
 		{
-			question: 'How much does red ink cost?',
-			answer:
-				"Right now, it's $free.99, but that won't last for long. Editors gotta eat too!",
-		},
-		{
 			question: 'Will editors know when I submit my assignment to them?',
 			answer:
 				'Yes. Every time you submit an assignment to an Editor, they get an email notification. You can also remind your editor that you sent them a document from your account page once after submission for each submission you make.',
