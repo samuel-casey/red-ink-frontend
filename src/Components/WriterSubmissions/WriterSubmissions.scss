@@ -6,6 +6,7 @@
     border: 1px solid $c-one;
     border-radius: 5px;
     margin: 1rem auto;
+    width: fit-content;
     
     .submissions-heading {
         padding: 0.5rem 0;
@@ -61,7 +62,7 @@
 
             .submission-text-container {
                 margin-bottom: 0.2rem;
-                
+            
                 .title {
                     color: $c-one;
                     margin: 0 !important;

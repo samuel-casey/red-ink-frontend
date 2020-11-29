@@ -71,8 +71,7 @@ const Home = ({ handleSignUp, history }) => {
 				</h1>
 				<h4 className='subtitle is-4'>
 					Need help with your writing? Like to help others with their writing?
-					Join {numWriters} writers and {numEditors} editors by signing up
-					today!
+					Sign up today!
 				</h4>
 				<div className='buttons-container'>
 					<Link to='/signup' className='button is-primary'>
