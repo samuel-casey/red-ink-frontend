@@ -21,9 +21,11 @@ const DemoButton = ({ handleSignUp, history }) => {
 
 		const demoWriterId = JSON.parse(window.localStorage.getItem('uid'));
 
-		const seeded = await seedDemoData(url, demoWriterId);
+		await seedDemoData(url, demoWriterId);
 
-		if (seeded) history.push('/account');
+		// addded this extra push to Home because pushing straight to /account was causing the demo submissions not to load on time when the user hit the demo button while already on the /account route
+		history.push('/');
+		history.push('/account');
 	};
 
 	return loading ? (
