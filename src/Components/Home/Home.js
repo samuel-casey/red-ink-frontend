@@ -71,7 +71,7 @@ const Home = ({ handleSignUp, history }) => {
 				<div id='video-container'>
 					<h3 className='title is-3'>How it works</h3>
 					<iframe
-						src='https://www.youtube.com/embed/XIMLoLxmTDw'
+						src='https://www.youtube.com/embed/nckCF2nCpy4'
 						frameBorder='0'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 						allowFullScreen></iframe>
