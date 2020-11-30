@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .page-top {
-    padding-top: 1rem;
+    padding-top: rem;
     width: 100vw;
     height: 100vh;
     background: rgb(255,255,255);
@@ -21,6 +21,7 @@
 
 h1 {
     color: $c-one !important;
+    padding: 1rem;
 }
 
 

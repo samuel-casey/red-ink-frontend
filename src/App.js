@@ -45,7 +45,6 @@ const App = ({ firebase }) => {
 	};
 
 	const [gState, setGState] = useState(initialGState);
-	const { url } = gState;
 
 	// not lifted to apiHelpers/authHelpers.js because setGState needed, but this is not a functional component -- moving function would require significant refactoring
 	const checkCollectionForUser = async (user, collection) => {

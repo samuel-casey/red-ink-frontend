@@ -1,16 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Home.scss';
-import { GlobalCtx } from '../../App';
-import { getAllEditors } from '../../apiHelpers/editorsHelpers';
 import SvgLogo from '../Svgs/SvgLogo/SvgLogo';
 import SvgEditingHome from '../Svgs/SvgEditingImage/SvgEditingHome';
 import { Link } from 'react-router-dom';
-import { getAllWriters } from '../../apiHelpers/writersHelpers';
 import DemoButton from '../DemoButton/DemoButton';
 
 const Home = ({ handleSignUp, history }) => {
-	const { gState, setGState } = useContext(GlobalCtx);
-	const { numEditors, numWriters, url } = gState;
 	const [aboutType, setAboutType] = useState('mission');
 
 	const about =
@@ -46,18 +41,6 @@ const Home = ({ handleSignUp, history }) => {
 			</>
 		);
 
-	useEffect(() => {
-		const getCounts = async () => {
-			const editorsList = await getAllEditors(url);
-			const writersList = await getAllWriters(url);
-			setGState({
-				...gState,
-				numEditors: editorsList.length,
-				numWriters: writersList.length,
-			});
-		};
-		getCounts();
-	}, []);
 	return (
 		<div className='home-page'>
 			<div className='page-top'>
