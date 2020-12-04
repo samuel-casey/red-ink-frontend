@@ -9,7 +9,6 @@ import { fbase } from '../../../index';
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const [isLoading, setIsLoading] = useState(false);
-	const [profileImgFileUrl, setProfileImgFileUrl] = useState(null);
 
 	const emptyForm = {
 		email: '',
@@ -35,14 +34,18 @@ const SignUp = ({ handleSignUp, history }) => {
 	};
 
 	const handleFileChange = async (e) => {
+		// get file from input
 		const newFile = e.target.files[0];
 
+		// create a new item in Firebase Storage for the file
 		const storageRef = fbase.storage().ref();
 		const newFileRef = storageRef.child(newFile.name);
-
 		await newFileRef.put(newFile);
+
+		// get the URL for the new Firebase Storage item
 		const newFileUrl = await newFileRef.getDownloadURL();
-		setProfileImgFileUrl(newFileUrl);
+
+		// set user's sign up form data to the Firebase Storage URL
 		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
