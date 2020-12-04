@@ -11,6 +11,7 @@ import {
 import EditorCard from '../EditorCard/EditorCard';
 import WriterSubmissions from '../WriterSubmissions/WriterSubmissions';
 import NotAuthenticatedMsg from '../NotAuthenticateMsg/NotAuthenticatedMsg';
+import { fbase } from '../../index';
 
 const Account = ({
 	handleSendPasswordResetEmail,
@@ -45,6 +46,22 @@ const Account = ({
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
+	};
+
+	const handleFileChange = async (e) => {
+		// get file from input
+		const newFile = e.target.files[0];
+
+		// create a new item in Firebase Storage for the file
+		const storageRef = fbase.storage().ref();
+		const newFileRef = storageRef.child(newFile.name);
+		await newFileRef.put(newFile);
+
+		// get the URL for the new Firebase Storage item
+		const newFileUrl = await newFileRef.getDownloadURL();
+
+		// set user's sign up form data to the Firebase Storage URL
+		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
 	const getProfileData = async (url, uid) => {
@@ -202,6 +219,7 @@ const Account = ({
 						<br />
 						<EditorAccountFields
 							handleChange={handleChange}
+							handleFileChange={handleFileChange}
 							formData={formData}
 							setFormData={setFormData}
 						/>
