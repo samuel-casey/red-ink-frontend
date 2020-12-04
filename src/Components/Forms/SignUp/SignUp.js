@@ -4,6 +4,7 @@ import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import EditorAccountFields from '../EditorAccountFields/EditorAccountFields';
 import './SignUp.scss';
 import { Link } from 'react-router-dom';
+import { createFirebaseStorageURL } from '../../../apiHelpers/storage';
 
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
@@ -30,6 +31,11 @@ const SignUp = ({ handleSignUp, history }) => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
+	};
+
+	const handleFileChange = async (e) => {
+		const newFileUrl = await createFirebaseStorageURL(e.target.files[0]);
+		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
 	const handleRadioChange = (e) => {
@@ -106,7 +112,7 @@ const SignUp = ({ handleSignUp, history }) => {
 				twitterUrl: formData.twitterUrl,
 			};
 
-			const errorMessage = await validateSignUpFields(formData);
+			const errorMessage = await validateSignUpFields(newUser);
 			let signedUp;
 
 			if (!errorMessage) {
@@ -131,6 +137,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		formData.userType === 'Editor' ? (
 			<EditorAccountFields
 				handleChange={handleChange}
+				handleFileChange={handleFileChange}
 				formData={formData}
 				setFormData={setFormData}
 			/>

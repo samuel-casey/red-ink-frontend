@@ -11,6 +11,7 @@ import {
 import EditorCard from '../EditorCard/EditorCard';
 import WriterSubmissions from '../WriterSubmissions/WriterSubmissions';
 import NotAuthenticatedMsg from '../NotAuthenticateMsg/NotAuthenticatedMsg';
+import { createFirebaseStorageURL } from '../../apiHelpers/storage';
 
 const Account = ({
 	handleSendPasswordResetEmail,
@@ -45,6 +46,11 @@ const Account = ({
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
+	};
+
+	const handleFileChange = async (e) => {
+		const newFileUrl = await createFirebaseStorageURL(e.target.files[0]);
+		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
 	const getProfileData = async (url, uid) => {
@@ -202,6 +208,7 @@ const Account = ({
 						<br />
 						<EditorAccountFields
 							handleChange={handleChange}
+							handleFileChange={handleFileChange}
 							formData={formData}
 							setFormData={setFormData}
 						/>

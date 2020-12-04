@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import axios from 'axios';
 import * as p from 'pluralize';
+import { fbase } from './index';
 
 // IMPORT HELPERS
 import {
@@ -29,8 +30,8 @@ import About from './Components/About/About';
 
 export const GlobalCtx = createContext(null);
 
-const App = ({ firebase }) => {
-	const auth = firebase.auth();
+const App = () => {
+	const auth = fbase.auth();
 
 	const initialGState = {
 		url: 'https://red-ink.web.app/api',

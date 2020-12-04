@@ -69,7 +69,11 @@
                         word-wrap: break-word !important;
                         max-width: 90px;
                     }
+
                 }
+                        .selected-avatar {
+                            border: 3px solid $c-one !important;
+                        }
             }
 
             input {
