@@ -4,10 +4,12 @@ import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import EditorAccountFields from '../EditorAccountFields/EditorAccountFields';
 import './SignUp.scss';
 import { Link } from 'react-router-dom';
+import { fbase } from '../../../index';
 
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const [isLoading, setIsLoading] = useState(false);
+	const [profileImgFile, setProfileImgFile] = useState('');
 
 	const emptyForm = {
 		email: '',
@@ -30,6 +32,11 @@ const SignUp = ({ handleSignUp, history }) => {
 		const key = e.target.name;
 		const value = e.target.value;
 		setFormData({ ...formData, [key]: value });
+	};
+
+	const handleFileChange = (e) => {
+		const newFile = e.target.files[0];
+		setProfileImgFile(newFile);
 	};
 
 	const handleRadioChange = (e) => {
@@ -91,6 +98,16 @@ const SignUp = ({ handleSignUp, history }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			if (profileImgFile) {
+				const storageRef = fbase.storage().ref();
+				const newFileRef = storageRef.child(profileImgFile.name);
+				await newFileRef.put(profileImgFile);
+				const newFileUrl = await newFileRef.getDownloadURL();
+				console.log(newFileUrl);
+				setFormData({ ...formData, profileImgUrl: newFileUrl });
+				console.log(formData);
+			}
+
 			const newUser = {
 				email: formData.email,
 				confirmEmail: formData.confirmEmail,
@@ -111,7 +128,7 @@ const SignUp = ({ handleSignUp, history }) => {
 
 			if (!errorMessage) {
 				setIsLoading(true);
-				signedUp = await handleSignUp(newUser);
+				// signedUp = await handleSignUp(newUser);
 			} else {
 				throw new Error(errorMessage);
 			}
@@ -131,6 +148,7 @@ const SignUp = ({ handleSignUp, history }) => {
 		formData.userType === 'Editor' ? (
 			<EditorAccountFields
 				handleChange={handleChange}
+				handleFileChange={handleFileChange}
 				formData={formData}
 				setFormData={setFormData}
 			/>
