@@ -9,7 +9,7 @@ import { fbase } from '../../../index';
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
 	const [isLoading, setIsLoading] = useState(false);
-	const [profileImgFile, setProfileImgFile] = useState('');
+	const [profileImgFileUrl, setProfileImgFileUrl] = useState(null);
 
 	const emptyForm = {
 		email: '',
@@ -34,9 +34,16 @@ const SignUp = ({ handleSignUp, history }) => {
 		setFormData({ ...formData, [key]: value });
 	};
 
-	const handleFileChange = (e) => {
+	const handleFileChange = async (e) => {
 		const newFile = e.target.files[0];
-		setProfileImgFile(newFile);
+
+		const storageRef = fbase.storage().ref();
+		const newFileRef = storageRef.child(newFile.name);
+
+		await newFileRef.put(newFile);
+		const newFileUrl = await newFileRef.getDownloadURL();
+		setProfileImgFileUrl(newFileUrl);
+		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
 	const handleRadioChange = (e) => {
@@ -98,15 +105,7 @@ const SignUp = ({ handleSignUp, history }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			if (profileImgFile) {
-				const storageRef = fbase.storage().ref();
-				const newFileRef = storageRef.child(profileImgFile.name);
-				await newFileRef.put(profileImgFile);
-				const newFileUrl = await newFileRef.getDownloadURL();
-				console.log(newFileUrl);
-				setFormData({ ...formData, profileImgUrl: newFileUrl });
-				console.log(formData);
-			}
+			console.log(profileImgFileUrl, 'handleSubmit');
 
 			const newUser = {
 				email: formData.email,
@@ -123,18 +122,20 @@ const SignUp = ({ handleSignUp, history }) => {
 				twitterUrl: formData.twitterUrl,
 			};
 
-			const errorMessage = await validateSignUpFields(formData);
+			console.log(newUser);
+
+			const errorMessage = await validateSignUpFields(newUser);
 			let signedUp;
 
 			if (!errorMessage) {
 				setIsLoading(true);
-				// signedUp = await handleSignUp(newUser);
+				signedUp = await handleSignUp(newUser);
 			} else {
 				throw new Error(errorMessage);
 			}
 
 			if (signedUp === true) {
-				history.push('/account');
+				// history.push('/account');
 			}
 		} catch (error) {
 			setGState({
