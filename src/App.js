@@ -27,7 +27,6 @@ import Footer from './Components/Footer/Footer';
 import SubmissionForm from './Components/Forms/SubmissionForm/SubmissionForm';
 import FAQ from './Components/FAQ/FAQ';
 import About from './Components/About/About';
-import StorageTest from './Components/StorageTest/StorageTest';
 
 export const GlobalCtx = createContext(null);
 
@@ -296,8 +295,6 @@ const App = () => {
 							path='/submissionform'
 							render={(rp) => <SubmissionForm {...rp} />}
 						/>
-
-						<Route path='/storage' render={(rp) => <StorageTest {...rp} />} />
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 
