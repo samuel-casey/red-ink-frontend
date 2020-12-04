@@ -23,7 +23,7 @@ const EditorAccountFields = ({
 					profileImgUrl:
 						'https://res.cloudinary.com/scimgcloud/image/upload/v1605896582/DefaultUserPhoto1_aeq0qy.png',
 				});
-				console.dir(formData);
+
 				break;
 			case 'default-avatar-2-button':
 				setSelectedAvatarOneClass(false);
@@ -33,7 +33,7 @@ const EditorAccountFields = ({
 					profileImgUrl:
 						'https://res.cloudinary.com/scimgcloud/image/upload/v1605896590/DefaultUserPhoto2_ate08f.png',
 				});
-				console.dir(formData);
+
 				break;
 			default:
 				setSelectedAvatarOneClass(false);

@@ -105,8 +105,6 @@ const SignUp = ({ handleSignUp, history }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			console.log(profileImgFileUrl, 'handleSubmit');
-
 			const newUser = {
 				email: formData.email,
 				confirmEmail: formData.confirmEmail,
@@ -122,8 +120,6 @@ const SignUp = ({ handleSignUp, history }) => {
 				twitterUrl: formData.twitterUrl,
 			};
 
-			console.log(newUser);
-
 			const errorMessage = await validateSignUpFields(newUser);
 			let signedUp;
 
@@ -135,7 +131,7 @@ const SignUp = ({ handleSignUp, history }) => {
 			}
 
 			if (signedUp === true) {
-				// history.push('/account');
+				history.push('/account');
 			}
 		} catch (error) {
 			setGState({
