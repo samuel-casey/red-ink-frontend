@@ -15,7 +15,7 @@ export const addUserToWritersCollection = async (user, url) => {
 
 export const addUserToEditorsCollection = async (user, url) => {
 	try {
-		await axios.post(url + `/editors/`, {
+		const res = await axios.post(url + `/editors/`, {
 			email: user.userEmail,
 			uid: user.uid,
 			about_me: user.aboutMe,
@@ -26,6 +26,7 @@ export const addUserToEditorsCollection = async (user, url) => {
 			first_name: user.firstName,
 			last_name: user.lastName,
 		});
+		return res.data.message;
 	} catch (error) {
 		console.log(error);
 	}

@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import axios from 'axios';
 import * as p from 'pluralize';
+import { fbase } from './index';
 
 // IMPORT HELPERS
 import {
@@ -26,11 +27,12 @@ import Footer from './Components/Footer/Footer';
 import SubmissionForm from './Components/Forms/SubmissionForm/SubmissionForm';
 import FAQ from './Components/FAQ/FAQ';
 import About from './Components/About/About';
+import StorageTest from './Components/StorageTest/StorageTest';
 
 export const GlobalCtx = createContext(null);
 
-const App = ({ firebase }) => {
-	const auth = firebase.auth();
+const App = () => {
+	const auth = fbase.auth();
 
 	const initialGState = {
 		url: 'https://red-ink.web.app/api',
@@ -294,6 +296,8 @@ const App = ({ firebase }) => {
 							path='/submissionform'
 							render={(rp) => <SubmissionForm {...rp} />}
 						/>
+
+						<Route path='/storage' render={(rp) => <StorageTest {...rp} />} />
 
 						<Route path='/editors' render={(rp) => <AllEditors {...rp} />} />
 

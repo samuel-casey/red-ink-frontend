@@ -17,12 +17,12 @@ const firebaseConfig = {
 	measurementId: 'G-CQWPBWG3JJ',
 };
 
-firebase.initializeApp(firebaseConfig);
+export const fbase = firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
 	<Router>
 		<React.StrictMode>
-			<App firebase={firebase} />
+			<App />
 		</React.StrictMode>
 	</Router>,
 	document.getElementById('root')
