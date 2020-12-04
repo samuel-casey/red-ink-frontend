@@ -4,7 +4,7 @@ import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import EditorAccountFields from '../EditorAccountFields/EditorAccountFields';
 import './SignUp.scss';
 import { Link } from 'react-router-dom';
-import { fbase } from '../../../index';
+import { createFirebaseStorageURL } from '../../../apiHelpers/storage';
 
 const SignUp = ({ handleSignUp, history }) => {
 	const { gState, setGState } = useContext(GlobalCtx);
@@ -34,18 +34,7 @@ const SignUp = ({ handleSignUp, history }) => {
 	};
 
 	const handleFileChange = async (e) => {
-		// get file from input
-		const newFile = e.target.files[0];
-
-		// create a new item in Firebase Storage for the file
-		const storageRef = fbase.storage().ref();
-		const newFileRef = storageRef.child(newFile.name);
-		await newFileRef.put(newFile);
-
-		// get the URL for the new Firebase Storage item
-		const newFileUrl = await newFileRef.getDownloadURL();
-
-		// set user's sign up form data to the Firebase Storage URL
+		const newFileUrl = await createFirebaseStorageURL(e.target.files[0]);
 		setFormData({ ...formData, profileImgUrl: newFileUrl });
 	};
 
