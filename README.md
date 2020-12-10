@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# red ink
 
 red ink is a platform where writers can search for editors with certain subject matter expertise and request edits on Google a Doc. Built with React Hooks, TypeScript, Express, and the Google Cloud Firestore DB.
 
-Currently in Development as of 11/28/2020.
+Currently in Development as of 12/10/2020.
 
 [Live site](https://www.red-ink-writing.com)
 
